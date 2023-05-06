@@ -1,5 +1,4 @@
 import '../style/Hero.css'
-// import herobg from '../assets/bank-tree.jpeg'
 
 function Hero(){
     return(
