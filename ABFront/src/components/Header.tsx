@@ -7,7 +7,7 @@ function Header() {
         <header>
             <figure><img src={logo} alt="argent bank logo"/><h1 className="sr-only">Argent Bank</h1></figure>
             <nav>
-                <NavLink className="signIn" to="/">
+                <NavLink className="signIn" to="/Login">
                     <i className="fa fa-user-circle"/>
                     Sign In
                 </NavLink>
