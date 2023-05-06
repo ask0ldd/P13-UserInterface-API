@@ -10,8 +10,12 @@
 
 .feature-subtitle {
   margin: 1rem 0;
+  text-align: center;
 }
 
 .feature-heading {
   margin-top: 1.5rem;
+  color: #222;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
