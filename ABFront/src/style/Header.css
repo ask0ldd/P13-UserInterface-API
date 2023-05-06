@@ -12,3 +12,9 @@ figure img {
 nav {
   margin-right: 12px;
 }
+
+nav .signIn {
+  display: flex;
+  column-gap: 8px;
+  font-weight: 600;
+}

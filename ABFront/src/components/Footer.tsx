@@ -1,6 +1,6 @@
 import '../style/Footer.css'
 
-function Footer () {
+function Footer() {
     return (
         <footer>
 
