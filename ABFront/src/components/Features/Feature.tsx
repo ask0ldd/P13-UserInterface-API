@@ -1,3 +1,5 @@
+import '../../style/Features/Feature.css'
+import Icon from './Icon'
 
 interface props {
     icon : string
@@ -7,10 +9,10 @@ interface props {
 
 function Feature({icon, heading, subtitle} : props) {
     return(
-        <article>
-            <img src={icon}/>
-            <h3>{heading}</h3>
-            <p>{subtitle}</p>
+        <article className='feature-article'>
+            <Icon url={icon}/>
+            <h3 className='feature-heading'>{heading}</h3>
+            <p className='feature-subtitle'>{subtitle}</p>
         </article>
     )
 }

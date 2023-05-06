@@ -3,6 +3,7 @@ import '../style/App.css'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
+import Features from '../components/Features/Features'
 
 function Home() {
   // const [count, setCount] = useState(0)
@@ -12,6 +13,7 @@ function Home() {
     <Header/>
     <main className='main-home'>
       <Hero/>
+      <Features/>
 
     </main>
     <Footer/>

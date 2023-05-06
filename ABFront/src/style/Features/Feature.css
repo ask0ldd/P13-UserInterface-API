@@ -1,6 +1,17 @@
-article {
+.feature-article {
   flex-grow: 1;
   flex-basis: 33%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  background: none;
+  padding: 2.5rem;
+}
+
+.feature-subtitle {
+  margin: 1rem 0;
+}
+
+.feature-heading {
+  margin-top: 1.5rem;
 }

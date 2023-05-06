@@ -1,3 +1,4 @@
-section {
+.features-section {
   display: flex;
+  background: none;
 }

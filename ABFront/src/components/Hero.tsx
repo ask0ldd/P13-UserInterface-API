@@ -2,7 +2,7 @@ import '../style/Hero.css'
 
 function Hero(){
     return(
-        <section>
+        <section className='hero-section'>
             <div className="hero-content">
                 <h2 className="sr-only">Promoted Content</h2>
                 <p className="subtitle">No fees.</p>
