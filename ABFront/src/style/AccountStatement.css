@@ -1,0 +1,14 @@
+.statement-container {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.statement-container .statement-datas {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
