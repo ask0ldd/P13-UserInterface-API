@@ -3,7 +3,7 @@ interface logs {
     password : string
 }
 
-const api = "localhost:3001/api/v1/"
+const api = "http://127.0.0.1:3001/api/v1/"
 
 export class API{
     static async login({email, password} : logs){
@@ -20,9 +20,10 @@ export class API{
             if(response.ok)
             {
                 const userDatas = await response.json()
+                const token = userDatas.body.token
                 document.cookie = `email=${email}; Secure`
-                document.cookie = `token=${userDatas.token}; Secure`
-                window.location.href = "index.html" // change destination
+                document.cookie = `token=${token}; Secure`
+                // window.location.href = "index.html"
             }
             else
             {

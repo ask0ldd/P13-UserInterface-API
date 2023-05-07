@@ -6,21 +6,20 @@ import Header from '../components/Header'
 import { API } from '../utils/API'
 
 function Login() {
-  // const [count, setCount] = useState(0)
-  /*const loginBtn = document.querySelector('.login-button')
-  loginBtn?.addEventListener('click', (e) => {
+
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
+
+  function submit(e : React.MouseEvent<HTMLElement>){
+    console.log('submit')
+    console.log(emailRef?.current?.value)
+    console.log(passwordRef?.current?.value)
     e.preventDefault()
-    const email = document.querySelector('#username')?.nodeValue
-    const password = document.querySelector('#password')?.nodeValue
-    API.login({})
-  })*/
-
-  const emailRef = useRef(null)
-  const passwordRef = useRef(null)
-
-  function submit(){
-    if(emailRef?.current != null && passwordRef?.current != null) 
-      API.login({email : emailRef?.current, password : passwordRef?.current})
+    e.stopPropagation()
+    if(emailRef?.current != null && passwordRef?.current != null) {
+      console.log("pass")
+      API.login({email : emailRef?.current.value, password : passwordRef?.current.value})
+    }
   }
 
 
@@ -40,7 +39,7 @@ function Login() {
                 <div className='check-container'>
                     <input type='checkbox' id="remember-me"/><label htmlFor="remember-me">Remember me</label>
                 </div>
-                <button className="login-button" onClick={submit}>Sign In</button>
+                <button className="login-button" onClick={e => submit(e)}>Sign In</button>
             </form>
         </section>
     </main>
