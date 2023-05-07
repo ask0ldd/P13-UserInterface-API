@@ -2,9 +2,19 @@ import '../style/App.css'
 import '../style/Login.css'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import API from '../utils/API'
 
 function Login() {
   // const [count, setCount] = useState(0)
+  /*const loginBtn = document.querySelector('.login-button')
+  loginBtn?.addEventListener('click', (e) => {
+    e.preventDefault()
+    const email = document.querySelector('#username')?.nodeValue
+    const password = document.querySelector('#password')?.nodeValue
+    API.login({})
+  })*/
+
+  
 
   return (
   <div className='App'>
@@ -15,7 +25,7 @@ function Login() {
             <h1>Sign In</h1>
             <form>
                 <label htmlFor="username" className='text-label'>Username</label>
-                <input id="username" type="text" className='text-input'/>
+                <input id="username" type="email" className='text-input'/>
                 <label htmlFor="password" className='text-label'>Password</label>
                 <input id="password" type="password" className='text-input'/>
                 <div className='check-container'>

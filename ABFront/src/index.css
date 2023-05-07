@@ -10,6 +10,7 @@
 
 :root {
   --button-green: #00bc77;
+  --button-green-active: #57e0ae;
   --defaultFont-grey: #2c3e50;
   width: 100%;
   margin: 0;

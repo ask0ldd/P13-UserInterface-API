@@ -1,7 +1,3 @@
-/*function fetch(){
-    return
-}*/
-
 interface logs {
     email : string
     password : string
@@ -9,7 +5,7 @@ interface logs {
 
 const api = "localhost:3001/api/v1/"
 
-export class API{
+class API{
     static async login({email, password} : logs){
         try{
             const response = await fetch(`${api}user/login`,
@@ -24,7 +20,7 @@ export class API{
             if(response.ok)
             {
                 const userDatas = await response.json()
-                document.cookie = `id=${userDatas.userId}; Secure`
+                document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${userDatas.token}; Secure`
                 window.location.href = "index.html" // change destination
             }
@@ -52,3 +48,5 @@ export class API{
         }
     }
 }
+
+export default API

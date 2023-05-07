@@ -37,3 +37,8 @@
   background-color: var(--button-green);
   color: #fff;
 }
+
+.statement-container button:hover {
+  background-color: var(--button-green-active);
+  border: 1px solid var(--button-green-active);
+}
