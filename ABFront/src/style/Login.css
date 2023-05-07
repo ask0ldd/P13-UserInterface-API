@@ -45,8 +45,8 @@ form .check-container {
 
 .login-button {
   color: white;
-  background-color: #00bc77;
-  border: 1px solid #00bc77;
+  background-color: var(--button-green);
+  border: 1px solid var(--button-green);
   padding: 8px;
   width: 100%;
   margin-top: 1rem;

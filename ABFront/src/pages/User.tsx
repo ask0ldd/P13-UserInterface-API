@@ -11,9 +11,9 @@ function User(){
             <h1 className="h1-user">Welcome back<br/>Tony Jarvis!</h1>
             <button className="edit-button">Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
-            <AccountStatement accountType="Checking" accountId="x8349" balance={2082.79} balanceStatus="Available Balance"/>
-            <AccountStatement accountType="Savings" accountId="x6712" balance={10928.42} balanceStatus="Available Balance"/>
-            <AccountStatement accountType="Credit Card" accountId="x8349" balance={184.30} balanceStatus="Current Balance"/>
+            <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance"/>
+            <AccountStatement accountType="Savings" accountId="x6712" balance="10928.42" balanceStatus="Available Balance"/>
+            <AccountStatement accountType="Credit Card" accountId="x8349" balance="184.30" balanceStatus="Current Balance"/>
         </main>
         <Footer/>
       </div>        
