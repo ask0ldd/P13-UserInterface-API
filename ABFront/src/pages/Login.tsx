@@ -1,8 +1,9 @@
+import { useRef } from 'react'
 import '../style/App.css'
 import '../style/Login.css'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-import API from '../utils/API'
+import { API } from '../utils/API'
 
 function Login() {
   // const [count, setCount] = useState(0)
@@ -14,7 +15,15 @@ function Login() {
     API.login({})
   })*/
 
-  
+  const emailRef = useRef(null)
+  const passwordRef = useRef(null)
+
+  function submit(){
+    if(emailRef?.current != null && passwordRef?.current != null) 
+      API.login({email : emailRef?.current, password : passwordRef?.current})
+  }
+
+
 
   return (
   <div className='App'>
@@ -25,13 +34,13 @@ function Login() {
             <h1>Sign In</h1>
             <form>
                 <label htmlFor="username" className='text-label'>Username</label>
-                <input id="username" type="email" className='text-input'/>
+                <input id="username" type="email" className='text-input' ref={emailRef}/>
                 <label htmlFor="password" className='text-label'>Password</label>
-                <input id="password" type="password" className='text-input'/>
+                <input id="password" type="password" className='text-input' ref={passwordRef}/>
                 <div className='check-container'>
                     <input type='checkbox' id="remember-me"/><label htmlFor="remember-me">Remember me</label>
                 </div>
-                <button className="login-button">Sign In</button>
+                <button className="login-button" onClick={submit}>Sign In</button>
             </form>
         </section>
     </main>

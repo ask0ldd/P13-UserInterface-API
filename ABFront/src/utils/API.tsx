@@ -5,7 +5,7 @@ interface logs {
 
 const api = "localhost:3001/api/v1/"
 
-class API{
+export class API{
     static async login({email, password} : logs){
         try{
             const response = await fetch(`${api}user/login`,
@@ -48,5 +48,3 @@ class API{
         }
     }
 }
-
-export default API
