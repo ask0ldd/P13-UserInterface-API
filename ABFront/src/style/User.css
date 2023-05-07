@@ -1,5 +1,6 @@
 .main-user {
   height: calc(100vh - 153px);
+  min-height: min-content;
   background-color: #12002b;
   display: flex;
   flex-direction: column;
