@@ -1,18 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit"
 //import { PayloadAction } from "@reduxjs/toolkit"
+import authReducer from './features/auth/authSlice'
 
-const logsReducer = () => {
+/*const logsReducer = () => {
     return
 }
 
 const userInfosReducer = () => {
     return
-}
+}*/
 
 export const store = configureStore({
     reducer: {
-      logs: logsReducer,
-      userInfos: userInfosReducer,
+      auth : authReducer,
     },
   })
 
