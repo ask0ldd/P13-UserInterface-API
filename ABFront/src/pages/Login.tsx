@@ -10,18 +10,13 @@ function Login() {
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
 
-  function submit(e : React.MouseEvent<HTMLElement>){
-    console.log('submit')
-    console.log(emailRef?.current?.value)
-    console.log(passwordRef?.current?.value)
+  function submit(e : React.FormEvent<HTMLFormElement>){
     e.preventDefault()
     e.stopPropagation()
     if(emailRef?.current != null && passwordRef?.current != null) {
-      console.log("pass")
       API.login({email : emailRef?.current.value, password : passwordRef?.current.value})
     }
   }
-
 
 
   return (
@@ -31,7 +26,7 @@ function Login() {
         <section className="login-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
             <h1>Sign In</h1>
-            <form>
+            <form onSubmit={e => submit(e)}>
                 <label htmlFor="username" className='text-label'>Username</label>
                 <input id="username" type="email" className='text-input' ref={emailRef}/>
                 <label htmlFor="password" className='text-label'>Password</label>
@@ -39,7 +34,7 @@ function Login() {
                 <div className='check-container'>
                     <input type='checkbox' id="remember-me"/><label htmlFor="remember-me">Remember me</label>
                 </div>
-                <button className="login-button" onClick={e => submit(e)}>Sign In</button>
+                <button className="login-button" type="submit">Sign In</button>
             </form>
         </section>
     </main>

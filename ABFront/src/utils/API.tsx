@@ -21,6 +21,7 @@ export class API{
             {
                 const userDatas = await response.json()
                 const token = userDatas.body.token
+                console.info(userDatas.message)
                 document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
                 // window.location.href = "index.html"
