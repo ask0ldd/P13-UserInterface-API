@@ -16,7 +16,7 @@ export const store = configureStore({
     },
   })
 
-// export those types so they can be used in globally
+// export those types so they can be used globally
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
