@@ -7,7 +7,7 @@ import AccountStatement from "../components/AccountStatement"
 // import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
 // import { RootState, AppDispatch } from "../redux/store"
 import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
-import { setUser } from "../redux/features/auth/authSlice"
+import { setCredentials } from "../redux/features/auth/authSlice"
 
 function User(){
     // override dispatch with the already typed hook
@@ -16,7 +16,7 @@ function User(){
     // but can use useTypedSelector so don't have to type the state :
     const user : string | null = useTypedSelector((state) => state.auth.user)
     // dispatch(action(payload))
-    dispatch(setUser('aaaa'))
+    dispatch(setCredentials({user : 'aaaa', token : 'bbbbb'}))
 
 
     return(
