@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
 interface authState{
@@ -14,15 +15,18 @@ export const authSlice = createSlice({
     name : 'auth', // state will be reached through store.auth
     initialState,
     reducers : {
-        setUser : (state) => {
-            return state
+        reset : (state) => {
+            return initialState
         },
-        setToken : (state) => {
-            return state
+        setUser : (state, action) => {
+            return {...state, user : action.payload}
+        },
+        setToken : (state, action) => {
+            return {...state, token : action.payload}
         },
     }
 })
 
-export const {setUser, setToken} = authSlice.actions
+export const {setUser, setToken, reset} = authSlice.actions
 
 export default authSlice.reducer

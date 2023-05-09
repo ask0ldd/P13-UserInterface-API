@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import '../style/User.css'
 import AccountStatement from "../components/AccountStatement"
 import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
 import { RootState, AppDispatch } from "../redux/store"
+import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
 
 function User(){
     const user : string = useSelector((state : RootState) => state.auth.user)
