@@ -1,14 +1,22 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars*/
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import '../style/User.css'
 import AccountStatement from "../components/AccountStatement"
-import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
-import { RootState, AppDispatch } from "../redux/store"
+// import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
+// import { RootState, AppDispatch } from "../redux/store"
 import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
+import { setUser } from "../redux/features/auth/authSlice"
 
 function User(){
-    const user : string = useSelector((state : RootState) => state.auth.user)
+    // override dispatch with the already typed hook
+    const dispatch = useTypedDispatch()
+    // const user : string = useSelector((state : RootState) => state.auth.user)
+    // but can use useTypedSelector so don't have to type the state :
+    const user : string = useTypedSelector((state) => state.auth.user)
+    // dispatch(action(payload))
+    dispatch(setUser('aaaa'))
 
 
     return(
