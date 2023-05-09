@@ -14,7 +14,7 @@ function User(){
     const dispatch = useTypedDispatch()
     // const user : string = useSelector((state : RootState) => state.auth.user)
     // but can use useTypedSelector so don't have to type the state :
-    const user : string = useTypedSelector((state) => state.auth.user)
+    const user : string | null = useTypedSelector((state) => state.auth.user)
     // dispatch(action(payload))
     dispatch(setUser('aaaa'))
 

@@ -3,13 +3,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface authState{
-    user : string
-    token : string
+    user : string | null
+    token : string | null
 }
 
 const initialState : authState = {
     user : 'john doe',
-    token : '',
+    token : null,
 }
 
 export const authSlice = createSlice({
@@ -24,6 +24,9 @@ export const authSlice = createSlice({
         },
         setToken : (state, action) => {
             return {...state, token : action.payload}
+        },
+        logout : () => {
+            return {user: null, token: null}
         },
     }
 })
