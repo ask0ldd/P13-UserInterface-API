@@ -6,18 +6,11 @@ import '../style/User.css'
 import AccountStatement from "../components/AccountStatement"
 // import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
 // import { RootState, AppDispatch } from "../redux/store"
-import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
-import { setCredentials } from "../redux/features/auth/authSlice"
+import { useTypedSelector } from "../hooks/redux"
 
 function User(){
-    // assign to dispatch the dispatch method (typed version) from the store
-    const dispatch = useTypedDispatch()
-    // const user : string = useSelector((state : RootState) => state.auth.user)
-    // but can use useTypedSelector so don't have to type the state :
-    const user : string | null = useTypedSelector((state) => state.auth.user)
-    // dispatch(action(payload))
-    dispatch(setCredentials({user : 'aaaa', token : 'bbbbb'}))
 
+    const user : string | null = useTypedSelector((state) => state.auth.user)
 
     return(
         <div className='App'>
