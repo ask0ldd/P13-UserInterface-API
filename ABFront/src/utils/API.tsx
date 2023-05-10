@@ -1,4 +1,7 @@
-interface logs {
+import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
+import { setCredentials } from "../redux/features/auth/authSlice"
+
+interface ICredentials {
     email : string
     password : string
 }
@@ -6,7 +9,8 @@ interface logs {
 const api = "http://127.0.0.1:3001/api/v1/"
 
 export class API{
-    static async login({email, password} : logs){
+
+    static async login({email, password} : ICredentials){
         try{
             const response = await fetch(`${api}user/login`,
             {
@@ -24,7 +28,8 @@ export class API{
                 console.info(userDatas.message)
                 document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
-                // window.location.href = "index.html"
+                
+                // window.location.href = "index.html" replace with react programmatic nav
             }
             else
             {

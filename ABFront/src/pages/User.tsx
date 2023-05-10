@@ -10,7 +10,7 @@ import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
 import { setCredentials } from "../redux/features/auth/authSlice"
 
 function User(){
-    // override dispatch with the already typed hook
+    // assign to dispatch the dispatch method (typed version) from the store
     const dispatch = useTypedDispatch()
     // const user : string = useSelector((state : RootState) => state.auth.user)
     // but can use useTypedSelector so don't have to type the state :

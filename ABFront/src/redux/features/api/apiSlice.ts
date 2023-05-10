@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setCredentials, logout } from '../auth/authSlice'
-import { RootState } from '../../store'
+// import { setCredentials, logout } from '../auth/authSlice'
+// import { RootState } from '../../store'
 
 /*const baseQuery = fetchBaseQuery({
     baseUrl : 'http://127.0.0.1:3001/api/v1/',
@@ -19,7 +19,7 @@ export const apiSlice = createApi({
     baseQuery : fetchBaseQuery({ baseUrl : 'http://127.0.0.1:3001/api/v1/user/' }),
     endpoints : (builder) => ({
         login : builder.query({
-            query : () => '/login',
+            query : () => 'login',
         })
     })
 })
