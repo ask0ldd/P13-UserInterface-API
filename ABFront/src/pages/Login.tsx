@@ -4,17 +4,22 @@ import '../style/Login.css'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { API } from '../utils/API'
+import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
+import { setCredentials } from "../redux/features/auth/authSlice"
 
 function Login() {
 
-  const emailRef = useRef<HTMLInputElement>(null)
-  const passwordRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null) || {current : `tony@stark.com`}
+  const passwordRef = useRef<HTMLInputElement>(null) || {current : `password123`}
 
-  function submit(e : React.FormEvent<HTMLFormElement>){
+  const dispatch = useTypedDispatch()
+
+  async function submit(e : React.FormEvent<HTMLFormElement>){
     e.preventDefault()
     e.stopPropagation()
     if(emailRef?.current != null && passwordRef?.current != null) {
-      API.login({email : emailRef?.current.value, password : passwordRef?.current.value})
+      const result = await API.login({email : emailRef?.current.value, password : passwordRef?.current.value})
+      dispatch(setCredentials(result))
     }
   }
 

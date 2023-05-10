@@ -1,6 +1,3 @@
-import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
-import { setCredentials } from "../redux/features/auth/authSlice"
-
 interface ICredentials {
     email : string
     password : string
@@ -28,7 +25,7 @@ export class API{
                 console.info(userDatas.message)
                 document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
-                
+                return {user : email, token: token}
                 // window.location.href = "index.html" replace with react programmatic nav
             }
             else
