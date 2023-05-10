@@ -9,8 +9,10 @@ import { setCredentials } from "../redux/features/auth/authSlice"
 
 function Login() {
 
-  const emailRef = useRef<HTMLInputElement>(null) || {current : `tony@stark.com`}
-  const passwordRef = useRef<HTMLInputElement>(null) || {current : `password123`}
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
+  const emailAlt = `tony@stark.com`
+  const passwordAlt = `password123`
 
   const dispatch = useTypedDispatch()
 
@@ -19,9 +21,18 @@ function Login() {
     e.stopPropagation()
     if(emailRef?.current != null && passwordRef?.current != null) {
       const result = await API.login({email : emailRef?.current.value, password : passwordRef?.current.value})
-      dispatch(setCredentials(result))
     }
   }
+
+  async function submit2(e : React.FormEvent<HTMLFormElement>){
+    e.preventDefault()
+    e.stopPropagation()
+    const result = await API.login({email : emailAlt, password : passwordAlt})
+    dispatch(setCredentials(result))
+  }
+
+  const user = useTypedSelector((state) => state.auth.user)
+
 
 
   return (
@@ -30,8 +41,8 @@ function Login() {
     <main className='main-login'>
         <section className="login-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
-            <h1>Sign In</h1>
-            <form onSubmit={e => submit(e)}>
+            <h1>Sign In {user}</h1>
+            <form onSubmit={e => submit2(e)}>
                 <label htmlFor="username" className='text-label'>Username</label>
                 <input id="username" type="email" className='text-input' ref={emailRef}/>
                 <label htmlFor="password" className='text-label'>Password</label>
