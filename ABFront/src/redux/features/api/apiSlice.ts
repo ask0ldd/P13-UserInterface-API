@@ -30,7 +30,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const jsonUrl = "http://127.0.0.1/photographers.json"
 
-export const getSomething = createAsyncThunk('api/getsomething', () => {
+export const getPhotographers = createAsyncThunk('api/getsomething', () => {
     return fetch(jsonUrl).then((res) => res.json()).catch((err) => console.log(err))
 })
 
+const apiSlice = createSlice({
+    name : 'api',
+    initialState : {auth : ''},
+    reducers: {
+        clearCart: (state : any) => {
+          state.auth = [];
+    },
+})
