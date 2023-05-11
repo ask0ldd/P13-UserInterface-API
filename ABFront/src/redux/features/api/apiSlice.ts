@@ -36,9 +36,25 @@ export const getPhotographers = createAsyncThunk('api/getsomething', () => {
 
 const apiSlice = createSlice({
     name : 'api',
-    initialState : {auth : ''},
+    initialState : {auth: '', photographers: [], isLoading: true},
     reducers: {
         clearCart: (state : any) => {
-          state.auth = [];
+          state.auth = []
+        },
     },
+    extraReducers: (builder) => {
+        builder
+          .addCase(getPhotographers.pending, (state) => {
+            state.isLoading = true;
+          })
+          .addCase(getPhotographers.fulfilled, (state, action) => {
+            // console.log(action);
+            state.isLoading = false;
+            state.photographers = action.payload;
+          })
+          .addCase(getPhotographers.rejected, (state, action) => {
+            console.log(action);
+            state.isLoading = false;
+          });
+      },
 })

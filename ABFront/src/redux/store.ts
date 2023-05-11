@@ -6,6 +6,7 @@ export const store = configureStore({
     reducer: {
       auth : authReducer,
     },
+    devTools : true,
   })
 
 // export those types so they can be used globally : to type some redux hooks
