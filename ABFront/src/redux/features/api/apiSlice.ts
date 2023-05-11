@@ -1,8 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+/*import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // import { setCredentials, logout } from '../auth/authSlice'
 // import { RootState } from '../../store'
 
-/*const baseQuery = fetchBaseQuery({
+const baseQuery = fetchBaseQuery({
     baseUrl : 'http://127.0.0.1:3001/api/v1/',
     credentials : 'include', // cookie sent with every query
     prepareHeaders : (headers, { getState }) => {
@@ -12,7 +12,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
         }
         return headers
     },
-})*/
+})
 
 export const apiSlice = createApi({
     reducerPath : 'api',
@@ -24,4 +24,13 @@ export const apiSlice = createApi({
     })
 })
 
-export const { useLoginQuery } = apiSlice
+export const { useLoginQuery } = apiSlice*/
+
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+const jsonUrl = "http://127.0.0.1/photographers.json"
+
+export const getSomething = createAsyncThunk('api/getsomething', () => {
+    return fetch(jsonUrl).then((res) => res.json()).catch((err) => console.log(err))
+})
+

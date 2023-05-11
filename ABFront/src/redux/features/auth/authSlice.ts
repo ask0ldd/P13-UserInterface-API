@@ -13,9 +13,10 @@ const initialState : authState = {
 }
 
 export const authSlice = createSlice({
-    name : 'auth', // state will be reached through store.auth
+    name : 'auth', // so slice state will be reached through store.auth
     initialState,
     reducers : {
+        // action : reducer
         reset : () => {
             return initialState
         },
