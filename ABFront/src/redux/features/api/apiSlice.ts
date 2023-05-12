@@ -48,7 +48,6 @@ const apiSlice = createSlice({
             state.isLoading = true;
           })
           .addCase(getPhotographers.fulfilled, (state, action) => {
-            // console.log(action);
             state.isLoading = false;
             state.photographers = action.payload;
           })

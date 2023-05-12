@@ -25,7 +25,7 @@ export class API{
                 console.info(userDatas.message)
                 document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
-                return {user : email, token: token}
+                return {user: email, token: token}
                 // window.location.href = "index.html" replace with react programmatic nav
             }
             else
@@ -51,4 +51,5 @@ export class API{
             return {error : "Service Unavailable. Retry Later."}
         }
     }
+
 }
