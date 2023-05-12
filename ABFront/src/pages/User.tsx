@@ -7,10 +7,14 @@ import AccountStatement from "../components/AccountStatement"
 // import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux"
 // import { RootState, AppDispatch } from "../redux/store"
 import { useTypedSelector } from "../hooks/redux"
+import { Navigate } from "react-router-dom"
 
 function User(){
 
     const user : string | null = useTypedSelector((state) => state.auth.user)
+    const logged : boolean = useTypedSelector((state) => state.auth.logged)
+
+    if (logged === false) return(<Navigate to="/login" replace={true} />)
 
     return(
         <div className='App'>

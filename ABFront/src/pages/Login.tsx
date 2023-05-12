@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import { API } from '../utils/API'
 import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
 import { setCredentials } from "../redux/features/auth/authSlice"
+import { Navigate } from 'react-router-dom'
 
 function Login() {
 
@@ -17,27 +18,20 @@ function Login() {
   // assign to dispatch the dispatch method (typed version) from the store
   const dispatch = useTypedDispatch()
 
-  /*async function submit(e : React.FormEvent<HTMLFormElement>){
-    e.preventDefault()
-    e.stopPropagation()
-    if(emailRef?.current != null && passwordRef?.current != null) {
-      const result = await API.login({email : emailRef?.current.value, password : passwordRef?.current.value})
-    }
-  }*/
+  // const user : string = useSelector((state : RootState) => state.auth.user)
+  // but can use useTypedSelector so don't have to type the state :
+  const user = useTypedSelector((state) => state.auth.user)
+  const logged : boolean = useTypedSelector((state) => state.auth.logged)
 
-  async function submit2(e : React.FormEvent<HTMLFormElement>){
+  async function submit(e : React.FormEvent<HTMLFormElement>){
     e.preventDefault()
     e.stopPropagation()
     const results = await API.login({email : emailAlt, password : passwordAlt})
     // dispatch(action(payload))
     dispatch(setCredentials(results))
+    // don't redirect cause executed before logged = true
+    if (logged === true) return(<Navigate to="/user" replace={true} />)
   }
-
-  // const user : string = useSelector((state : RootState) => state.auth.user)
-  // but can use useTypedSelector so don't have to type the state :
-  const user = useTypedSelector((state) => state.auth.user)
-
-
 
   return (
   <div className='App'>
@@ -46,7 +40,7 @@ function Login() {
         <section className="login-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
             <h1>Sign In {user}</h1>
-            <form onSubmit={e => submit2(e)}>
+            <form onSubmit={e => submit(e)}>
                 <label htmlFor="username" className='text-label'>Username</label>
                 <input id="username" type="email" className='text-input' ref={emailRef}/>
                 <label htmlFor="password" className='text-label'>Password</label>
