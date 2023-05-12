@@ -1,3 +1,6 @@
+import { setAPIAtWork, setAPIIdle } from "../redux/features/auth/authSlice"
+import store from "../redux/store"
+
 interface ICredentials {
     email : string
     password : string
@@ -9,6 +12,7 @@ export class API{
 
     static async login({email, password} : ICredentials){
         try{
+            store.dispatch(setAPIAtWork())
             const response = await fetch(`${api}user/login`,
             {
                 method: 'POST',
@@ -25,6 +29,7 @@ export class API{
                 console.info(userDatas.message)
                 document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
+                store.dispatch(setAPIIdle())
                 return {user: email, token: token}
                 // window.location.href = "index.html" replace with react programmatic nav
             }
@@ -33,14 +38,17 @@ export class API{
                 switch(response.status)
                 { // change error code : cf swagger
                     case 404:
+                        store.dispatch(setAPIIdle())
                         console.log(response.statusText)
                         return {error : "User not found."}
                     break;
                     case 401:
+                        store.dispatch(setAPIIdle())
                         console.log(response.statusText)
                         return {error : response.statusText}
                     break;
                     default:
+                        store.dispatch(setAPIIdle())
                         console.log(response.statusText)
                         return {error : response.statusText}
                 }
@@ -48,6 +56,7 @@ export class API{
         }
         catch
         {
+            store.dispatch(setAPIIdle())
             return {error : "Service Unavailable. Retry Later."}
         }
     }
