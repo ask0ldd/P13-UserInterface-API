@@ -6,7 +6,7 @@ import Header from '../components/Header'
 import { API } from '../utils/API'
 import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
 import { setCredentials } from "../redux/features/auth/authSlice"
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
 
@@ -17,6 +17,8 @@ function Login() {
 
   // assign to dispatch the dispatch method (typed version) from the store
   const dispatch = useTypedDispatch()
+
+  const navigate = useNavigate()
 
   // const user : string = useSelector((state : RootState) => state.auth.user)
   // but can use useTypedSelector so don't have to type the state :
@@ -30,7 +32,9 @@ function Login() {
     // dispatch(action(payload))
     dispatch(setCredentials(results))
     // don't redirect cause executed before logged = true
-    if (logged === true) return(<Navigate to="/user" replace={true} />)
+    if (logged === true) { 
+      navigate("/user")
+    }
   }
 
   return (
@@ -42,9 +46,9 @@ function Login() {
             <h1>Sign In {user}</h1>
             <form onSubmit={e => submit(e)}>
                 <label htmlFor="username" className='text-label'>Username</label>
-                <input id="username" type="email" className='text-input' ref={emailRef}/>
+                <input id="username" type="email" className='text-input' ref={emailRef} defaultValue="tony@stark.com"/>
                 <label htmlFor="password" className='text-label'>Password</label>
-                <input id="password" type="password" className='text-input' ref={passwordRef}/>
+                <input id="password" type="password" className='text-input' ref={passwordRef} defaultValue="password123"/>
                 <div className='check-container'>
                     <input type='checkbox' id="remember-me"/><label htmlFor="remember-me">Remember me</label>
                 </div>

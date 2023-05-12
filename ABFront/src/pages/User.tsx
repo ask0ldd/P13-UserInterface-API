@@ -11,10 +11,12 @@ import { Navigate } from "react-router-dom"
 
 function User(){
 
+    console.log('trying')
+
     const user : string | null = useTypedSelector((state) => state.auth.user)
     const logged : boolean = useTypedSelector((state) => state.auth.logged)
 
-    if (logged === false) return(<Navigate to="/login" replace={true} />)
+    // if (logged === false) return(<Navigate to="/login" replace={true} />)
 
     return(
         <div className='App'>
