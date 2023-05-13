@@ -13,7 +13,7 @@ function User(){
 
     const navigate = useNavigate()
 
-    const user : string | null = useTypedSelector((state) => state.auth.user)
+    const id : string | null = useTypedSelector((state) => state.auth.id)
     const logged : boolean = useTypedSelector((state) => state.auth.logged)
 
     if (logged === false) navigate("/login")
@@ -22,7 +22,7 @@ function User(){
         <div className='App'>
         <Header/>
         <main className='main-user'>
-            <h1 className="h1-user">Welcome back<br/>Tony {user} Jarvis!</h1>
+            <h1 className="h1-user">Welcome back<br/>Tony {id} Jarvis!</h1>
             <button className="edit-button">Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
             <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance"/>

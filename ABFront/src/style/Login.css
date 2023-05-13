@@ -1,12 +1,13 @@
 .main-login {
-  height: calc(100vh - 153px);
+  min-height: calc(100vh - 153px);
   background-color: #12002b;
   display: flex;
   justify-content: center;
+  padding: 3rem 0;
 }
 
 .login-content {
-  margin-top: 3rem;
+  /*margin-top: 3rem;*/
   width: 300px;
   background-color: white;
   height: fit-content;

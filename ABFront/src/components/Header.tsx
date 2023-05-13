@@ -8,9 +8,9 @@ function Header() {
 
     const dispatch = useTypedDispatch()
 
-    function disco(){
+    function logoutFn(){
         document.cookie = "token=; Max-Age=0;"
-        document.cookie = "id=; Max-Age=0;"
+        document.cookie = "email=; Max-Age=0;"
         dispatch(logout())
     }
 
@@ -22,7 +22,7 @@ function Header() {
             <nav>
                 <NavLink className="signIn" to="/Login">
                 {!logged && <><i className="fa fa-user-circle"/>Sign In</>}
-                {logged && <><i className="fa fa-user-circle"/><span onClick={disco}>Logout</span></>}
+                {logged && <><i className="fa fa-user-circle"/><span onClick={logoutFn}>Logout</span></>}
                 </NavLink>
             </nav>
         </header>

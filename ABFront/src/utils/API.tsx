@@ -30,8 +30,60 @@ export class API{
                 document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
                 store.dispatch(setAPIIdle())
-                return {user: email, token: token}
+                return {email: email, token: token}
                 // window.location.href = "index.html" replace with react programmatic nav
+            }
+            else
+            {
+                switch(response.status)
+                { // change error code : cf swagger
+                    case 404:
+                        store.dispatch(setAPIIdle())
+                        console.log(response.statusText)
+                        return {error : "User not found."}
+                    break;
+                    case 401:
+                        store.dispatch(setAPIIdle())
+                        console.log(response.statusText)
+                        return {error : response.statusText}
+                    break;
+                    default:
+                        store.dispatch(setAPIIdle())
+                        console.log(response.statusText)
+                        return {error : response.statusText}
+                }
+            }
+        }
+        catch
+        {
+            store.dispatch(setAPIIdle())
+            return {error : "Service Unavailable. Retry Later."}
+        }
+    }
+
+    static async getProfile(){
+        try{
+            store.dispatch(setAPIAtWork())
+            if(!store.getState().auth.token) throw new Error("The global state contains no token.")
+            const response = await fetch(`${api}user/profile`,
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${store.getState().auth.token}`
+                }     
+            })
+
+            if(response.ok)
+            {
+                const userDatas = await response.json()
+                const id = userDatas.body.id
+                const email = userDatas.body.email
+                console.info(userDatas)
+                /*document.cookie = `email=${email}; Secure`
+                document.cookie = `token=${token}; Secure`
+                store.dispatch(setAPIIdle())*/
+                // return {id, email}
+                store.dispatch(setAPIIdle())
             }
             else
             {

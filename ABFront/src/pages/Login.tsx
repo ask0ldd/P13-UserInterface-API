@@ -22,7 +22,6 @@ function Login() {
 
   // const user : string = useSelector((state : RootState) => state.auth.user)
   // but can use useTypedSelector so don't have to type the state :
-  const user = useTypedSelector((state) => state.auth.user)
   const logged : boolean = useTypedSelector((state) => state.auth.logged)
 
   async function submit(e : React.FormEvent<HTMLFormElement>){
@@ -32,7 +31,9 @@ function Login() {
     // dispatch(action(payload))
     dispatch(setCredentials(results))
     // don't redirect cause executed before logged = true
-    if (logged === true) { 
+    console.log(logged)
+    if (logged === true) {
+      console.log("test")
       navigate("/user")
     }
   }
@@ -43,7 +44,7 @@ function Login() {
     <main className='main-login'>
         <section className="login-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
-            <h1>Sign In {user}</h1>
+            <h1>Sign In</h1>
             <form onSubmit={e => submit(e)}>
                 <label htmlFor="username" className='text-label'>Username</label>
                 <input id="username" type="email" className='text-input' ref={emailRef} defaultValue="tony@stark.com"/>
