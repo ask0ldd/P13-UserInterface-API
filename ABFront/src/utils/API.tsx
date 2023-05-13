@@ -30,6 +30,7 @@ export class API{
                 document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
                 store.dispatch(setAPIIdle())
+                // only needs to return success message instead of this
                 return {email: email, token: token}
                 // window.location.href = "index.html" replace with react programmatic nav
             }
@@ -61,7 +62,7 @@ export class API{
         }
     }
 
-    static async getProfile(){
+    static async getProfile(token : string){
         try{
             store.dispatch(setAPIAtWork())
             if(!store.getState().auth.token) throw new Error("The global state contains no token.")
@@ -84,6 +85,7 @@ export class API{
                 store.dispatch(setAPIIdle())*/
                 // return {id, email}
                 store.dispatch(setAPIIdle())
+                return {id, email}
             }
             else
             {

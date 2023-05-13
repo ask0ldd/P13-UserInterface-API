@@ -7,25 +7,34 @@ import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react';
+import { API } from "../utils/API"
 
 
 function User(){
 
     const navigate = useNavigate()
 
-    const email : string | null = useTypedSelector((state) => state.auth.email)
+    //const email : string | null = useTypedSelector((state) => state.auth.email)
+    const token : string | null = useTypedSelector((state) => state.auth.token)
     const logged : boolean = useTypedSelector((state) => state.auth.logged)
-    console.log(email)
+    //console.log(email)
 
     useEffect(() => {
         if (logged === false) navigate("/login")
-    })
+        async function getProfile() {
+                if (token != null) {
+                const results = await API.getProfile(token)
+                console.log(results)
+            }
+        }
+        getProfile()
+    }, []) // no variable to trigger a refresh so only after the first render
 
     return(
         <div className='App'>
         <Header/>
         <main className='main-user'>
-            <h1 className="h1-user">Welcome back<br/>Tony {email} Jarvis!</h1>
+            <h1 className="h1-user">Welcome back<br/>Tony Jarvis!</h1>
             <button className="edit-button">Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
             <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance"/>
