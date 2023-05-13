@@ -16,8 +16,7 @@ function User(){
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
 
-    // const token : string | null = useTypedSelector((state) => state.auth.token)
-    const logged : boolean = useTypedSelector((state) => state.auth.logged)
+    const logged : boolean = useTypedSelector((state) => state.auth.logged) // logged or just checking token ?
     const fistname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
 
@@ -28,7 +27,7 @@ function User(){
                 dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))
         }
         getProfile()
-    }, []) // no variable to trigger a refresh so triggered only after the first render
+    }, [logged]) // triggered after the first render and when the log value changes
 
     return(
         <div className='App'>

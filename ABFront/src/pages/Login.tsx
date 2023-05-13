@@ -12,24 +12,24 @@ function Login() {
 
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
-  const emailAlt = `tony@stark.com`
-  const passwordAlt = `password123`
 
   // assign to dispatch the dispatch method (typed version) from the store
   const dispatch = useTypedDispatch()
 
   const navigate = useNavigate()
 
-  // const user : string = useSelector((state : RootState) => state.auth.user)
-  // but can use useTypedSelector so don't have to type the state :
+  // const logged : boolean = useSelector((state : RootState) => state.auth.user)
+  // but can use useTypedSelector so the state doesn't have to be typed each time :
   const logged : boolean = useTypedSelector((state) => state.auth.logged)
 
   async function submit(e : React.FormEvent<HTMLFormElement>){
     e.preventDefault()
     e.stopPropagation()
-    const results = await API.login({email : emailAlt, password : passwordAlt})
-    // dispatch(action(payload))
-    dispatch(setCredentials(results))
+    if(emailRef?.current?.value!= null && passwordRef?.current?.value!=null){
+      const results = await API.login({email : emailRef.current?.value, password : passwordRef.current?.value})
+      // ie dispatch(action(payload))
+      dispatch(setCredentials(results))
+    }
   }
 
   // when state.auth.logged === true > redirect to user profile
@@ -39,6 +39,7 @@ function Login() {
       navigate("/user")
     }
   },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   [logged])
 
   return (
