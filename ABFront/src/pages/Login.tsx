@@ -31,7 +31,7 @@ function Login() {
     // dispatch(action(payload))
     dispatch(setCredentials(results))
     // don't redirect cause executed before logged = true
-    console.log(logged)
+    console.log('logged? ', logged)
     if (logged === true) {
       console.log("test")
       navigate("/user")
