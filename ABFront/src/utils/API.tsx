@@ -62,7 +62,7 @@ export class API{
         }
     }
 
-    static async getProfile(token : string){
+    static async getProfile(){
         try{
             store.dispatch(setAPIAtWork())
             if(!store.getState().auth.token) throw new Error("The global state contains no token.")
@@ -79,13 +79,15 @@ export class API{
                 const userDatas = await response.json()
                 const id = userDatas.body.id
                 const email = userDatas.body.email
-                console.info(userDatas)
+                const firstname = userDatas.body.firstName
+                const lastname = userDatas.body.lastName
+                // console.info(userDatas)
                 /*document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
                 store.dispatch(setAPIIdle())*/
                 // return {id, email}
                 store.dispatch(setAPIIdle())
-                return {id, email}
+                return {id, email, firstname, lastname}
             }
             else
             {

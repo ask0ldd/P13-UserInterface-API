@@ -6,6 +6,8 @@ interface authState{
     logged : boolean
     id : string | null
     email : string | null
+    firstname : string | null
+    lastname : string | null
     token : string | null
     working : boolean
 }
@@ -14,9 +16,14 @@ const initialState : authState = {
     logged : false,
     id : null,
     email : null,
+    firstname : null,
+    lastname : null,
     token : null,
     working : false
 }
+
+// setToken
+
 
 export const authSlice = createSlice({
     name : 'auth', // so slice state will be reached through store.auth
@@ -30,8 +37,12 @@ export const authSlice = createSlice({
             const { email, token } = action.payload
             return {...state, logged: true, email: email, token: token, working: true }
         },
+        setToken : (state, action) => {
+            const {token} = action.payload
+            return {...state, token: token}
+        },
         logout : () => {
-            return {logged: false, id: null, email: null, token: null, working: false}
+            return initialState
         },
         setAPIAtWork : (state) => {
             return {...state, working: true}
@@ -42,6 +53,6 @@ export const authSlice = createSlice({
     }
 })
 
-export const {setCredentials, logout, reset, setAPIAtWork, setAPIIdle} = authSlice.actions
+export const {setCredentials, setToken, logout, reset, setAPIAtWork, setAPIIdle} = authSlice.actions
 
 export default authSlice.reducer
