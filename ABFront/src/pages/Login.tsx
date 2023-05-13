@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import '../style/App.css'
 import '../style/Login.css'
 import Footer from '../components/Footer'
@@ -30,13 +30,16 @@ function Login() {
     const results = await API.login({email : emailAlt, password : passwordAlt})
     // dispatch(action(payload))
     dispatch(setCredentials(results))
-    // don't redirect cause executed before logged = true
-    console.log('logged? ', logged)
+  }
+
+  // when state.auth.logged === true > redirect to user profile
+  useEffect(()=> {
     if (logged === true) {
       console.log("test")
       navigate("/user")
     }
-  }
+  },
+  [logged])
 
   return (
   <div className='App'>

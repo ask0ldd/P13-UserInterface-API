@@ -6,7 +6,7 @@ import '../style/User.css'
 import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 import { API } from "../utils/API"
 import { setNames } from "../redux/features/auth/authSlice"
 
