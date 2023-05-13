@@ -37,6 +37,10 @@ export const authSlice = createSlice({
             const { email, token } = action.payload
             return {...state, logged: true, email: email, token: token, working: true }
         },
+        setNames : (state, action) => {
+            const { firstname, lastname } = action.payload
+            return {...state, firstname: firstname, lastname: lastname}
+        },
         setToken : (state, action) => {
             const {token} = action.payload
             return {...state, token: token}
@@ -53,6 +57,6 @@ export const authSlice = createSlice({
     }
 })
 
-export const {setCredentials, setToken, logout, reset, setAPIAtWork, setAPIIdle} = authSlice.actions
+export const {setCredentials, setToken, setNames, logout, reset, setAPIAtWork, setAPIIdle} = authSlice.actions
 
 export default authSlice.reducer

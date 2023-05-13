@@ -81,11 +81,6 @@ export class API{
                 const email = userDatas.body.email
                 const firstname = userDatas.body.firstName
                 const lastname = userDatas.body.lastName
-                // console.info(userDatas)
-                /*document.cookie = `email=${email}; Secure`
-                document.cookie = `token=${token}; Secure`
-                store.dispatch(setAPIIdle())*/
-                // return {id, email}
                 store.dispatch(setAPIIdle())
                 return {id, email, firstname, lastname}
             }

@@ -4,24 +4,28 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import '../style/User.css'
 import AccountStatement from "../components/AccountStatement"
-import { useTypedSelector } from "../hooks/redux"
+import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react';
 import { API } from "../utils/API"
+import { setNames } from "../redux/features/auth/authSlice"
 
 
 function User(){
 
+    const dispatch = useTypedDispatch()
     const navigate = useNavigate()
 
-    const token : string | null = useTypedSelector((state) => state.auth.token)
+    // const token : string | null = useTypedSelector((state) => state.auth.token)
     const logged : boolean = useTypedSelector((state) => state.auth.logged)
+    const fistname : string | null = useTypedSelector((state) => state.auth.firstname)
+    const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
 
     useEffect(() => {
         if (logged === false) navigate("/login")
         async function getProfile() {
                 const profileDatas = await API.getProfile()
-                console.log(profileDatas)
+                dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))
         }
         getProfile()
     }, []) // no variable to trigger a refresh so triggered only after the first render
@@ -30,7 +34,7 @@ function User(){
         <div className='App'>
         <Header/>
         <main className='main-user'>
-            <h1 className="h1-user">Welcome back<br/><span>Temp Temp</span>!</h1>
+            <h1 className="h1-user">Welcome back<br/>{(fistname!=null && lastname!=null) && <span>{fistname} {lastname}</span>}!</h1>
             <button className="edit-button">Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
             <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance"/>
