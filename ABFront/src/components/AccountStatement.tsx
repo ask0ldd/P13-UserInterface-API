@@ -6,17 +6,18 @@ interface props {
   accountId : string
   balance : string
   balanceStatus : string
+  mode : string
 }
 
-function AccountStatement({accountType, accountId, balance, balanceStatus} : props){
+function AccountStatement({accountType, accountId, balance, balanceStatus, mode} : props){
  return(
-    <article className='statement-container'>
+    <article className={mode === "edit" ? 'statement-container' : 'statement-container'}>
       <div className='statement-datas'>
         <h3 className='account-title'>Argent Bank {accountType} ({accountId})</h3>
         <p className='account-balance'>${Formatter.amount(balance)}</p>
         <p className='account-status'>{balanceStatus}</p>
       </div>
-      <button>View Transactions</button>
+      <button className={mode === "edit" ? 'purple-btn' : 'green-btn'}>View Transactions</button>
     </article>
  )
 }

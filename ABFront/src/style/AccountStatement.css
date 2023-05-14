@@ -33,12 +33,28 @@
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1.5rem;
-  border-color: var(--button-green);
-  background-color: var(--button-green);
   color: #fff;
 }
 
-.statement-container button:hover {
+.statement-container .green-btn {
+  border-color: var(--button-green);
+  background-color: var(--button-green);
+}
+
+.statement-container .purple-btn {
+  border: 1px solid #5256ec;
+  background-color: #5256ec;
+  border-radius: 5px;
+  font-weight: 400;
+  height: 48px;
+}
+
+.statement-container .green-btn:hover {
   background-color: var(--button-green-active);
   border: 1px solid var(--button-green-active);
+}
+
+.statement-container .purple-btn:hover {
+  background-color: #666aee;
+  border: 1px solid #666aee;
 }

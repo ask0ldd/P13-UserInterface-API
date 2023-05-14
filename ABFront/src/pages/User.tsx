@@ -32,7 +32,7 @@ function User(){
     }, [logged]) // triggered after the first render and when the log value changes
 
     function editName(){
-        if (logged === true && lastname != null && firstname != null) return navigate("/editname")
+        if (logged === true && lastname != null && firstname != null) navigate("/editname")
     }
 
     /*async function getProfileThunk(dispatch : any, state : typeof store.getState){
@@ -53,7 +53,7 @@ function User(){
             <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{firstname} {lastname}</span>}!</h1>
             <button className="edit-button" onClick={editName}>Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
-            <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance"/>
+            <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance" color="green"/>
             <AccountStatement accountType="Savings" accountId="x6712" balance="10928.42" balanceStatus="Available Balance"/>
             <AccountStatement accountType="Credit Card" accountId="x8349" balance="184.30" balanceStatus="Current Balance"/>
         </main>
