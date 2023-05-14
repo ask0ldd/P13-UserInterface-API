@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+.statement-container-editborders {
+  border: 2px solid #bfc8d3;
+}
+
 .statement-container .statement-datas {
   height: 100%;
   display: flex;

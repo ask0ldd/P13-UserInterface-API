@@ -11,15 +11,41 @@
 .h1-user {
   font-size: 2em;
   font-weight: bold;
-  color: white;
+  color: #28313c;
   margin: 1.5rem 0;
   text-align: center;
 }
 
-.edit-button {
+#editnames-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  padding-bottom: 16px;
+}
+
+#editnames-form div {
+  display: flex;
+  justify-content: center;
+  column-gap: 16px;
+}
+
+#editnames-form input {
+  display: flex;
+  justify-content: center;
+  width: 260px;
+  height: 48px;
+  padding: 0 12px;
+  border-radius: 5px;
+  border: 2px solid #bfc8d3;
+}
+
+#editnames-form .edit-button {
   border-color: var(--button-green);
-  background-color: var(--button-green);
-  color: #fff;
+  background-color: #fff;
+  color: #5256ec;
   font-weight: bold;
   padding: 10px;
+  width: 140px;
+  border: 2px solid #a9acea;
+  border-radius: 5px;
 }

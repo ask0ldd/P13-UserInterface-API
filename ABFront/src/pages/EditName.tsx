@@ -30,8 +30,11 @@ function EditName(){
         <div className='App'>
         <Header firstname={fistname}/>
         <main className='main-user'>
-            <h1 className="h1-user">Welcome back<br/>{(fistname!=null && lastname!=null) && <span>{fistname} {lastname}</span>}!</h1>
-            <button className="edit-button">Edit Name</button>
+            <h1 className="h1-user">Welcome back</h1>
+            <form id="editnames-form">
+                <div className="input-grp"><input id="firstname-input" type="text"/><input type="text"/></div>
+                <div className="button-grp"><button id="save-button" className="edit-button">Save</button><button id="cancel-button" className="edit-button">Cancel</button></div>
+            </form>
             <h2 className="sr-only">Accounts</h2>
             <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance" mode="edit"/>
             <AccountStatement accountType="Savings" accountId="x6712" balance="10928.42" balanceStatus="Available Balance" mode="edit"/>

@@ -11,7 +11,7 @@ interface props {
 
 function AccountStatement({accountType, accountId, balance, balanceStatus, mode} : props){
  return(
-    <article className={mode === "edit" ? 'statement-container' : 'statement-container'}>
+    <article className={mode === "edit" ? 'statement-container statement-container-editborders' : 'statement-container'}>
       <div className='statement-datas'>
         <h3 className='account-title'>Argent Bank {accountType} ({accountId})</h3>
         <p className='account-balance'>${Formatter.amount(balance)}</p>
