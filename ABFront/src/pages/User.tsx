@@ -27,11 +27,12 @@ function User(){
                 dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))
         }
         getProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logged]) // triggered after the first render and when the log value changes
 
     return(
         <div className='App'>
-        <Header/>
+        <Header firstname={fistname}/>
         <main className='main-user'>
             <h1 className="h1-user">Welcome back<br/>{(fistname!=null && lastname!=null) && <span>{fistname} {lastname}</span>}!</h1>
             <button className="edit-button">Edit Name</button>

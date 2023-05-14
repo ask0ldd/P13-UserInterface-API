@@ -4,7 +4,11 @@ import { NavLink } from 'react-router-dom'
 import { logout } from '../redux/features/auth/authSlice'
 import { useTypedDispatch, useTypedSelector } from '../hooks/redux'
 
-function Header() {
+interface IHeaderProps {
+    firstname?: string | null // optional prop
+}
+
+function Header(props : IHeaderProps) {
 
     const dispatch = useTypedDispatch()
 
@@ -19,11 +23,13 @@ function Header() {
     return (
         <header>
             <figure><img src={logo} alt="argent bank logo"/><h1 className="sr-only">Argent Bank</h1></figure>
-            <nav>
-                <NavLink className="signIn" to="/Login">
-                {!logged && <><i className="fa fa-user-circle"/>Sign In</>}
-                {logged && <><i className="fa fa-user-circle"/><span onClick={logoutFn}>Logout</span></>}
-                </NavLink>
+            <nav>    
+                {!logged && 
+                    <NavLink className="signIn" to="/Login"><i className="fa fa-user-circle"/>Sign In</NavLink>
+                }
+                {logged && 
+                    <><i className="fa fa-user-circle"/>{props.firstname!=null && props.firstname}&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out"/><span onClick={logoutFn}>Sign Out</span></>
+                }
             </nav>
         </header>
     )
