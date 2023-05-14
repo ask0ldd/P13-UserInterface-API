@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import User from '../pages/User'
+import EditName from '../pages/EditName'
 
 function CustomRouter() {
     /*<Router basename="/P13-UserInterface-API/ABFront/"> needs to add basename into vite config*/
@@ -11,6 +12,7 @@ function CustomRouter() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/user" element={<User />} />
+                <Route path="/editname" element={<EditName />} />
             </Routes>
         </Router>
     )

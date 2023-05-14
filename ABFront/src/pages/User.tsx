@@ -18,7 +18,7 @@ function User(){
     const navigate = useNavigate()
 
     const logged : boolean = useTypedSelector((state) => state.auth.logged) // logged or just checking token ?
-    const fistname : string | null = useTypedSelector((state) => state.auth.firstname)
+    const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
 
     useEffect(() => {
@@ -30,6 +30,10 @@ function User(){
         getProfile()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logged]) // triggered after the first render and when the log value changes
+
+    function editName(){
+        if (logged === true && lastname != null && firstname != null) return navigate("/editname")
+    }
 
     /*async function getProfileThunk(dispatch : any, state : typeof store.getState){
         const profileDatas = await API.getProfile()
@@ -44,10 +48,10 @@ function User(){
 
     return(
         <div className='App'>
-        <Header firstname={fistname}/>
+        <Header firstname={firstname}/>
         <main className='main-user'>
-            <h1 className="h1-user">Welcome back<br/>{(fistname!=null && lastname!=null) && <span>{fistname} {lastname}</span>}!</h1>
-            <button className="edit-button">Edit Name</button>
+            <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{firstname} {lastname}</span>}!</h1>
+            <button className="edit-button" onClick={editName}>Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
             <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance"/>
             <AccountStatement accountType="Savings" accountId="x6712" balance="10928.42" balanceStatus="Available Balance"/>
