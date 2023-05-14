@@ -26,7 +26,7 @@ export class API{
             {
                 const userDatas = await response.json()
                 const token = userDatas.body.token
-                console.info(userDatas.message)
+                // console.info(userDatas.message)
                 document.cookie = `email=${email}; Secure`
                 document.cookie = `token=${token}; Secure`
                 store.dispatch(setAPIIdle())
@@ -40,17 +40,17 @@ export class API{
                 { // change error code : cf swagger
                     case 404:
                         store.dispatch(setAPIIdle())
-                        console.log(response.statusText)
+                        // console.log(response.statusText)
                         return {error : "User not found."}
                     break;
                     case 401:
                         store.dispatch(setAPIIdle())
-                        console.log(response.statusText)
+                        // console.log(response.statusText)
                         return {error : response.statusText}
                     break;
                     default:
                         store.dispatch(setAPIIdle())
-                        console.log(response.statusText)
+                        // console.log(response.statusText)
                         return {error : response.statusText}
                 }
             }

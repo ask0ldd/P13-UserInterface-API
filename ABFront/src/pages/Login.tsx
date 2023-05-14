@@ -27,6 +27,8 @@ function Login() {
     e.stopPropagation()
     if(emailRef?.current?.value!= null && passwordRef?.current?.value!=null){
       const results = await API.login({email : emailRef.current?.value, password : passwordRef.current?.value})
+      // add to cookies only if remember me is checked
+      
       // ie dispatch(action(payload))
       dispatch(setCredentials(results))
     }

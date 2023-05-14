@@ -12,7 +12,7 @@ import { setNames } from "../redux/features/auth/authSlice"
 import store from "../redux/store"
 
 
-function User(){
+function EditName(){
 
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
@@ -23,24 +23,8 @@ function User(){
 
     useEffect(() => {
         if (logged === false) navigate("/login")
-        async function getProfile() {
-                const profileDatas = await API.getProfile()
-                dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))
-        }
-        getProfile()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [logged]) // triggered after the first render and when the log value changes
-
-    /*async function getProfileThunk(dispatch : any, state : typeof store.getState){
-        const profileDatas = await API.getProfile()
-        dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))
-        
-    }
-
-    useEffect(() => {
-        if (logged === false) navigate("/login")
-        dispatch(getProfileThunk(dispatch, state.getState()))
-    }, [logged])*/
+    }, [logged])
 
     return(
         <div className='App'>
@@ -58,4 +42,4 @@ function User(){
     )
 }
 
-export default User
+export default EditName

@@ -28,7 +28,7 @@ function Header(props : IHeaderProps) {
                     <NavLink className="signIn" to="/Login"><i className="fa fa-user-circle"/>Sign In</NavLink>
                 }
                 {logged && 
-                    <><i className="fa fa-user-circle"/>{props.firstname!=null && props.firstname}&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out"/><span onClick={logoutFn}>Sign Out</span></>
+                    <><i className="fa fa-user-circle"/>&nbsp;{props.firstname!=null && props.firstname}&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out"/><span style={{cursor: "pointer", fontWeight: "600"}} onClick={logoutFn}>&nbsp;Sign Out</span></>
                 }
             </nav>
         </header>
