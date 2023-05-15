@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useRef } from 'react'
 import { API } from "../utils/API"
 import { setNames } from "../redux/features/auth/authSlice"
-import store from "../redux/store"
 import Validator from "../utils/validators"
 
 
@@ -30,19 +29,21 @@ function EditName(){
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logged])
 
-    function submit(e : React.FormEvent<HTMLFormElement>){
+    async function submit(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         e.stopPropagation()
 
         if(firstnameRef.current?.value == null || lastnameRef.current?.value == null) return false
 
-        const inputFirstname = firstnameRef.current.value
-        const inputLastname = lastnameRef.current.value
+        const inputFirstname = (firstnameRef.current.value).trim()
+        const inputLastname = (lastnameRef.current.value).trim()
 
         if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname)) return false
 
         dispatch(setNames({inputFirstname, inputLastname}))
-        API.updateNames({firstName : inputFirstname, lastName : inputLastname})
+        console.log(inputFirstname, ' x ', inputLastname)
+        const results = await API.updateNames({'firstName' : inputFirstname, 'lastName' : inputLastname})
+        console.log(results)
     }
 
     function cancel(){

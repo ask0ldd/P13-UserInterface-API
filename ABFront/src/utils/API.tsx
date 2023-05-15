@@ -1,12 +1,12 @@
 import { setAPIAtWork, setAPIIdle } from "../redux/features/auth/authSlice"
 import store from "../redux/store"
 
-interface ICredentials {
+export interface ICredentials {
     email : string
     password : string
 }
 
-interface INames {
+export interface INames {
     firstName : string
     lastName : string
 }
@@ -27,7 +27,7 @@ export class API{
                 body: JSON.stringify({email, password})      
             })
 
-            if(response.ok)
+            if(response.ok && response.status === 200)
             {
                 const userDatas = await response.json()
                 const token = userDatas.body.token
@@ -76,7 +76,7 @@ export class API{
                 }     
             })
 
-            if(response.ok)
+            if(response.ok && response.status === 200)
             {
                 const userDatas = await response.json()
                 const id = userDatas.body.id
@@ -117,16 +117,17 @@ export class API{
     static async updateNames({firstName, lastName} : INames){
         try{
             store.dispatch(setAPIAtWork())
-            const response = await fetch(`${api}user/login`,
+            const response = await fetch(`${api}user/profile`,
             {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${store.getState().auth.token}`
                 },
                 body: JSON.stringify({firstName, lastName})      
             })
 
-            if(response.ok)
+            if(response.ok && response.status === 200)
             {
                 const userDatas = await response.json()
                 store.dispatch(setAPIIdle())
