@@ -33,6 +33,7 @@ function Login() {
     if(!Validator.testEmail(emailRef.current.value) || !Validator.testPassword(passwordRef.current.value)) return false
 
     const results = await API.login({email : emailRef.current.value, password : passwordRef.current.value})
+    if(results.error) return false
 
     // ie dispatch(action(payload))
     dispatch(setCredentials(results))
@@ -46,7 +47,6 @@ function Login() {
   // when state.auth.logged === true > redirect to user profile
   useEffect(()=> {
     if (logged === true) {
-      console.log("test")
       navigate("/user")
     }
   },
