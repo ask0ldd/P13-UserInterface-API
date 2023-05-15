@@ -1,4 +1,4 @@
-.main-user {
+.edit-main-user {
   min-height: calc(100vh - 153px);
   min-height: min-content;
   background-color: #dde2ea;
@@ -8,7 +8,7 @@
   padding: 0 188px 6rem 188px;
 }
 
-.h1-user {
+.edit-main-user .h1-user {
   font-size: 2em;
   font-weight: bold;
   color: #28313c;
@@ -48,4 +48,5 @@
   width: 140px;
   border: 2px solid #a9acea;
   border-radius: 5px;
+  cursor: pointer;
 }

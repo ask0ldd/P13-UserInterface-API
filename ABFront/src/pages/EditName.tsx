@@ -6,10 +6,11 @@ import '../style/EditName.css'
 import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { API } from "../utils/API"
 import { setNames } from "../redux/features/auth/authSlice"
 import store from "../redux/store"
+import Validator from "../utils/validators"
 
 
 function EditName(){
@@ -17,8 +18,11 @@ function EditName(){
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
 
+    const firstnameRef = useRef<HTMLInputElement>(null)
+    const lastnameRef = useRef<HTMLInputElement>(null)
+
     const logged : boolean = useTypedSelector((state) => state.auth.logged) // logged or just checking token ?
-    const fistname : string | null = useTypedSelector((state) => state.auth.firstname)
+    const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
 
     useEffect(() => {
@@ -29,6 +33,16 @@ function EditName(){
     function submit(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         e.stopPropagation()
+        if(firstnameRef.current?.value != null && lastnameRef.current?.value != null){
+            const inputFirstname = firstnameRef.current?.value
+            const inputLastname = lastnameRef.current?.value
+            if(Validator.testName(inputFirstname) && Validator.testName(inputLastname))
+            {
+                // to state
+                dispatch(setNames({inputFirstname, inputLastname}))
+                // to api
+            }
+        }
     }
 
     function cancel(){
@@ -37,12 +51,18 @@ function EditName(){
 
     return(
         <div className='App'>
-        <Header firstname={fistname}/>
-        <main className='main-user'>
+        <Header firstname={firstname}/>
+        <main className='edit-main-user'>
             <h1 className="h1-user">Welcome back</h1>
             <form id="editnames-form" onSubmit={e => submit(e)}>
-                <div className="input-grp"><input id="firstname-input" type="text"/><input type="text"/></div>
-                <div className="button-grp"><button id="save-button" className="edit-button">Save</button><button onClick={cancel} id="cancel-button" className="edit-button">Cancel</button></div>
+                <div className="input-grp">
+                    <input ref={firstnameRef} type="text" defaultValue={firstname != null ? firstname : undefined}/>
+                    <input ref={lastnameRef} type="text" defaultValue={lastname != null ? lastname : undefined}/>
+                </div>
+                <div className="button-grp">
+                    <button id="save-button" className="edit-button">Save</button>
+                    <button onClick={cancel} id="cancel-button" className="edit-button">Cancel</button>
+                </div>
             </form>
             <h2 className="sr-only">Accounts</h2>
             <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance" mode="edit"/>

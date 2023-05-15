@@ -27,8 +27,8 @@ export class API{
                 const userDatas = await response.json()
                 const token = userDatas.body.token
                 // console.info(userDatas.message)
-                document.cookie = `email=${email}; Secure`
-                document.cookie = `token=${token}; Secure`
+                // document.cookie = `email=${email}; Secure`
+                // document.cookie = `token=${token}; Secure`
                 store.dispatch(setAPIIdle())
                 // only needs to return success message instead of this
                 return {email: email, token: token}
