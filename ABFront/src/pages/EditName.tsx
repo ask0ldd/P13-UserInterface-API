@@ -41,9 +41,10 @@ function EditName(){
         if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname)) return false
 
         dispatch(setNames({inputFirstname, inputLastname}))
-        console.log(inputFirstname, ' x ', inputLastname)
         const results = await API.updateNames({'firstName' : inputFirstname, 'lastName' : inputLastname})
-        console.log(results)
+        if(results?.error) return false
+        // deal with errors
+        navigate("/user")
     }
 
     function cancel(){

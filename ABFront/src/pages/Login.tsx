@@ -14,6 +14,7 @@ function Login() {
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const rememberMeRef = useRef<HTMLInputElement>(null)
+  const errorIdentifiantsRef = useRef<HTMLInputElement>(null)
 
   // assign to dispatch the dispatch method (typed version) from the store
   const dispatch = useTypedDispatch()
@@ -30,7 +31,10 @@ function Login() {
 
     // if invalid email / password : abort
     if(emailRef?.current?.value == null || passwordRef?.current?.value == null) return false
-    if(!Validator.testEmail(emailRef.current.value) || !Validator.testPassword(passwordRef.current.value)) return false
+    if(!Validator.testEmail(emailRef.current.value) || !Validator.testPassword(passwordRef.current.value)) {
+      if(errorIdentifiantsRef.current != null) errorIdentifiantsRef.current.style.display = 'block'
+      return false
+    }
 
     const results = await API.login({email : emailRef.current.value, password : passwordRef.current.value})
     if(results.error) return false
@@ -69,6 +73,7 @@ function Login() {
                     <input type='checkbox' id="remember-me" ref={rememberMeRef}/><label htmlFor="remember-me">Remember me</label>
                 </div>
                 <button className="login-button" type="submit">Sign In</button>
+                <p ref={errorIdentifiantsRef}>Identifiants Invalides.</p>
             </form>
         </section>
     </main>
