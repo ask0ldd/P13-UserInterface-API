@@ -67,8 +67,8 @@ function EditName(){
                 </div>
             </form>
             <h2 className="sr-only">Accounts</h2>
-            <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance" mode="edit"/>
-            <AccountStatement accountType="Savings" accountId="x6712" balance="10928.42" balanceStatus="Available Balance" mode="edit"/>
+            <AccountStatement accountType="Checking" accountId="x8349" balance="2,082.79" balanceStatus="Available Balance" mode="edit"/>
+            <AccountStatement accountType="Savings" accountId="x6712" balance="10,928.42" balanceStatus="Available Balance" mode="edit"/>
             <AccountStatement accountType="Credit Card" accountId="x8349" balance="184.30" balanceStatus="Current Balance" mode="edit"/>
         </main>
         <Footer/>
