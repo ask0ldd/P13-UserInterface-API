@@ -40,9 +40,9 @@ function EditName(){
         const inputLastname = lastnameRef.current.value
 
         if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname)) return false
-        // to state
+
         dispatch(setNames({inputFirstname, inputLastname}))
-        // to api
+        API.updateNames({firstName : inputFirstname, lastName : inputLastname})
     }
 
     function cancel(){

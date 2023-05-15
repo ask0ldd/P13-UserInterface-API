@@ -132,30 +132,29 @@ export class API{
                 store.dispatch(setAPIIdle())
                 return {id : userDatas.body.id, email : userDatas.body.email}
             }
-            else // !!! TODO
+            else
             {
                 switch(response.status)
-                { // change error code : cf swagger
-                    case 404:
+                {
+                    case 400:
                         store.dispatch(setAPIIdle())
-                        // console.log(response.statusText)
-                        return {error : "User not found."}
+                        console.error("Invalid Fields.")
+                        return {error : "Invalid Fields."}
                     break;
-                    case 401:
+                    case 500:
                         store.dispatch(setAPIIdle())
-                        // console.log(response.statusText)
-                        return {error : response.statusText}
+                        console.error("Internal Server Error.")
+                        return {error : "Internal Server Error."}
                     break;
                     default:
                         store.dispatch(setAPIIdle())
-                        // console.log(response.statusText)
-                        return {error : response.statusText}
                 }
             }
         }
         catch
         {
             store.dispatch(setAPIIdle())
+            console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
         }
     }
