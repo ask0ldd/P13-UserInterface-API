@@ -6,6 +6,11 @@ interface ICredentials {
     password : string
 }
 
+interface INames {
+    firstName : string
+    lastName : string
+}
+
 const api = "http://127.0.0.1:3001/api/v1/"
 
 export class API{
@@ -98,6 +103,52 @@ export class API{
                     default:
                         store.dispatch(setAPIIdle())
                         console.log(response.statusText)
+                        return {error : response.statusText}
+                }
+            }
+        }
+        catch
+        {
+            store.dispatch(setAPIIdle())
+            return {error : "Service Unavailable. Retry Later."}
+        }
+    }
+
+    static async updateNames({firstName, lastName} : INames){
+        try{
+            store.dispatch(setAPIAtWork())
+            const response = await fetch(`${api}user/login`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({firstName, lastName})      
+            })
+
+            if(response.ok)
+            {
+                const userDatas = await response.json()
+                store.dispatch(setAPIIdle())
+                return {id : userDatas.body.id, email : userDatas.body.email}
+            }
+            else // !!! TODO
+            {
+                switch(response.status)
+                { // change error code : cf swagger
+                    case 404:
+                        store.dispatch(setAPIIdle())
+                        // console.log(response.statusText)
+                        return {error : "User not found."}
+                    break;
+                    case 401:
+                        store.dispatch(setAPIIdle())
+                        // console.log(response.statusText)
+                        return {error : response.statusText}
+                    break;
+                    default:
+                        store.dispatch(setAPIIdle())
+                        // console.log(response.statusText)
                         return {error : response.statusText}
                 }
             }

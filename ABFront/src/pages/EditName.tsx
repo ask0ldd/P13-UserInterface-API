@@ -33,16 +33,16 @@ function EditName(){
     function submit(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         e.stopPropagation()
-        if(firstnameRef.current?.value != null && lastnameRef.current?.value != null){
-            const inputFirstname = firstnameRef.current?.value
-            const inputLastname = lastnameRef.current?.value
-            if(Validator.testName(inputFirstname) && Validator.testName(inputLastname))
-            {
-                // to state
-                dispatch(setNames({inputFirstname, inputLastname}))
-                // to api
-            }
-        }
+
+        if(firstnameRef.current?.value == null || lastnameRef.current?.value == null) return false
+
+        const inputFirstname = firstnameRef.current.value
+        const inputLastname = lastnameRef.current.value
+
+        if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname)) return false
+        // to state
+        dispatch(setNames({inputFirstname, inputLastname}))
+        // to api
     }
 
     function cancel(){
