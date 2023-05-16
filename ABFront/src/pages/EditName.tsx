@@ -62,7 +62,7 @@ function EditName(){
                     <input ref={lastnameRef} type="text" defaultValue={lastname != null ? lastname : undefined}/>
                 </div>
                 <div className="button-grp">
-                    <button id="save-button" className="edit-button">Save</button>
+                    <button type="submit" id="save-button" className="edit-button">Save</button>
                     <button onClick={cancel} id="cancel-button" className="edit-button">Cancel</button>
                 </div>
             </form>
