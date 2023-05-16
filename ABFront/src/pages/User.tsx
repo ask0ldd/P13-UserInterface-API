@@ -63,9 +63,7 @@ function User(){
             <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{firstname} {lastname}</span>}!</h1>
             <button className="edit-button" onClick={editName}>Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
-            {accountsState[0] && <AccountStatement accountType={accountsState[0].title} accountId={accountsState[0].lastDigits} balance={accountsState[0].amount} balanceStatus={accountsState[0].amountDescription} mode="default"/>}
-            {accountsState[1] && <AccountStatement accountType={accountsState[1].title} accountId={accountsState[1].lastDigits} balance={accountsState[1].amount} balanceStatus={accountsState[1].amountDescription} mode="default"/>}
-            {accountsState[2] && <AccountStatement accountType={accountsState[2].title} accountId={accountsState[2].lastDigits} balance={accountsState[2].amount} balanceStatus={accountsState[2].amountDescription} mode="default"/>}
+            {accountsState.length > 0 && accountsState.map((account) => (<AccountStatement accountType={account.title} accountId={account.lastDigits} balance={account.amount} balanceStatus={account.amountDescription} mode="default"/>))}
         </main>
         <Footer/>
       </div>        
