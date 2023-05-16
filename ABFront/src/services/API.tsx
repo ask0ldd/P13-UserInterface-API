@@ -161,3 +161,18 @@ export class API{
     }
 
 }
+
+export class APIAccounts{
+    static async getAccounts(){
+        try{
+            const response = await fetch('./data.json')
+            if(response.ok){
+                const accountDatas = await response.json()
+                return accountDatas
+            }
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+}

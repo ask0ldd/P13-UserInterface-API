@@ -12,7 +12,7 @@ interface accountState{
 const initialState : Array<accountState> = []
 
 export const accountsSlice = createSlice({
-    name : 'accounts', // so slice state will be reached through store.auth
+    name : 'accounts', // so slice state will be reached through store.accounts
     initialState,
     reducers : {
         setAccountState : (state, action) => {
@@ -27,5 +27,7 @@ export const accountsSlice = createSlice({
         },
     }
 })
+
+export const {setAccountState, pushAccountState} = accountsSlice.actions
 
 export default accountsSlice.reducer

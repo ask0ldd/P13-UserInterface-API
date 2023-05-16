@@ -7,8 +7,9 @@ import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
-import { API } from "../services/API"
+import { API, APIAccounts } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
+import { setAccountState, pushAccountState } from "../redux/features/accounts/accountsSlice"
 
 
 function User(){
@@ -33,6 +34,14 @@ function User(){
     function editName(){
         if (logged === true && lastname != null && firstname != null) navigate("/editname")
     }
+
+    useEffect(() => {
+        async function getAccountsDatas() {
+            const accountsDatas = await APIAccounts.getAccounts()
+            console.log(accountsDatas)
+        }
+        getAccountsDatas()
+    }, [])
 
     /*async function getProfileThunk(dispatch : any, state : typeof store.getState){
         const profileDatas = await API.getProfile()

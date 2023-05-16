@@ -1,5 +1,5 @@
 import '../style/AccountStatement.css'
-import Formatter from '../utils/formaters'
+import Formatter from '../services/formaters'
 
 interface props {
   accountType : string
