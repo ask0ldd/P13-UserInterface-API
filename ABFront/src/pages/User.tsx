@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 import { API, APIAccounts } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
-import { setAccountState, pushAccountState, IAccountState } from "../redux/features/accounts/accountsSlice"
+import { setAccountsState, /*pushAccountState, */IAccountState } from "../redux/features/accounts/accountsSlice"
 
 
 function User(){
@@ -40,10 +40,9 @@ function User(){
     useEffect(() => {
         async function getAccountsDatas() {
             const accountsDatas = await APIAccounts.getAccounts()
-            dispatch(setAccountState(accountsDatas))
+            dispatch(setAccountsState(accountsDatas))
         }
         getAccountsDatas()
-        console.log(accountsState)
     }, [])
 
     /*async function getProfileThunk(dispatch : any, state : typeof store.getState){
@@ -64,9 +63,9 @@ function User(){
             <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{firstname} {lastname}</span>}!</h1>
             <button className="edit-button" onClick={editName}>Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
-            <AccountStatement accountType="Checking" accountId="x8349" balance="2,082.79" balanceStatus="Available Balance" mode="default"/>
-            <AccountStatement accountType="Savings" accountId="x6712" balance="10,928.42" balanceStatus="Available Balance" mode="default"/>
-            <AccountStatement accountType="Credit Card" accountId="x8349" balance="184.30" balanceStatus="Current Balance" mode="default"/>
+            {accountsState[0] && <AccountStatement accountType={accountsState[0].title} accountId={accountsState[0].lastDigits} balance={accountsState[0].amount} balanceStatus={accountsState[0].amountDescription} mode="default"/>}
+            {accountsState[1] && <AccountStatement accountType={accountsState[1].title} accountId={accountsState[1].lastDigits} balance={accountsState[1].amount} balanceStatus={accountsState[1].amountDescription} mode="default"/>}
+            {accountsState[2] && <AccountStatement accountType={accountsState[2].title} accountId={accountsState[2].lastDigits} balance={accountsState[2].amount} balanceStatus={accountsState[2].amountDescription} mode="default"/>}
         </main>
         <Footer/>
       </div>        
