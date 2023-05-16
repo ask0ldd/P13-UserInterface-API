@@ -10,7 +10,8 @@ import { useTypedDispatch } from '../hooks/redux'
 function Home() {
   // const [count, setCount] = useState(0)
   const dispatch = useTypedDispatch()
-  dispatch(getAccounts())
+  // unwrap extract the payload out of the action
+  dispatch(getAccounts()).unwrap().then(res => console.log(res))
 
   return (
   <div className='App'>
