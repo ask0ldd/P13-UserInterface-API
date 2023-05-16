@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars*/
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from "../components/Header"
@@ -9,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 import { API, APIAccounts } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
-import { setAccountsState, /*pushAccountState, */IAccountState } from "../redux/features/accounts/accountsSlice"
+import { setAccountsState, IAccountState } from "../redux/features/accounts/accountsSlice"
 
 
 function User(){
@@ -29,7 +30,6 @@ function User(){
                 dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))
         }
         getProfile()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logged]) // triggered after the first render and when the log value changes
 
     function editName(){
@@ -44,17 +44,6 @@ function User(){
         }
         getAccountsDatas()
     }, [])
-
-    /*async function getProfileThunk(dispatch : any, state : typeof store.getState){
-        const profileDatas = await API.getProfile()
-        dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))
-        
-    }
-
-    useEffect(() => {
-        if (logged === false) navigate("/login")
-        dispatch(getProfileThunk(dispatch, state.getState()))
-    }, [logged])*/
 
     return(
         <div className='App'>

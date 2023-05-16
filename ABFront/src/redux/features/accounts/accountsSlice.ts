@@ -15,7 +15,7 @@ export const accountsSlice = createSlice({
     name : 'accounts', // so slice state will be reached through store.accounts
     initialState,
     reducers : {
-        setAccountsState : (state, action) => {
+        setAccountsState : (_state, action) => {
            const newState : Array<IAccountState> = []
            console.log('payload', action.payload)
            action.payload.forEach((account : IAccountState) => newState.push(account))
@@ -29,6 +29,6 @@ export const accountsSlice = createSlice({
     }
 })
 
-export const {setAccountsState/*, pushAccountState*/} = accountsSlice.actions
+export const {setAccountsState} = accountsSlice.actions
 
 export default accountsSlice.reducer

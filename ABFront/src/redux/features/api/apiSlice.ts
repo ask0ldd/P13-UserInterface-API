@@ -2,38 +2,41 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { APIAccounts } from "../../../services/API";
 
 interface UsersState {
-    entities: []
+    statements: []
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 const initialState = {
-    entities: [],
+    statements: [],
     loading: 'idle',
 } as UsersState
 
-export const getAccounts = createAsyncThunk('api/getAccounts', async () => {
-    const response = await APIAccounts.getAccounts()
-    return response
+export const getAccountsStatements = createAsyncThunk('api/getAccountsStatements', async () => {
+    return await APIAccounts.getAccounts()
 })
 
-const apiSlice = createSlice({
+export const apiSlice = createSlice({
     name : 'api',
     initialState,
     reducers: {
     },
     extraReducers: (builder) => {
         builder
-          .addCase(getAccounts.pending, (state) => {
-            state.loading = 'pending'
+          .addCase(getAccountsStatements.pending, (state) => {
+            // state.loading = 'pending'
+            return {...state, loading : 'pending'}
           })
-          .addCase(getAccounts.fulfilled, (state, action) => {
-            state.entities = action.payload
+          .addCase(getAccountsStatements.fulfilled, (state, action) => {
+            /*state.statements = action.payload
             console.log(action.payload)
-            state.loading = 'idle'
+            state.loading = 'idle'*/
+            return {...state, loading : 'idle', statements : action.payload}
           })
-          .addCase(getAccounts.rejected, (state, action) => {
-            console.log(action.payload)
-            state.loading = 'idle'
-          });
+          .addCase(getAccountsStatements.rejected, (state) => {
+            // console.log(action.payload)
+            return {...state, loading : 'idle'}
+          })
       },
 })
+
+export default apiSlice.reducer
