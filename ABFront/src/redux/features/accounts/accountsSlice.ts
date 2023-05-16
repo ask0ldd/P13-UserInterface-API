@@ -2,23 +2,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
-interface accountState{
-    accountType: string
-    accountId: string 
-    balance: number 
-    balanceStatus: string
+export interface IAccountState{
+    title: string
+    lastDigits: string
+    amount: number
+    amountDescription: string
 }
 
-const initialState : Array<accountState> = []
+const initialState : Array<IAccountState> = []
 
 export const accountsSlice = createSlice({
     name : 'accounts', // so slice state will be reached through store.accounts
     initialState,
     reducers : {
         setAccountState : (state, action) => {
-            let newState = [...state]
-            newState = initialState
-            return newState[0] = action.payload
+           const newState : Array<IAccountState> = []
+           console.log('payload', action.payload)
+           action.payload.forEach((account : IAccountState) => newState.push(account))
+           return newState
         },
         pushAccountState : (state, action) => {
             const newState = [...state]

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 import { API, APIAccounts } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
-import { setAccountState, pushAccountState } from "../redux/features/accounts/accountsSlice"
+import { setAccountState, pushAccountState, IAccountState } from "../redux/features/accounts/accountsSlice"
 
 
 function User(){
@@ -20,6 +20,7 @@ function User(){
     const logged : boolean = useTypedSelector((state) => state.auth.logged) // logged or just checking token ?
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
+    const accountsState : Array<IAccountState> = useTypedSelector((state) => state.accounts)
 
     useEffect(() => {
         if (logged === false) navigate("/login")
@@ -35,12 +36,14 @@ function User(){
         if (logged === true && lastname != null && firstname != null) navigate("/editname")
     }
 
+    // get the datas from the mock accounts api and set them to the accounts state
     useEffect(() => {
         async function getAccountsDatas() {
             const accountsDatas = await APIAccounts.getAccounts()
-            console.log(accountsDatas)
+            dispatch(setAccountState(accountsDatas))
         }
         getAccountsDatas()
+        console.log(accountsState)
     }, [])
 
     /*async function getProfileThunk(dispatch : any, state : typeof store.getState){
