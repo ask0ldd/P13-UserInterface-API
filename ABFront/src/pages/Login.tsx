@@ -3,11 +3,11 @@ import '../style/App.css'
 import '../style/Login.css'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-import { API } from '../utils/API'
+import { API } from '../services/API'
 import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
 import { setCredentials } from "../redux/features/auth/authSlice"
 import { useNavigate } from 'react-router-dom'
-import Validator from '../utils/validators'
+import Validator from '../services/validators'
 
 function Login() {
 

@@ -7,9 +7,9 @@ import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useRef } from 'react'
-import { API } from "../utils/API"
+import { API } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
-import Validator from "../utils/validators"
+import Validator from "../services/validators"
 
 
 function EditName(){

@@ -7,9 +7,8 @@ import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
-import { API } from "../utils/API"
+import { API } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
-import store from "../redux/store"
 
 
 function User(){
