@@ -8,7 +8,7 @@ export const store = configureStore({
     reducer: {
       auth : authReducer,
       accounts : accountsReducer,
-      // api : apiReducer,
+      api : apiReducer,
     },
     devTools : true,
   })

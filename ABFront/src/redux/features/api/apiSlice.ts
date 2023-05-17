@@ -19,24 +19,22 @@ export const apiSlice = createSlice({
     name : 'api',
     initialState,
     reducers: {
+        getSt : (state) => state,
     },
     extraReducers: (builder) => {
         builder
           .addCase(getAccountsStatements.pending, (state) => {
-            // state.loading = 'pending'
             return {...state, loading : 'pending'}
           })
           .addCase(getAccountsStatements.fulfilled, (state, action) => {
-            /*state.statements = action.payload
-            console.log(action.payload)
-            state.loading = 'idle'*/
             return {...state, loading : 'idle', statements : action.payload}
           })
           .addCase(getAccountsStatements.rejected, (state) => {
-            // console.log(action.payload)
             return {...state, loading : 'idle'}
           })
       },
 })
+
+export const {getSt} = apiSlice.actions
 
 export default apiSlice.reducer
