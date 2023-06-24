@@ -19,7 +19,7 @@ export const apiSlice = createSlice({
     name : 'api',
     initialState,
     reducers: {
-        getSt : (state) => state,
+        // getSt : (state) => state,
     },
     extraReducers: (builder) => {
         builder
@@ -35,6 +35,6 @@ export const apiSlice = createSlice({
       },
 })
 
-export const {getSt} = apiSlice.actions
+// export const {getSt} = apiSlice.actions
 
 export default apiSlice.reducer

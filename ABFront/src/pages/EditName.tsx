@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars*/
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import '../style/EditName.css'
@@ -26,7 +27,6 @@ function EditName(){
 
     useEffect(() => {
         if (logged === false) navigate("/login")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logged])
 
     async function submit(e : React.FormEvent<HTMLFormElement>){
@@ -38,6 +38,7 @@ function EditName(){
         const inputFirstname = (firstnameRef.current.value).trim()
         const inputLastname = (lastnameRef.current.value).trim()
 
+        // !!! needs to display an error
         if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname)) return false
 
         dispatch(setNames({inputFirstname, inputLastname}))

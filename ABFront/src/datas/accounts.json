@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Checking",
+        "lastDigits": "x8349",
+        "amount": "2082.79",
+        "amountDescription": "Available Balance"
+    },
+
+    {
+        "title": "Savings",
+        "lastDigits": "x6712",
+        "amount": "10928.42",
+        "amountDescription": "Available Balance"
+    },
+
+    {
+        "title": "Credit Card",
+        "lastDigits": "x8349",
+        "amount": "184.30",
+        "amountDescription": "Current Balance"
+    }
+]
