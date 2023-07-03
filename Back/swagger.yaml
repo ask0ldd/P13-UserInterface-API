@@ -33,7 +33,9 @@ paths:
         "200":
           description: Account's last transactions retrieved successully
           schema:
-            $ref: "#/definitions/LastTransactions"
+            type: array
+            items:
+              $ref: "#/definitions/Transaction"
         "400":
           description: Non Existing Transactions or Account Unknown
         "500":
@@ -193,7 +195,8 @@ definitions:
         type: string
       lastName:
         type: string
-  Transactions:
+  Transaction:
+    type: object
     properties:
       "date":
         type: string
@@ -213,6 +216,7 @@ definitions:
       "transactionType":
         type: string
         description: Transaction's Channel
+        enum: [creditCard, check, transfer, directDebit]
       "category":
         type: string
         description: Transaction's Category
