@@ -9,7 +9,7 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /user/{accountId}/lastTransactions:
+  /account/{accountId}/lastTransactions:
     get:
       tags:
         - Transactions Module
@@ -193,8 +193,29 @@ definitions:
         type: string
       lastName:
         type: string
-  LastTransactions:
+  Transactions:
     properties:
-      email:
+      "date":
         type: string
-        description: user email
+        format: date
+        description: Transaction's Date
+      "description":
+        type: string
+        description: Transaction's Description
+      "amount":
+        type: number
+        format: float
+        description: Transaction's Amount
+      "balance":
+        type: number
+        format: float
+        description: Balance before the Transaction
+      "transactionType":
+        type: string
+        description: Transaction's Channel
+      "category":
+        type: string
+        description: Transaction's Category
+      "notes":
+        type: string
+        description: Notes on the Transaction
