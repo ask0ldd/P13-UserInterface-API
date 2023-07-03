@@ -82,6 +82,10 @@ paths:
       summary: Post a Transaction
       description: Endpoint used to post a new Transaction
       parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
         - in: body
           name: body
           description: Signup Payload
@@ -107,6 +111,10 @@ paths:
       summary: Update a Transaction
       description: Endpoint used to update an existing Transaction
       parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
         - in: body
           name: body
           description: Signup Payload
