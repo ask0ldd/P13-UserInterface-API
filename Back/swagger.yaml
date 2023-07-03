@@ -12,7 +12,7 @@ paths:
   /account/{accountId}/lastTransactions:
     get:
       tags:
-        - Transactions Module
+        - Account Module
       summary: Current Month Transactions
       description: Endpoint delivering all current month Transactions for a specified User
       parameters:
@@ -23,8 +23,8 @@ paths:
         - in: path
           name: accountId
           schema:
-            type: integer
-            minimum: 1
+            type: string
+            example: "X8349"
           required: true
           description: ID of the target account
       produces:
@@ -37,7 +37,36 @@ paths:
             items:
               $ref: "#/definitions/Transaction"
         "400":
-          description: Non Existing Transactions or Account Unknown
+          description: Non Existing Transactions or Unknown Account
+        "500":
+          description: Internal Server Error
+  /transaction/{transactionId}:
+    get:
+      tags:
+        - Transaction Module
+      summary: Transaction
+      description: Endpoint fetching a specific transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: transactionId
+          schema:
+            type: number
+            minimum: 1
+          required: true
+          description: ID of the target transaction
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Account's last transactions retrieved successully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Non Existing Transactions or Unknown Account
         "500":
           description: Internal Server Error
   /user/login:
@@ -198,6 +227,9 @@ definitions:
   Transaction:
     type: object
     properties:
+      "id":
+        type: integer
+        minimum: 1
       "date":
         type: string
         format: date
@@ -216,7 +248,7 @@ definitions:
       "transactionType":
         type: string
         description: Transaction's Channel
-        enum: [creditCard, check, transfer, directDebit]
+        enum: [creditCard, check, transfer, directDebit, electronic]
       "category":
         type: string
         description: Transaction's Category
