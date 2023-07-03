@@ -271,6 +271,26 @@ definitions:
         type: string
       lastName:
         type: string
+  Category:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      name:
+        type: string
+        example: Food
+  TransactionType:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      name:
+        type: string
+        example: Electronic
   Transaction:
     type: object
     required:
@@ -283,29 +303,22 @@ definitions:
     properties:
       "id":
         type: integer
+        format: int64
         minimum: 1
       "date":
         type: string
         format: date
-        description: Transaction's Date
       "description":
         type: string
-        description: Transaction's Description
       "amount":
         type: number
         format: float
-        description: Transaction's Amount
       "balance":
         type: number
         format: float
-        description: Balance before the Transaction
       "transactionType":
-        type: string
-        description: Transaction's Channel
-        enum: [creditCard, check, transfer, directDebit, electronic]
+        $ref: "#/definitions/TransactionType"
       "category":
-        type: string
-        description: Transaction's Category
+        $ref: "#/definitions/Category"
       "notes":
         type: string
-        description: Notes on the Transaction
