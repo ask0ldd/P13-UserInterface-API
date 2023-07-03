@@ -37,7 +37,9 @@ paths:
           schema:
             $ref: "#/definitions/TransactionsApiResponse"
         "400":
-          description: Non Existing Transactions or Unknown Account
+          description: Invalid Account ID
+        "404":
+          description: Transaction not found
         "500":
           description: Internal Server Error
   /transaction/{transactionId}:
@@ -68,7 +70,9 @@ paths:
           schema:
             $ref: "#/definitions/TransactionApiResponse"
         "400":
-          description: Non Existing Transaction
+          description: Invalid Transaction ID
+        "404":
+          description: Transaction not found
         "500":
           description: Internal Server Error
   /transaction:
@@ -98,7 +102,7 @@ paths:
           schema:
             $ref: "#/definitions/TransactionApiResponse"
         "405":
-          description: Invalid Input / Transaction
+          description: Invalid Input / Transaction Datas
         "500":
           description: Internal Server Error
     put:
