@@ -73,7 +73,7 @@ paths:
     post:
       tags:
         - Transaction Module
-      summary: Transaction Posting
+      summary: Post a Transaction
       description: Endpoint used to post a new Transaction
       parameters:
         - in: body
@@ -86,11 +86,34 @@ paths:
         - application/json
       responses:
         "200":
-          description: Target transaction retrieved successully
+          description: Transaction created successully
           schema:
             $ref: "#/definitions/Transaction"
         "400":
-          description: Non Existing Transaction
+          description: Couldn't create this Transaction
+        "500":
+          description: Internal Server Error
+    put:
+      tags:
+        - Transaction Module
+      summary: Update a Transaction
+      description: Endpoint used to update an existing Transaction
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction updated successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Non Existing Transaction / Couldn't be updated
         "500":
           description: Internal Server Error
   /user/login:
