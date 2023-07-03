@@ -44,7 +44,7 @@ paths:
     get:
       tags:
         - Transaction Module
-      summary: Transaction
+      summary: Retrieve Target Transaction
       description: Endpoint fetching a specific transaction
       parameters:
         - in: header
@@ -58,6 +58,30 @@ paths:
             minimum: 1
           required: true
           description: ID of the target transaction
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Target transaction retrieved successully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Non Existing Transaction
+        "500":
+          description: Internal Server Error
+  /transaction:
+    post:
+      tags:
+        - Transaction Module
+      summary: Transaction Posting
+      description: Endpoint used to post a new Transaction
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
       produces:
         - application/json
       responses:
@@ -226,6 +250,13 @@ definitions:
         type: string
   Transaction:
     type: object
+    required:
+      - date
+      - description
+      - amount
+      - balance
+      - transactionType
+      - category
     properties:
       "id":
         type: integer
