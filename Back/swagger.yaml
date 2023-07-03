@@ -287,6 +287,7 @@ definitions:
         type: string
   Category:
     type: object
+    x-nullable: true
     properties:
       id:
         type: integer
@@ -337,6 +338,7 @@ definitions:
         $ref: "#/definitions/Category"
       "notes":
         type: string
+        x-nullable: true
   TransactionsApiResponse:
     type: object
     properties:
