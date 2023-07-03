@@ -35,9 +35,7 @@ paths:
         "200":
           description: Account's last transactions retrieved successully
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/TransactionApiResponse"
         "400":
           description: Non Existing Transactions or Unknown Account
         "500":
@@ -339,3 +337,14 @@ definitions:
         $ref: "#/definitions/Category"
       "notes":
         type: string
+  TransactionApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: array
+        items:
+          $ref: "#/definitions/Transaction"
