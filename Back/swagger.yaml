@@ -75,6 +75,34 @@ paths:
           description: Transaction not found
         "500":
           description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Delete Target Transaction
+      description: Endpoint used to delete a target Transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: transactionId
+          schema:
+            type: number
+            minimum: 1
+          required: true
+          description: ID of the target transaction
+      produces:
+        - application/json
+      responses:
+        "204":
+          description: Target transaction delete successully
+        "400":
+          description: Invalid Transaction ID
+        "404":
+          description: Transaction not found
   /transaction:
     security:
       - Bearer: []
