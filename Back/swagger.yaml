@@ -77,7 +77,7 @@ paths:
     post:
       tags:
         - Transaction Module
-      summary: Post a Transaction
+      summary: Post a new Transaction
       description: Endpoint used to post a new Transaction
       parameters:
         - in: header
@@ -97,8 +97,8 @@ paths:
           description: Transaction created successully
           schema:
             $ref: "#/definitions/TransactionApiResponse"
-        "400":
-          description: Couldn't create this Transaction
+        "405":
+          description: Invalid Input / Transaction
         "500":
           description: Internal Server Error
     put:
@@ -127,7 +127,11 @@ paths:
           schema:
             $ref: "#/definitions/TransactionApiResponse"
         "400":
-          description: Non Existing Transaction / Couldn't be updated
+          description: Invalid ID Format
+        "404":
+          description: Transaction not found
+        "405":
+          description: Validation Exception
         "500":
           description: Internal Server Error
   /user/login:
