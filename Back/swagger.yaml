@@ -35,7 +35,7 @@ paths:
         "200":
           description: Account's last transactions retrieved successully
           schema:
-            $ref: "#/definitions/TransactionApiResponse"
+            $ref: "#/definitions/TransactionsApiResponse"
         "400":
           description: Non Existing Transactions or Unknown Account
         "500":
@@ -66,7 +66,7 @@ paths:
         "200":
           description: Target transaction retrieved successully
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/TransactionApiResponse"
         "400":
           description: Non Existing Transaction
         "500":
@@ -96,7 +96,7 @@ paths:
         "200":
           description: Transaction created successully
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/TransactionApiResponse"
         "400":
           description: Couldn't create this Transaction
         "500":
@@ -125,7 +125,7 @@ paths:
         "200":
           description: Transaction updated successfully
           schema:
-            $ref: "#/definitions/Transaction"
+            $ref: "#/definitions/TransactionApiResponse"
         "400":
           description: Non Existing Transaction / Couldn't be updated
         "500":
@@ -337,7 +337,7 @@ definitions:
         $ref: "#/definitions/Category"
       "notes":
         type: string
-  TransactionApiResponse:
+  TransactionsApiResponse:
     type: object
     properties:
       status:
@@ -348,3 +348,12 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Transaction"
+  TransactionApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        $ref: "#/definitions/Transaction"
