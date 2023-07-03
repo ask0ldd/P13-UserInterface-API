@@ -11,6 +11,8 @@ schemes:
 paths:
   /account/{accountId}/lastTransactions:
     get:
+      security:
+        - Bearer: []
       tags:
         - Account Module
       summary: Current Month Transactions
@@ -42,6 +44,8 @@ paths:
           description: Internal Server Error
   /transaction/{transactionId}:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transaction Module
       summary: Retrieve Target Transaction
@@ -70,6 +74,8 @@ paths:
         "500":
           description: Internal Server Error
   /transaction:
+    security:
+      - Bearer: []
     post:
       tags:
         - Transaction Module
@@ -94,6 +100,8 @@ paths:
         "500":
           description: Internal Server Error
     put:
+      security:
+        - Bearer: []
       tags:
         - Transaction Module
       summary: Update a Transaction
@@ -310,6 +318,7 @@ definitions:
         format: date
       "description":
         type: string
+        example: Golden Sun Bakery
       "amount":
         type: number
         format: float
