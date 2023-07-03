@@ -162,7 +162,7 @@ export class API{
 
 }
 
-export class APIAccounts{
+export class MockAPIAccounts{
     static async getAccounts(){
         try{
             const response = await fetch('/accounts.json')

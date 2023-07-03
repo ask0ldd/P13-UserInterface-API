@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { APIAccounts } from "../../../services/API";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { MockAPIAccounts } from "../../../services/API";
 
 interface UsersState {
     statements: []
@@ -12,7 +12,7 @@ const initialState = {
 } as UsersState
 
 export const getAccountsStatements = createAsyncThunk('api/getAccountsStatements', async () => {
-    return await APIAccounts.getAccounts()
+    return await MockAPIAccounts.getAccounts()
 })
 
 export const apiSlice = createSlice({

@@ -8,7 +8,7 @@ import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
-import { API, APIAccounts } from "../services/API"
+import { API } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
 import { setAccountsState, IAccountState } from "../redux/features/accounts/accountsSlice"
 import { getAccountsStatements } from "../redux/features/api/apiSlice"
@@ -40,7 +40,6 @@ function User(){
     // get the datas from the mock accounts api and set them to the accounts state
     useEffect(() => {
         async function getAccountsDatas() {
-            // const accountsDatas = await APIAccounts.getAccounts()
             // unwrap extract the payload out of the action
             const accountsDatas = await dispatch(getAccountsStatements()).unwrap()
             dispatch(setAccountsState(accountsDatas))
