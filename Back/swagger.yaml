@@ -62,11 +62,11 @@ paths:
         - application/json
       responses:
         "200":
-          description: Account's last transactions retrieved successully
+          description: Target transaction retrieved successully
           schema:
             $ref: "#/definitions/Transaction"
         "400":
-          description: Non Existing Transactions or Unknown Account
+          description: Non Existing Transaction
         "500":
           description: Internal Server Error
   /user/login:
