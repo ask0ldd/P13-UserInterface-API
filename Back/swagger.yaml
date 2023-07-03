@@ -9,33 +9,33 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /user/{userId}/lastTransactions:
+  /user/{accountId}/lastTransactions:
     get:
       tags:
         - Transactions Module
       summary: Current Month Transactions
-      description: Endpoint delivering all Current Month Transactions for a Specified User
+      description: Endpoint delivering all current month Transactions for a specified User
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
           required: true
         - in: path
-          name: userId
+          name: accountId
           schema:
             type: integer
             minimum: 1
           required: true
-          description: Numeric ID of the user to ge
+          description: ID of the target account
       produces:
         - application/json
       responses:
         "200":
-          description: User's last transactions retrieved successully
+          description: Account's last transactions retrieved successully
           schema:
             $ref: "#/definitions/LastTransactions"
         "400":
-          description: Unknown User
+          description: Non Existing Transactions or Account Unknown
         "500":
           description: Internal Server Error
   /user/login:
