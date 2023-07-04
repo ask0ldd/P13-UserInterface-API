@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 import { API } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
-import { setAccountsState, IAccountState } from "../redux/features/accounts/accountsSlice"
-import { getAccountsStatements } from "../redux/features/api/mockAccountsAPISlice"
+import { setAccountsState, IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
+// import { getAccountsStatements } from "../redux/features/api/mockAccountsAPISlice"
 
 
 function User(){
@@ -22,7 +22,7 @@ function User(){
     const logged : boolean = useTypedSelector((state) => state.auth.logged) // logged or just checking token ?
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
-    const accountsState : Array<IAccountState> = useTypedSelector((state) => state.accounts)
+    const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
 
     // get the user's profile datas out of the USERS API
     useEffect(() => {
@@ -39,7 +39,7 @@ function User(){
         async function getAccountsDatas() {
             // unwrap extract the payload out of the action
             const accountsDatas = await dispatch(getAccountsStatements()).unwrap()
-            dispatch(setAccountsState(accountsDatas))
+            console.log(accountsDatas)
         }
         getAccountsDatas()
     }, [])

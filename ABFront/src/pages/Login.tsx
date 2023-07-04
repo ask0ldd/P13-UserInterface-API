@@ -6,7 +6,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { API } from '../services/API'
 import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
-import { setCredentials } from "../redux/features/auth/authSlice"
+import { setCredentials, logAttempt } from "../redux/features/auth/authSlice"
 import { useNavigate } from 'react-router-dom'
 import Validator from '../services/validators'
 import cookiesManager from '../services/cookiesManager'
@@ -26,6 +26,8 @@ function Login() {
   // const logged : boolean = useSelector((state : RootState) => state.auth.user)
   // but can use useTypedSelector so the state doesn't have to be typed each time :
   const logged : boolean = useTypedSelector((state) => state.auth.logged)
+  const email : string | null = useTypedSelector((state) => state.auth.email)
+  const token : string | null = useTypedSelector((state) => state.auth.email)
 
   async function submit(e : React.FormEvent<HTMLFormElement>){
 
@@ -44,10 +46,12 @@ function Login() {
 
     // ie dispatch(action(payload))
     console.log(results)
-    dispatch(setCredentials(results))
+    dispatch(setCredentials(results))*/
+
+    const results = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value}))
 
     // add to cookies only if remember me is checked
-    if(results.email != null && results.token != null && rememberMeRef.current?.checked) cookiesManager.setAuthCookies(results.email, results.token)*/
+    if(email != null && token != null && rememberMeRef.current?.checked) cookiesManager.setAuthCookies(email, token)
   }
 
   // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile

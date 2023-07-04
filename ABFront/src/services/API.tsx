@@ -15,6 +15,28 @@ const api = "http://127.0.0.1:3001/api/v1/"
 
 export class API{
 
+    static async logTest(){
+        try{
+            const response = await fetch(`${api}user/login`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email : "tony@stark.com", password : "password123"})      
+            })
+
+            if(response.ok)
+            {
+                const userDatas = await response.json()
+                return {email: "tony@stark.com", token: userDatas.body.token}
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+
     // POST : Login Process
     static async login({email, password} : ICredentials){
         try{
@@ -48,7 +70,7 @@ export class API{
                 }
             }
         }
-        catch
+        catch(error)
         {
             console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
@@ -105,7 +127,7 @@ export class API{
     // PUT : Update User Names
     static async updateNames({firstName, lastName} : INames){
         try{
-            store.dispatch(setAPIAtWork())
+            /*store.dispatch(setAPIAtWork())*/
             const response = await fetch(`${api}user/profile`,
             {
                 method: 'PUT',
@@ -138,9 +160,9 @@ export class API{
             console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
         }
-        finally{
+        /*finally{
             store.dispatch(setAPIIdle())
-        }
+        }*/
     }
 
 }

@@ -30,7 +30,7 @@ export const mockAccountsAPISlice = createSlice({
       },
 })
 
-// export const {getSt} = apiSlice.actions
+// export const {getSt} = mockAccountsAPISlice.actions
 
 export default mockAccountsAPISlice.reducer
 
