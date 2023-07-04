@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import { API } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
 import { setAccountsState, IAccountState } from "../redux/features/accounts/accountsSlice"
-import { getAccountsStatements } from "../redux/features/api/accountsApiSlice"
+import { getAccountsStatements } from "../redux/features/api/mockAccountsAPISlice"
 
 
 function User(){

@@ -4,13 +4,13 @@ import { MockAPIAccounts } from "../../../services/API";
 const initialState = {
     statements: [],
     loading: 'idle',
-} as UsersState
+} as AccountsState
 
 export const getAccountsStatements = createAsyncThunk('api/getAccountsStatements', async () => {
     return await MockAPIAccounts.getAccounts() // Mocking the endpoints that don't need to be implemented yet
 })
 
-export const accountsApiSlice = createSlice({
+export const mockAccountsAPISlice = createSlice({
     name : 'api',
     initialState,
     reducers: {
@@ -32,9 +32,9 @@ export const accountsApiSlice = createSlice({
 
 // export const {getSt} = apiSlice.actions
 
-export default accountsApiSlice.reducer
+export default mockAccountsAPISlice.reducer
 
-interface UsersState {
+interface AccountsState {
   statements: []
   loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }

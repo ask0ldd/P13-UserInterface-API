@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars*/
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { API } from "../../../services/API";
 
 const initialState : authState = {
     logged : false,
@@ -9,11 +10,19 @@ const initialState : authState = {
     firstname : null,
     lastname : null,
     token : null,
-    working : false
+    loading: 'idle'
 }
 
 // setToken
 
+export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : IlogCredentials) => {
+  return await API.login(logCredentials)
+})
+
+interface IlogCredentials{
+  email : string
+  password : string
+}
 
 export const authSlice = createSlice({
     name : 'auth', // so slice state will be reached through store.auth
@@ -25,7 +34,7 @@ export const authSlice = createSlice({
         },
         setCredentials : (state, action) => {
             const { email, token } = action.payload
-            return {...state, logged: true, email: email, token: token, working: true }
+            return {...state, logged: true, email: email, token: token}
         },
         setNames : (state, action) => {
             const { firstname, lastname } = action.payload
@@ -39,12 +48,25 @@ export const authSlice = createSlice({
             return initialState
         },
         setAPIAtWork : (state) => {
-            return {...state, working: true}
+            return {...state, loading : 'pending'}
         },
         setAPIIdle : (state) => {
-            return {...state, working: false}
+            return {...state, loading : 'idle'}
         },
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+          .addCase(logAttempt.pending, (state) => {
+            return {...state, loading : 'pending'}
+          })
+          .addCase(logAttempt.fulfilled, (state, action) => {
+            const { email, token } = action.payload
+            return email && token ? {...state, loading : 'idle', email, token} : {...state, loading : 'idle'}
+          })
+          .addCase(logAttempt.rejected, (state) => {
+            return {...state, loading : 'idle'}
+          })
+      },
 })
 
 export const {setCredentials, setToken, setNames, logout, reset, setAPIAtWork, setAPIIdle} = authSlice.actions
@@ -58,5 +80,5 @@ interface authState{
     firstname : string | null
     lastname : string | null
     token : string | null
-    working : boolean
+    loading: 'idle' | 'pending' | 'succeeded' | 'failed'
 }

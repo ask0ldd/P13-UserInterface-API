@@ -42,6 +42,7 @@ function Login() {
     if(results.error) return false
 
     // ie dispatch(action(payload))
+    console.log(results)
     dispatch(setCredentials(results))
 
     // add to cookies only if remember me is checked
