@@ -25,8 +25,6 @@ function Login() {
   // const logged : boolean = useSelector((state : RootState) => state.auth.user)
   // but can use useTypedSelector so the state doesn't have to be typed each time :
   const logged : boolean = useTypedSelector((state) => state.auth.logged)
-  const email : string | null = useTypedSelector((state) => state.auth.email)
-  const token : string | null = useTypedSelector((state) => state.auth.email)
 
   async function submit(e : React.FormEvent<HTMLFormElement>){
 
@@ -40,18 +38,16 @@ function Login() {
       return false
     }
 
-    const results = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value}))
+    const results = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false}))
     console.log('logAttemptResult : ', results)
-
-    // add to cookies only if remember me is checked
-    if(email != null && token != null && rememberMeRef.current?.checked) cookiesManager.setAuthCookies(email, token)
   }
 
   // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile
   useEffect(()=> {
     const email = cookiesManager.getEmail()
     const token = cookiesManager.getToken()
-    if (email!==false && token!==false) dispatch(setCredentials({email, token})) // sets logged to true if cookies populated
+    // sets logged back to true if the cookies are populated & the state has been lost due to some page refresh
+    if (email!==false && token!==false) dispatch(setCredentials({email, token}))
     if (logged === true) navigate("/user")
   },
   [logged])

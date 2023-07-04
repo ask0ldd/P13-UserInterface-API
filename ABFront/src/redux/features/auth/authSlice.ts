@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ICredentials } from "../../../services/API";
+import cookiesManager from "../../../services/cookiesManager";
 
 const initialState : authState = {
     logged : false,
@@ -15,6 +16,7 @@ const initialState : authState = {
 
 export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : ICredentials) => {
     try{
+        console.log("thunk")
         const response = await fetch(`http://127.0.0.1:3001/api/v1/user/login`,
         {
             method: 'POST',
@@ -27,6 +29,8 @@ export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredenti
         if(response.ok && response.status === 200)
         {
             const userDatas = await response.json()
+            // if rememberMe checked => persistent connection
+            if(logCredentials.persistent) cookiesManager.setAuthCookies(logCredentials.email, userDatas.body.token)
             return {email: logCredentials.email, token: userDatas.body.token}
         }
         else{
@@ -53,18 +57,12 @@ export const authSlice = createSlice({
             const { firstname, lastname } = action.payload
             return {...state, firstname: firstname, lastname: lastname}
         },
-        setToken : (state, action) => {
+        /*setToken : (state, action) => {
             const {token} = action.payload
             return {...state, token: token}
-        },
+        },*/
         logout : () => {
             return initialState
-        },
-        setAPIAtWork : (state) => {
-            return {...state, loading : 'pending'}
-        },
-        setAPIIdle : (state) => {
-            return {...state, loading : 'idle'}
         },
     },
     extraReducers: (builder) => {
@@ -82,7 +80,7 @@ export const authSlice = createSlice({
     },
 })
 
-export const {setCredentials, setToken, setNames, logout, reset, setAPIAtWork, setAPIIdle} = authSlice.actions
+export const {setCredentials, /*setToken,*/ setNames, logout, reset, /*setAPIAtWork, setAPIIdle*/} = authSlice.actions
 
 export default authSlice.reducer
 

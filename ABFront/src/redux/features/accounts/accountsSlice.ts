@@ -16,9 +16,9 @@ export const accountsSlice = createSlice({
     name : 'accounts', // so slice state will be reached through store.accounts
     initialState,
     reducers : {
-        setAccountsState : (_state, action) => {
+        /*setAccountsState : (_state, action) => {
            return {..._state, accounts : action.payload}
-        },
+        },*/
     },
     extraReducers: (builder) => {
         builder
@@ -34,7 +34,7 @@ export const accountsSlice = createSlice({
     },
 })
 
-export const {setAccountsState} = accountsSlice.actions
+// export const {setAccountsState} = accountsSlice.actions
 
 export default accountsSlice.reducer
 

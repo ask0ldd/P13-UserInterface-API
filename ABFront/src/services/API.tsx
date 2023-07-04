@@ -1,9 +1,10 @@
-import { setAPIAtWork, setAPIIdle } from "../redux/features/auth/authSlice"
+// import { setAPIAtWork, setAPIIdle } from "../redux/features/auth/authSlice"
 import store from "../redux/store"
 
 export interface ICredentials {
     email : string
     password : string
+    persistent : boolean
 }
 
 export interface INames {
@@ -59,7 +60,7 @@ export class API{
     // GET : Logged User's Profile
     static async getProfile(){
         try{
-            store.dispatch(setAPIAtWork())
+            // store.dispatch(setAPIAtWork())
             if(!store.getState().auth.token) throw new Error("The global state contains no token.")
             const response = await fetch(`${api}user/profile`,
             {
@@ -95,9 +96,9 @@ export class API{
             console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
         }
-        finally{
+        /*finally{
             store.dispatch(setAPIIdle())
-        }
+        }*/
     }
 
     // PUT : Update User Names
