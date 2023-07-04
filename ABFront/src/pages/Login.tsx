@@ -48,12 +48,12 @@ function Login() {
     if(results.email != null && results.token != null && rememberMeRef.current?.checked) cookiesManager.setAuthCookies(results.email, results.token)
   }
 
-  // when state.auth.logged === true > redirect to user profile
+  // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile
   useEffect(()=> {
-    if (logged === true) {
-      console.log("nav to user")
-      navigate("/user")
-    }
+    const email = cookiesManager.getEmail()
+    const token = cookiesManager.getToken()
+    if (email!==false && token!==false) dispatch(setCredentials({email, token})) // sets logged to true if cookies populated
+    if (logged === true) navigate("/user")
   },
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [logged])
