@@ -9,7 +9,7 @@ import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 import { API } from "../services/API"
-import { setNames } from "../redux/features/auth/authSlice"
+import { setNames, getProfile } from "../redux/features/auth/authSlice"
 import { IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
 // import { getAccountsStatements } from "../redux/features/api/mockAccountsAPISlice"
 
@@ -23,15 +23,19 @@ function User(){
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
+    const token : string | null = useTypedSelector((state) => state.auth.token)
 
     // get the user's profile datas out of the USERS API
     useEffect(() => {
         if (logged === false) return navigate("/login")
-        async function getProfile() {
-                const profileDatas = await API.getProfile()
-                dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))
+        async function getUserProfile() {
+            /*const profileDatas = await API.getProfile()
+            dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))*/
+            console.log("token", token)
+            const profileDatas = await dispatch(getProfile(token))
+            console.log(profileDatas)
         }
-        getProfile()
+        getUserProfile()
     }, [logged]) // triggered after the first render and when the log value changes
 
     // get the accounts datas from the mock ACCOUNTS API and set them to the accounts state

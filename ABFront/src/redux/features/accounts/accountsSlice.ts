@@ -9,7 +9,18 @@ const initialState : IAccountsState = {
 }
 
 export const getAccountsStatements = createAsyncThunk('api/getAccountsStatements', async () => {
-    return await MockAPIAccounts.getAccounts() // Mocking the endpoints that don't need to be implemented yet
+    // return await MockAPIAccounts.getAccounts() 
+    // Mocking the endpoints that don't need to be implemented yet
+    try{
+        const response = await fetch('/accounts.json')
+        if(response.ok){
+            const accountDatas = await response.json()
+            return accountDatas
+        }
+    }
+    catch(error){
+        console.log(error)
+    }
 })
 
 export const accountsSlice = createSlice({

@@ -38,7 +38,7 @@ function Login() {
       return false
     }
 
-    const results = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false}))
+    const results = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
     console.log('logAttemptResult : ', results)
   }
 
