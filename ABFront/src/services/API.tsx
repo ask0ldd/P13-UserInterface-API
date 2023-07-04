@@ -49,7 +49,7 @@ export class API{
         }
         catch
         {
-            // store.dispatch(setAPIIdle())
+            console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
         }
         finally{
@@ -74,10 +74,9 @@ export class API{
                 const userDatas = await response.json()
                 const id = userDatas.body.id
                 const email = userDatas.body.email
-                const firstName = userDatas.body.firstName
-                const lastName = userDatas.body.lastName
-                //store.dispatch(setAPIIdle())
-                return {id, email, firstName, lastName}
+                const firstname = userDatas.body.firstName
+                const lastname = userDatas.body.lastName
+                return {id, email, firstname, lastname}
             }
             else
             {
@@ -87,12 +86,13 @@ export class API{
                     break;
                     default:
                         console.log(response.statusText)
-                        return {error : "Internal Server Error"}
+                        return {error : "Internal Server Error."}
                 }
             }
         }
         catch
         {
+            console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
         }
         finally{
