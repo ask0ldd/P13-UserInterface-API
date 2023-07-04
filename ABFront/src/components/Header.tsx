@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { logout } from '../redux/features/auth/authSlice'
 import { useTypedDispatch, useTypedSelector } from '../hooks/redux'
 import Formatter from '../services/formaters'
+import cookiesManager from '../services/cookiesManager'
 
 interface IHeaderProps {
     firstname?: string | null // optional prop
@@ -14,8 +15,9 @@ function Header(props : IHeaderProps) {
     const dispatch = useTypedDispatch()
 
     function logoutFn(){
-        document.cookie = "token=; Max-Age=0;"
-        document.cookie = "email=; Max-Age=0;"
+        /*document.cookie = "token=; Max-Age=0;"
+        document.cookie = "email=; Max-Age=0;"*/
+        cookiesManager.unsetAuthCookies()
         dispatch(logout())
     }
 

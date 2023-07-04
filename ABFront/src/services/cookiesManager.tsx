@@ -1,4 +1,4 @@
-const localStorage = {
+const cookiesManager = {
 
     setAuthCookies : (email : string, token : string) => {
         document.cookie = `email=${email}; Secure`
@@ -6,9 +6,9 @@ const localStorage = {
     },
 
     unsetAuthCookies : () => {
-        document.cookie = `email=; Secure`
-        document.cookie = `token=; Secure`
+        document.cookie = "email=; Max-Age=0;"
+        document.cookie = "token=; Max-Age=0;"
     }
 }
 
-export default localStorage
+export default cookiesManager
