@@ -1,11 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { MockAPIAccounts } from "../../../services/API";
 
-interface UsersState {
-    statements: []
-    loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-}
-
 const initialState = {
     statements: [],
     loading: 'idle',
@@ -38,3 +33,8 @@ export const apiSlice = createSlice({
 // export const {getSt} = apiSlice.actions
 
 export default apiSlice.reducer
+
+interface UsersState {
+  statements: []
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+}

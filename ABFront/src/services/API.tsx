@@ -31,7 +31,6 @@ export class API{
             {
                 const userDatas = await response.json()
                 const token = userDatas.body.token
-                store.dispatch(setAPIIdle())
                 // only needs to return success message instead of this
                 return {email: email, token: token}
                 // window.location.href = "index.html" replace with react programmatic nav
@@ -39,28 +38,22 @@ export class API{
             else
             {
                 switch(response.status)
-                { // change error code : cf swagger
-                    case 404:
-                        store.dispatch(setAPIIdle())
-                        // console.log(response.statusText)
-                        return {error : "User not found."}
-                    break;
-                    case 401:
-                        store.dispatch(setAPIIdle())
-                        // console.log(response.statusText)
-                        return {error : response.statusText}
+                { // soutenance : error code from swagger
+                    case 400:
+                        return {error : "Invalid Fields."}
                     break;
                     default:
-                        store.dispatch(setAPIIdle())
-                        // console.log(response.statusText)
-                        return {error : response.statusText}
+                        return {error : "Internal Server Error."}
                 }
             }
         }
         catch
         {
-            store.dispatch(setAPIIdle())
+            // store.dispatch(setAPIIdle())
             return {error : "Service Unavailable. Retry Later."}
+        }
+        finally{
+            store.dispatch(setAPIIdle())
         }
     }
 
@@ -81,36 +74,29 @@ export class API{
                 const userDatas = await response.json()
                 const id = userDatas.body.id
                 const email = userDatas.body.email
-                const firstname = userDatas.body.firstName
-                const lastname = userDatas.body.lastName
-                store.dispatch(setAPIIdle())
-                return {id, email, firstname, lastname}
+                const firstName = userDatas.body.firstName
+                const lastName = userDatas.body.lastName
+                //store.dispatch(setAPIIdle())
+                return {id, email, firstName, lastName}
             }
             else
             {
                 switch(response.status)
-                { // change error code : cf swagger
-                    case 404:
-                        store.dispatch(setAPIIdle())
-                        console.log(response.statusText)
-                        return {error : "User not found."}
-                    break;
-                    case 401:
-                        store.dispatch(setAPIIdle())
-                        console.log(response.statusText)
-                        return {error : response.statusText}
+                {   case 400:
+                        return {error : "Invalid Fields."}
                     break;
                     default:
-                        store.dispatch(setAPIIdle())
                         console.log(response.statusText)
-                        return {error : response.statusText}
+                        return {error : "Internal Server Error"}
                 }
             }
         }
         catch
         {
-            store.dispatch(setAPIIdle())
             return {error : "Service Unavailable. Retry Later."}
+        }
+        finally{
+            store.dispatch(setAPIIdle())
         }
     }
 
@@ -130,7 +116,6 @@ export class API{
             if(response.ok && response.status === 200)
             {
                 const userDatas = await response.json()
-                store.dispatch(setAPIIdle())
                 return {id : userDatas.body.id, email : userDatas.body.email}
             }
             else
@@ -138,25 +123,20 @@ export class API{
                 switch(response.status)
                 {
                     case 400:
-                        store.dispatch(setAPIIdle())
-                        console.error("Invalid Fields.")
                         return {error : "Invalid Fields."}
                     break;
-                    case 500:
-                        store.dispatch(setAPIIdle())
-                        console.error("Internal Server Error.")
-                        return {error : "Internal Server Error."}
-                    break;
                     default:
-                        store.dispatch(setAPIIdle())
+                        return {error : "Internal Server Error."}
                 }
             }
         }
         catch
         {
-            store.dispatch(setAPIIdle())
             console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
+        }
+        finally{
+            store.dispatch(setAPIIdle())
         }
     }
 

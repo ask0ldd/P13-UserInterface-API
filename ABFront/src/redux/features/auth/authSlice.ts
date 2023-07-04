@@ -2,16 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
-interface authState{
-    logged : boolean
-    id : string | null
-    email : string | null
-    firstname : string | null
-    lastname : string | null
-    token : string | null
-    working : boolean
-}
-
 const initialState : authState = {
     logged : false,
     id : null,
@@ -60,3 +50,13 @@ export const authSlice = createSlice({
 export const {setCredentials, setToken, setNames, logout, reset, setAPIAtWork, setAPIIdle} = authSlice.actions
 
 export default authSlice.reducer
+
+interface authState{
+    logged : boolean
+    id : string | null
+    email : string | null
+    firstname : string | null
+    lastname : string | null
+    token : string | null
+    working : boolean
+}

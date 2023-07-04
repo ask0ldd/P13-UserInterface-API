@@ -2,13 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface IAccountState{
-    title: string
-    lastDigits: string
-    amount: string
-    amountDescription: string
-}
-
 const initialState : Array<IAccountState> = []
 
 export const accountsSlice = createSlice({
@@ -17,7 +10,7 @@ export const accountsSlice = createSlice({
     reducers : {
         setAccountsState : (_state, action) => {
            const newState : Array<IAccountState> = []
-           console.log('payload', action.payload)
+           // console.log('payload', action.payload)
            action.payload.forEach((account : IAccountState) => newState.push(account))
            return newState
         },
@@ -32,3 +25,10 @@ export const accountsSlice = createSlice({
 export const {setAccountsState} = accountsSlice.actions
 
 export default accountsSlice.reducer
+
+export interface IAccountState{
+    title: string
+    lastDigits: string
+    amount: string
+    amountDescription: string
+}
