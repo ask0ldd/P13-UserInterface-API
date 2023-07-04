@@ -29,9 +29,6 @@ function User(){
     useEffect(() => {
         if (logged === false) return navigate("/login")
         async function getUserProfile() {
-            /*const profileDatas = await API.getProfile()
-            dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))*/
-            console.log("token", token)
             const profileDatas = await dispatch(getProfile(token))
             console.log(profileDatas)
         }

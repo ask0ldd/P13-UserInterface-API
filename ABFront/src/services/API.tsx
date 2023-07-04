@@ -1,5 +1,5 @@
-// import { setAPIAtWork, setAPIIdle } from "../redux/features/auth/authSlice"
-import store from "../redux/store"
+// import store from "../redux/store" 
+// base of the cycling dependencies
 
 export interface ICredentials {
     email : string
@@ -17,9 +17,8 @@ const api = "http://127.0.0.1:3001/api/v1/"
 export class API{
 
     // POST : Login Process
-    /*static async login({email, password} : ICredentials){
+    static async login({email, password} : ICredentials){
         try{
-            // store.dispatch(setAPIAtWork())
             const response = await fetch(`${api}user/login`,
             {
                 method: 'POST',
@@ -39,34 +38,27 @@ export class API{
             }
             else
             {
-                switch(response.status)
-                { // soutenance : error code from swagger
-                    case 400:
-                        return {error : "Invalid Fields."}
-                    break;
-                    default:
-                        return {error : "Internal Server Error."}
-                }
+                console.log(response.statusText)
+                return {email: null, token: null}
             }
         }
         catch(error)
         {
             console.error("Service Unavailable. Retry Later.")
-            return {error : "Service Unavailable. Retry Later."}
+            return {email: null, token: null}
         }
-        // finally{store.dispatch(setAPIIdle())}
-    }*/
+    }
 
     // GET : Logged User's Profile
-    static async getProfile(){
+    static async getProfile(token : string){
         try{
             // store.dispatch(setAPIAtWork())
-            if(!store.getState().auth.token) throw new Error("The global state contains no token.")
+            if(!token) throw new Error("The global state contains no token.")
             const response = await fetch(`${api}user/profile`,
             {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${store.getState().auth.token}`
+                    'Authorization': `Bearer ${token}`
                 }     
             })
 
@@ -81,36 +73,26 @@ export class API{
             }
             else
             {
-                switch(response.status)
-                {   case 400:
-                        return {error : "Invalid Fields."}
-                    break;
-                    default:
-                        console.log(response.statusText)
-                        return {error : "Internal Server Error."}
-                }
+                console.log(response.statusText)
+                return {id : null, email : null, firstname : null, lastname : null}
             }
         }
         catch
         {
             console.error("Service Unavailable. Retry Later.")
-            return {error : "Service Unavailable. Retry Later."}
+            return {id : null, email : null, firstname : null, lastname : null}
         }
-        /*finally{
-            store.dispatch(setAPIIdle())
-        }*/
     }
 
     // PUT : Update User Names
-    static async updateNames({firstName, lastName} : INames){
+    static async updateNames({firstName, lastName} : INames, token : string){
         try{
-            /*store.dispatch(setAPIAtWork())*/
             const response = await fetch(`${api}user/profile`,
             {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${store.getState().auth.token}`
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({firstName, lastName})      
             })
@@ -122,24 +104,15 @@ export class API{
             }
             else
             {
-                switch(response.status)
-                {
-                    case 400:
-                        return {error : "Invalid Fields."}
-                    break;
-                    default:
-                        return {error : "Internal Server Error."}
-                }
+                console.log(response.statusText)
+                return {id : null, email : null, firstname : null, lastname : null}
             }
         }
         catch
         {
             console.error("Service Unavailable. Retry Later.")
-            return {error : "Service Unavailable. Retry Later."}
+            return {id : null, email : null, firstname : null, lastname : null}
         }
-        /*finally{
-            store.dispatch(setAPIIdle())
-        }*/
     }
 
 }
