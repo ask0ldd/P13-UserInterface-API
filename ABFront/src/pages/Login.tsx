@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useEffect } from 'react'
 import '../style/App.css'
 import '../style/Login.css'
@@ -38,7 +39,7 @@ function Login() {
       return false
     }
 
-    const results = await API.login({email : emailRef.current.value, password : passwordRef.current.value})
+    /*const results = await API.login({email : emailRef.current.value, password : passwordRef.current.value})
     if(results.error) return false
 
     // ie dispatch(action(payload))
@@ -46,7 +47,7 @@ function Login() {
     dispatch(setCredentials(results))
 
     // add to cookies only if remember me is checked
-    if(results.email != null && results.token != null && rememberMeRef.current?.checked) cookiesManager.setAuthCookies(results.email, results.token)
+    if(results.email != null && results.token != null && rememberMeRef.current?.checked) cookiesManager.setAuthCookies(results.email, results.token)*/
   }
 
   // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile
@@ -56,7 +57,6 @@ function Login() {
     if (email!==false && token!==false) dispatch(setCredentials({email, token})) // sets logged to true if cookies populated
     if (logged === true) navigate("/user")
   },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   [logged])
 
   return (

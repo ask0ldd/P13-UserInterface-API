@@ -6,9 +6,9 @@ import mockAccountsAPIReducer from './features/api/mockAccountsAPISlice'
 
 export const store = configureStore({
     reducer: {
-      auth : authReducer,
       accounts : accountsReducer,
       api : mockAccountsAPIReducer,
+      auth : authReducer,
     },
     devTools : true,
   })

@@ -18,7 +18,7 @@ export class API{
     // POST : Login Process
     static async login({email, password} : ICredentials){
         try{
-            store.dispatch(setAPIAtWork())
+            // store.dispatch(setAPIAtWork())
             const response = await fetch(`${api}user/login`,
             {
                 method: 'POST',
@@ -53,9 +53,9 @@ export class API{
             console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
         }
-        finally{
+        /*finally{
             store.dispatch(setAPIIdle())
-        }
+        }*/
     }
 
     // GET : Logged User's Profile

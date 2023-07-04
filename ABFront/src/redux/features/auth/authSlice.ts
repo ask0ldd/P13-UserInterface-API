@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API } from "../../../services/API";
+import { MockAPIAccounts } from "../../../services/API";
 
 const initialState : authState = {
     logged : false,
@@ -13,16 +14,10 @@ const initialState : authState = {
     loading: 'idle'
 }
 
-// setToken
-
 export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : IlogCredentials) => {
-  return await API.login(logCredentials)
+    return await MockAPIAccounts.getAccounts()
+    // return await API.login(logCredentials)
 })
-
-interface IlogCredentials{
-  email : string
-  password : string
-}
 
 export const authSlice = createSlice({
     name : 'auth', // so slice state will be reached through store.auth
@@ -60,13 +55,14 @@ export const authSlice = createSlice({
             return {...state, loading : 'pending'}
           })
           .addCase(logAttempt.fulfilled, (state, action) => {
+            return {...state, loading : 'idle'}
             const { email, token } = action.payload
             return email && token ? {...state, loading : 'idle', email, token} : {...state, loading : 'idle'}
           })
           .addCase(logAttempt.rejected, (state) => {
             return {...state, loading : 'idle'}
           })
-      },
+      }
 })
 
 export const {setCredentials, setToken, setNames, logout, reset, setAPIAtWork, setAPIIdle} = authSlice.actions
@@ -81,4 +77,9 @@ interface authState{
     lastname : string | null
     token : string | null
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+}
+
+interface IlogCredentials{
+    email : string
+    password : string
 }
