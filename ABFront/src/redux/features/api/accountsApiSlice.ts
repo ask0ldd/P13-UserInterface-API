@@ -10,7 +10,7 @@ export const getAccountsStatements = createAsyncThunk('api/getAccountsStatements
     return await MockAPIAccounts.getAccounts() // Mocking the endpoints that don't need to be implemented yet
 })
 
-export const apiSlice = createSlice({
+export const accountsApiSlice = createSlice({
     name : 'api',
     initialState,
     reducers: {
@@ -32,7 +32,7 @@ export const apiSlice = createSlice({
 
 // export const {getSt} = apiSlice.actions
 
-export default apiSlice.reducer
+export default accountsApiSlice.reducer
 
 interface UsersState {
   statements: []

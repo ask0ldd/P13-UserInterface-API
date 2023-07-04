@@ -15,7 +15,7 @@ const api = "http://127.0.0.1:3001/api/v1/"
 
 export class API{
 
-    // POST : LOGIN
+    // POST : Login Process
     static async login({email, password} : ICredentials){
         try{
             store.dispatch(setAPIAtWork())
@@ -58,7 +58,7 @@ export class API{
         }
     }
 
-    // GET : LOGGED USER PROFILE
+    // GET : Logged User's Profile
     static async getProfile(){
         try{
             store.dispatch(setAPIAtWork())
@@ -102,7 +102,7 @@ export class API{
         }
     }
 
-    // PUT : UPDATE NAMES
+    // PUT : Update User Names
     static async updateNames({firstName, lastName} : INames){
         try{
             store.dispatch(setAPIAtWork())
@@ -145,6 +145,7 @@ export class API{
 
 }
 
+// Mock API serving the accounts datas used on the user's page
 export class MockAPIAccounts{
     static async getAccounts(){
         try{

@@ -14,11 +14,6 @@ export const accountsSlice = createSlice({
            action.payload.forEach((account : IAccountState) => newState.push(account))
            return newState
         },
-        /*pushAccountState : (state, action) => {
-            const newState = [...state]
-            newState.push(action.payload)
-            return newState
-        },*/
     }
 })
 

@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import { API } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
 import { setAccountsState, IAccountState } from "../redux/features/accounts/accountsSlice"
-import { getAccountsStatements } from "../redux/features/api/apiSlice"
+import { getAccountsStatements } from "../redux/features/api/accountsApiSlice"
 
 
 function User(){
@@ -24,6 +24,7 @@ function User(){
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccountState> = useTypedSelector((state) => state.accounts)
 
+    // get the user's profile datas out of the USERS API
     useEffect(() => {
         if (logged === false) return navigate("/login")
         async function getProfile() {
@@ -33,11 +34,7 @@ function User(){
         getProfile()
     }, [logged]) // triggered after the first render and when the log value changes
 
-    function editName(){
-        if (logged === true && lastname != null && firstname != null) navigate("/editname")
-    }
-
-    // get the datas from the mock accounts api and set them to the accounts state
+    // get the accounts datas from the mock ACCOUNTS API and set them to the accounts state
     useEffect(() => {
         async function getAccountsDatas() {
             // unwrap extract the payload out of the action
@@ -46,6 +43,10 @@ function User(){
         }
         getAccountsDatas()
     }, [])
+
+    function editName(){
+        if (logged === true && lastname != null && firstname != null) navigate("/editname") // user a navlink?
+    }
 
     return(
         <div className='App'>

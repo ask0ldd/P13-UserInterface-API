@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 //import { PayloadAction } from "@reduxjs/toolkit"
 import authReducer from './features/auth/authSlice'
 import accountsReducer from './features/accounts/accountsSlice'
-import apiReducer from './features/api/apiSlice'
+import apiReducer from './features/api/accountsApiSlice'
 
 export const store = configureStore({
     reducer: {
