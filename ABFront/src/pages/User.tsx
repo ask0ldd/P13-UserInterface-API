@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 import { API } from "../services/API"
 import { setNames } from "../redux/features/auth/authSlice"
-import { setAccountsState, IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
+import { IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
 // import { getAccountsStatements } from "../redux/features/api/mockAccountsAPISlice"
 
 

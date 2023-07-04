@@ -38,7 +38,7 @@ export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredenti
 })
 
 export const authSlice = createSlice({
-    name : 'auth', // so slice state will be reached through store.auth
+    name : 'auth', // => slice state will be reached through store.auth
     initialState,
     reducers : {
         // action : reducer
@@ -75,8 +75,6 @@ export const authSlice = createSlice({
           .addCase(logAttempt.fulfilled, (state, action) => {
             const { email, token } = action.payload || {email : null, token : null}
             return {...state, loading : 'idle', logged : true, email, token}
-            /*const { email, token } = action.payload
-            return email && token ? {...state, loading : 'idle', email, token} : {...state, loading : 'idle'}*/
           })
           .addCase(logAttempt.rejected, (state) => {
             return {...state, loading : 'idle'}

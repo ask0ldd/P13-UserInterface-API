@@ -3,8 +3,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { MockAPIAccounts } from "../../../services/API";
 
-// const initialState : Array<IAccountState> = []
-
 const initialState : IAccountsState = {
     accounts : [],
     loading: 'idle'
@@ -19,9 +17,6 @@ export const accountsSlice = createSlice({
     initialState,
     reducers : {
         setAccountsState : (_state, action) => {
-           // const newState : Array<IAccountState> = []
-           // console.log('payload', action.payload)
-           // action.payload.forEach((account : IAccountState) => newState.push(account))
            return {..._state, accounts : action.payload}
         },
     },

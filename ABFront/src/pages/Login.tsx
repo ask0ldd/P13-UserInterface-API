@@ -4,7 +4,6 @@ import '../style/App.css'
 import '../style/Login.css'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-import { API } from '../services/API'
 import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
 import { setCredentials, logAttempt } from "../redux/features/auth/authSlice"
 import { useNavigate } from 'react-router-dom'
@@ -41,14 +40,8 @@ function Login() {
       return false
     }
 
-    /*const results = await API.login({email : emailRef.current.value, password : passwordRef.current.value})
-    if(results.error) return false
-
-    // ie dispatch(action(payload))
-    console.log(results)
-    dispatch(setCredentials(results))*/
-
     const results = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value}))
+    console.log('logAttemptResult : ', results)
 
     // add to cookies only if remember me is checked
     if(email != null && token != null && rememberMeRef.current?.checked) cookiesManager.setAuthCookies(email, token)

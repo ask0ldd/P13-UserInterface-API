@@ -15,30 +15,8 @@ const api = "http://127.0.0.1:3001/api/v1/"
 
 export class API{
 
-    static async logTest(){
-        try{
-            const response = await fetch(`${api}user/login`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({email : "tony@stark.com", password : "password123"})      
-            })
-
-            if(response.ok)
-            {
-                const userDatas = await response.json()
-                return {email: "tony@stark.com", token: userDatas.body.token}
-            }
-
-        }catch(error){
-            console.log(error)
-        }
-    }
-
     // POST : Login Process
-    static async login({email, password} : ICredentials){
+    /*static async login({email, password} : ICredentials){
         try{
             // store.dispatch(setAPIAtWork())
             const response = await fetch(`${api}user/login`,
@@ -75,10 +53,8 @@ export class API{
             console.error("Service Unavailable. Retry Later.")
             return {error : "Service Unavailable. Retry Later."}
         }
-        /*finally{
-            store.dispatch(setAPIIdle())
-        }*/
-    }
+        // finally{store.dispatch(setAPIIdle())}
+    }*/
 
     // GET : Logged User's Profile
     static async getProfile(){
