@@ -15,6 +15,7 @@ const api = "http://127.0.0.1:3001/api/v1/"
 
 export class API{
 
+    // POST : LOGIN
     static async login({email, password} : ICredentials){
         try{
             store.dispatch(setAPIAtWork())
@@ -57,6 +58,7 @@ export class API{
         }
     }
 
+    // GET : LOGGED USER PROFILE
     static async getProfile(){
         try{
             store.dispatch(setAPIAtWork())
@@ -100,6 +102,7 @@ export class API{
         }
     }
 
+    // PUT : UPDATE NAMES
     static async updateNames({firstName, lastName} : INames){
         try{
             store.dispatch(setAPIAtWork())

@@ -8,6 +8,7 @@ import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
 import { setCredentials } from "../redux/features/auth/authSlice"
 import { useNavigate } from 'react-router-dom'
 import Validator from '../services/validators'
+import localStorage from '../services/LocalStorage'
 
 function Login() {
 
@@ -44,14 +45,13 @@ function Login() {
     dispatch(setCredentials(results))
 
     // add to cookies only if remember me is checked
-    if(rememberMeRef.current?.checked !== true) return false
-    document.cookie = `email=${results.email}; Secure`
-    document.cookie = `token=${results.token}; Secure`
+    if(results.email != null && results.token != null && rememberMeRef.current?.checked) localStorage.setAuthCookies(results.email, results.token)
   }
 
   // when state.auth.logged === true > redirect to user profile
   useEffect(()=> {
     if (logged === true) {
+      console.log("nav to user")
       navigate("/user")
     }
   },

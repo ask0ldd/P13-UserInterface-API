@@ -3,13 +3,10 @@ import logo from '../assets/argentbank-logo.png'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../redux/features/auth/authSlice'
 import { useTypedDispatch, useTypedSelector } from '../hooks/redux'
+import Formatter from '../services/formaters'
 
 interface IHeaderProps {
     firstname?: string | null // optional prop
-}
-
-function firstCharMaj(word : string){
-    return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
 function Header(props : IHeaderProps) {
@@ -32,7 +29,7 @@ function Header(props : IHeaderProps) {
                     <NavLink className="signIn" to="/Login"><i className="fa fa-user-circle"/>Sign In</NavLink>
                 }
                 {logged && 
-                    <><i className="fa fa-user-circle"/>&nbsp;{props.firstname!=null && firstCharMaj(props.firstname)}&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out"/><span style={{cursor: "pointer", fontWeight: "600"}} onClick={logoutFn}>&nbsp;Sign Out</span></>
+                    <><i className="fa fa-user-circle"/>&nbsp;{props.firstname!=null && Formatter.firstCharMaj(props.firstname)}&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out"/><span style={{cursor: "pointer", fontWeight: "600"}} onClick={logoutFn}>&nbsp;Sign Out</span></>
                 }
             </nav>
         </header>

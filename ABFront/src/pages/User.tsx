@@ -25,7 +25,7 @@ function User(){
     const accountsState : Array<IAccountState> = useTypedSelector((state) => state.accounts)
 
     useEffect(() => {
-        if (logged === false) navigate("/login")
+        if (logged === false) return navigate("/login")
         async function getProfile() {
                 const profileDatas = await API.getProfile()
                 dispatch(setNames({firstname : profileDatas.firstname, lastname: profileDatas.lastname}))

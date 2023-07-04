@@ -6,6 +6,10 @@ class Formatter{
         return splitAmount[0]+'.'+splitAmount[1]
         // return formattedAmount
     }
+
+    static firstCharMaj(word : string){
+        return word.charAt(0).toUpperCase() + word.slice(1)
+    }
 }
 
 export default Formatter
