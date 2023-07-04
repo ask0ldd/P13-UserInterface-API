@@ -7,7 +7,7 @@ import Formatter from '../services/formaters'
 import cookiesManager from '../services/cookiesManager'
 
 interface IHeaderProps {
-    firstname?: string | null // optional prop
+    firstname?: string | null
 }
 
 function Header(props : IHeaderProps) {
@@ -15,8 +15,6 @@ function Header(props : IHeaderProps) {
     const dispatch = useTypedDispatch()
 
     function logoutFn(){
-        /*document.cookie = "token=; Max-Age=0;"
-        document.cookie = "email=; Max-Age=0;"*/
         cookiesManager.unsetAuthCookies()
         dispatch(logout())
     }

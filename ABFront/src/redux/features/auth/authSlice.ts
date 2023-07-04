@@ -15,6 +15,12 @@ const initialState : authState = {
     loading: 'idle'
 }
 
+// {state} = thunkAPI.state : accessing store state
+// export const getProfile = createAsyncThunk<IGetProfilePayloadResponse, {state: RootState}>('auth/getProfile', async ({state}) => {
+export const getProfile = createAsyncThunk('auth/getProfile', async (token : string | null) => {
+    return token != null ? await API.getProfile(token) : {id : null, email : null, firstname : null, lastname : null}
+})
+    
 export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : ICredentials) => {
     const response = await API.login(logCredentials)
     // set cookies so user connection isn't lost when the page is refreshed
@@ -22,10 +28,8 @@ export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredenti
     return response
 })
 
-// {state} = thunkAPI.state : accessing store state
-// export const getProfile = createAsyncThunk<IGetProfilePayloadResponse, {state: RootState}>('auth/getProfile', async ({state}) => {
-export const getProfile = createAsyncThunk('auth/getProfile', async (token : string | null) => {
-    return token != null ? await API.getProfile(token) : {id : null, email : null, firstname : null, lastname : null}
+export const updateNames = createAsyncThunk('auth/updateNames', async (arg : IParamUpdateNames) => {
+    return arg.token != null ? await API.updateNames({firstName : arg.firstName, lastName : arg.lastName}, arg.token) : {id : null, email : null, firstname : null, lastname : null}
 })
 
 export const authSlice = createSlice({
@@ -50,6 +54,7 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            // log
             .addCase(logAttempt.pending, (state) => {
                 return {...state, loading : 'pending'}
             })
@@ -60,6 +65,7 @@ export const authSlice = createSlice({
             .addCase(logAttempt.rejected, (state) => {
                 return {...state, loading : 'idle'}
             })
+            // get profile
             .addCase(getProfile.pending, (state) => {
                 return {...state, loading : 'pending'}
             })
@@ -86,4 +92,10 @@ interface authState {
     lastname : string | null
     token : string | null
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+}
+
+interface IParamUpdateNames{
+    firstName : string
+    lastName : string
+    token : string | null
 }

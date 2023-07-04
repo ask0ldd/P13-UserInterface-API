@@ -8,10 +8,8 @@ import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
-import { API } from "../services/API"
-import { setNames, getProfile } from "../redux/features/auth/authSlice"
+import { getProfile } from "../redux/features/auth/authSlice"
 import { IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
-// import { getAccountsStatements } from "../redux/features/api/mockAccountsAPISlice"
 
 
 function User(){
