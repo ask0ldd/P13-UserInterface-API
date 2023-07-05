@@ -8,8 +8,7 @@ import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useRef } from 'react'
-import { API } from "../services/API"
-import { setNames } from "../redux/features/auth/authSlice"
+import { updateNames } from "../redux/features/auth/authSlice"
 import Validator from "../services/validators"
 
 
@@ -24,6 +23,7 @@ function EditName(){
     const logged : boolean = useTypedSelector((state) => state.auth.logged) // logged or just checking token ?
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
+    const token : string | null = useTypedSelector((state) => state.auth.token)
 
     useEffect(() => {
         if (logged === false) navigate("/login")
@@ -39,11 +39,9 @@ function EditName(){
         const inputLastname = (lastnameRef.current.value).trim()
 
         // !!! needs to display an error
-        if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname)) return false
+        if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname) || token == null) return false
 
-        dispatch(setNames({inputFirstname, inputLastname}))
-        const results = await API.updateNames({'firstName' : inputFirstname, 'lastName' : inputLastname})
-        if(results?.error) return false
+        await dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname, token}))
         // deal with errors
         navigate("/user")
     }

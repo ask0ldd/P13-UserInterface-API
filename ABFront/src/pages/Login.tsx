@@ -30,14 +30,13 @@ function Login() {
 
     e.preventDefault()
     e.stopPropagation()
-
     // if invalid email / password : abort
     if(emailRef?.current?.value == null || passwordRef?.current?.value == null) return false
     if(!Validator.testEmail(emailRef.current.value) || !Validator.testPassword(passwordRef.current.value)) {
       if(errorIdentifiantsRef.current != null) errorIdentifiantsRef.current.style.display = 'block'
+      // !!! error validation message to help the user
       return false
     }
-
     const results = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
     console.log('logAttemptResult : ', results)
   }

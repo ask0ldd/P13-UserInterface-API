@@ -44,10 +44,10 @@ export const authSlice = createSlice({
             const { email, token } = action.payload
             return {...state, logged: true, email: email, token: token}
         },
-        setNames : (state, action) => {
+        /*setNames : (state, action) => {
             const { firstname, lastname } = action.payload
             return {...state, firstname: firstname, lastname: lastname}
-        },
+        },*/
         logout : () => {
             return initialState
         },
@@ -77,10 +77,21 @@ export const authSlice = createSlice({
             .addCase(getProfile.rejected, (state) => {
                 return {...state, loading : 'idle'}
             })
+            // update names
+            .addCase(updateNames.pending, (state) => {
+                return {...state, loading : 'pending'}
+            })
+            .addCase(updateNames.fulfilled, (state, action) => {
+                const {id, email, firstname, lastname} = action.payload
+                return {...state, loading : 'idle', id, email, firstname, lastname}
+            })
+            .addCase(updateNames.rejected, (state) => {
+                return {...state, loading : 'idle'}
+            })
         },
 })
 
-export const {setCredentials, setNames, logout, reset} = authSlice.actions
+export const {setCredentials, /*setNames, */logout, reset} = authSlice.actions
 
 export default authSlice.reducer
 
