@@ -41,7 +41,7 @@ function EditName(){
         // !!! needs to display an error
         if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname) || token == null) return false
 
-        await dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname, token}))
+        await dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
         // deal with errors
         navigate("/user")
     }

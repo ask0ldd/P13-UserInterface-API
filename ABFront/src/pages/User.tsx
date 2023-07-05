@@ -21,13 +21,12 @@ function User(){
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
-    const token : string | null = useTypedSelector((state) => state.auth.token)
 
     // get the user's profile datas out of the USERS API
     useEffect(() => {
         if (logged === false) return navigate("/login")
         async function getUserProfile() {
-            const profileDatas = await dispatch(getProfile(token))
+            const profileDatas = await dispatch(getProfile())
             console.log(profileDatas)
         }
         getUserProfile()

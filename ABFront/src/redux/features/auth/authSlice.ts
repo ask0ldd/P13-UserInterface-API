@@ -17,8 +17,10 @@ const initialState : authState = {
 
 // {state} = thunkAPI.state : accessing store state
 // export const getProfile = createAsyncThunk<IGetProfilePayloadResponse, {state: RootState}>('auth/getProfile', async ({state}) => {
-export const getProfile = createAsyncThunk('auth/getProfile', async (token : string | null) => {
-    return token != null ? await API.getProfile(token) : {id : null, email : null, firstname : null, lastname : null}
+export const getProfile = createAsyncThunk('auth/getProfile', async (_, thunkAPI) => {
+    console.log("thunkapi : ", thunkAPI.getState())
+    const { auth } = thunkAPI.getState() as { auth: authState }
+    return auth.token != null ? await API.getProfile(auth.token) : {id : null, email : null, firstname : null, lastname : null}
 })
     
 export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : ICredentials) => {
@@ -28,8 +30,9 @@ export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredenti
     return response
 })
 
-export const updateNames = createAsyncThunk('auth/updateNames', async (arg : IParamUpdateNames) => {
-    return arg.token != null ? await API.updateNames({firstName : arg.firstName, lastName : arg.lastName}, arg.token) : {id : null, email : null, firstname : null, lastname : null}
+export const updateNames = createAsyncThunk('auth/updateNames', async (arg : IParamUpdateNames, thunkAPI) => {
+    const { auth } = thunkAPI.getState() as { auth: authState }
+    return auth.token != null ? await API.updateNames({firstName : arg.firstName, lastName : arg.lastName}, auth.token) : {id : null, email : null, firstname : null, lastname : null}
 })
 
 export const authSlice = createSlice({
@@ -103,5 +106,4 @@ interface authState {
 interface IParamUpdateNames{
     firstName : string
     lastName : string
-    token : string | null
 }
