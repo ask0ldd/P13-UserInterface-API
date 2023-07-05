@@ -18,6 +18,7 @@ export class API{
 
     // POST : Login Process
     static async login({email, password} : ICredentials){
+        const blankLoginResponse = {email: null, token: null}
         try{
             const response = await fetch(`${api}user/login`,
             {
@@ -32,27 +33,25 @@ export class API{
             {
                 const userDatas = await response.json()
                 const token = userDatas.body.token
-                // only needs to return success message instead of this
                 return {email: email, token: token}
-                // window.location.href = "index.html" replace with react programmatic nav
             }
             else
             {
                 console.log(response.statusText)
-                return {email: null, token: null}
+                return blankLoginResponse
             }
         }
         catch(error)
         {
             console.error("Service Unavailable. Retry Later.")
-            return {email: null, token: null}
+            return blankLoginResponse
         }
     }
 
     // GET : Logged User's Profile
     static async getProfile(token : string){
+        const blankGetProfileResponse = {id : null, email : null, firstname : null, lastname : null}
         try{
-            // store.dispatch(setAPIAtWork())
             if(!token) throw new Error("The global state contains no token.")
             const response = await fetch(`${api}user/profile`,
             {
@@ -74,18 +73,21 @@ export class API{
             else
             {
                 console.log(response.statusText)
-                return {id : null, email : null, firstname : null, lastname : null}
+                return blankGetProfileResponse
             }
         }
         catch
         {
             console.error("Service Unavailable. Retry Later.")
-            return {id : null, email : null, firstname : null, lastname : null}
+            return blankGetProfileResponse
         }
     }
 
     // PUT : Update User Names
     static async updateNames({firstName, lastName} : INames, token : string){
+
+        const blankUpdatesNamesReponse = {id : null, email : null, firstname : null, lastname : null}
+
         try{
             const response = await fetch(`${api}user/profile`,
             {
@@ -105,13 +107,13 @@ export class API{
             else
             {
                 console.log(response.statusText)
-                return {id : null, email : null, firstname : null, lastname : null}
+                return blankUpdatesNamesReponse
             }
         }
         catch
         {
             console.error("Service Unavailable. Retry Later.")
-            return {id : null, email : null, firstname : null, lastname : null}
+            return blankUpdatesNamesReponse
         }
     }
 
@@ -129,6 +131,7 @@ export class MockAPIAccounts{
         }
         catch(error){
             console.log(error)
+            return []
         }
     }
 }
