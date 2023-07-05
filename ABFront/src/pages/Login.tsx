@@ -48,8 +48,7 @@ function Login() {
     // sets logged back to true if the cookies are populated & the state has been lost due to some page refresh
     if (email!==false && token!==false) dispatch(setCredentials({email, token}))
     if (logged === true) navigate("/user")
-  },
-  [logged])
+  }, [logged])
 
   return (
   <div className='App'>
