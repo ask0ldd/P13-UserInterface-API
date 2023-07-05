@@ -37,8 +37,7 @@ function Login() {
       // !!! error validation message to help the user
       return false
     }
-    const results = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
-    console.log('logAttemptResult : ', results)
+    await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
   }
 
   // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile

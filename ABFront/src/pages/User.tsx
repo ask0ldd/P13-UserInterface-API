@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 import { getProfile } from "../redux/features/auth/authSlice"
 import { IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
+import Formatter from "../services/formaters"
 
 
 function User(){
@@ -26,8 +27,7 @@ function User(){
     useEffect(() => {
         if (logged === false) return navigate("/login")
         async function getUserProfile() {
-            const profileDatas = await dispatch(getProfile())
-            console.log(profileDatas)
+            await dispatch(getProfile())
         }
         getUserProfile()
     }, [logged]) // triggered after the first render and when the log value changes
@@ -36,8 +36,7 @@ function User(){
     useEffect(() => {
         async function getAccountsDatas() {
             // unwrap extract the payload out of the action
-            const accountsDatas = await dispatch(getAccountsStatements()).unwrap()
-            console.log(accountsDatas)
+            await dispatch(getAccountsStatements()).unwrap()
         }
         getAccountsDatas()
     }, [])
@@ -50,7 +49,7 @@ function User(){
         <div className='App'>
         <Header firstname={firstname}/>
         <main className='main-user'>
-            <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{firstname} {lastname}</span>}!</h1>
+            <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{Formatter.firstCharMaj(firstname)} {Formatter.firstCharMaj(lastname)}</span>}!</h1>
             <button className="edit-button" onClick={editName}>Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
             {accountsState.length > 0 && accountsState.map((account, index) => (<AccountStatement key={index} accountType={account.title} accountId={account.lastDigits} balance={account.amount} balanceStatus={account.amountDescription} mode="default"/>))}

@@ -3,7 +3,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API, ICredentials } from "../../../services/API";
 import cookiesManager from "../../../services/cookiesManager";
-// import { RootState } from "../../store";
 
 const initialState : authState = {
     logged : false,
@@ -15,10 +14,7 @@ const initialState : authState = {
     loading: 'idle'
 }
 
-// {state} = thunkAPI.state : accessing store state
-// export const getProfile = createAsyncThunk<IGetProfilePayloadResponse, {state: RootState}>('auth/getProfile', async ({state}) => {
 export const getProfile = createAsyncThunk('auth/getProfile', async (_, thunkAPI) => {
-    console.log("thunkapi : ", thunkAPI.getState())
     const { auth } = thunkAPI.getState() as { auth: authState }
     return auth.token != null ? await API.getProfile(auth.token) : {id : null, email : null, firstname : null, lastname : null}
 })
