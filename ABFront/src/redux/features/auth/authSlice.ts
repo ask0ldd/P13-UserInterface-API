@@ -74,7 +74,7 @@ export const authSlice = createSlice({
                 return {...state, loading : 'pending'}
             })
             .addCase(getProfile.fulfilled, (state, action) => {
-                // if(action.payload?.failed === true) return {...state, loading : 'idle'}
+                if(action.payload?.failed === true) return {...state, loading : 'idle'}
                 const {id, email, firstname, lastname,} = action.payload
                 return {...state, loading : 'idle', id, email, firstname, lastname}
             })
