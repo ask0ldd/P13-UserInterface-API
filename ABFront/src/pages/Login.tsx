@@ -9,13 +9,14 @@ import { setCredentials, logAttempt } from "../redux/features/auth/authSlice"
 import { useNavigate } from 'react-router-dom'
 import Validator from '../services/validators'
 import cookiesManager from '../services/cookiesManager'
+import { setLoginError } from '../redux/features/forms/formsSlice'
 
 function Login() {
 
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const rememberMeRef = useRef<HTMLInputElement>(null)
-  const errorIdentifiantsRef = useRef<HTMLInputElement>(null)
+  // const errorIdentifiantsRef = useRef<HTMLInputElement>(null)
 
   // assign to dispatch the dispatch method (typed version) from the store
   const dispatch = useTypedDispatch()
@@ -25,6 +26,7 @@ function Login() {
   // const logged : boolean = useSelector((state : RootState) => state.auth.user)
   // but can use useTypedSelector so the state doesn't have to be typed each time :
   const logged : boolean = useTypedSelector((state) => state.auth.logged)
+  const LoginFailedValidation : boolean = useTypedSelector((state) => state.forms.loginFailedValidation)
 
   async function submit(e : React.FormEvent<HTMLFormElement>){
 
@@ -33,10 +35,10 @@ function Login() {
     // if invalid email / password : abort submit process
     if(emailRef?.current?.value == null || passwordRef?.current?.value == null) return false
     if(!Validator.testEmail(emailRef.current.value) || !Validator.testPassword(passwordRef.current.value)) {
-      if(errorIdentifiantsRef.current != null) errorIdentifiantsRef.current.style.display = 'block'
-      // !!! error validation message to help the user
+      dispatch(setLoginError({hasValidationFailed : true}))
       return false
     }
+    dispatch(setLoginError({hasValidationFailed : false}))
     await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
   }
 
@@ -64,7 +66,7 @@ function Login() {
                     <input type='checkbox' id="remember-me" ref={rememberMeRef}/><label htmlFor="remember-me">Remember me</label>
                 </div>
                 <button className="login-button" type="submit">Sign In</button>
-                <p ref={errorIdentifiantsRef}>Identifiants Invalides.</p>
+                {LoginFailedValidation && <div style={{color:'red', height:'40px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Identifiants Invalides.</div>}
             </form>
         </section>
     </main>

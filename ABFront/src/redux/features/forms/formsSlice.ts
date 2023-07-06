@@ -16,8 +16,8 @@ export const formsSlice = createSlice({
             return initialState
         },
         setLoginError : (state, action) => {
-            const { errorBoolean } = action.payload
-            return {...state, loginError : errorBoolean}
+            const { hasValidationFailed } = action.payload
+            return {...state, loginFailedValidation : hasValidationFailed}
         },
         setEditNamesError : (state, action) => {
             const { hasValidationFailed } = action.payload
