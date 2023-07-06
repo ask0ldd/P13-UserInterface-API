@@ -3,8 +3,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState : formsState = {
-    loginError : false,
-    editNamesError : false,
+    loginFailedValidation : false,
+    editNamesFailedValidation : false,
 }
 
 export const formsSlice = createSlice({
@@ -20,8 +20,8 @@ export const formsSlice = createSlice({
             return {...state, loginError : errorBoolean}
         },
         setEditNamesError : (state, action) => {
-            const { errorBoolean } = action.payload
-            return {...state, editNamesError : errorBoolean}
+            const { hasValidationFailed } = action.payload
+            return {...state, editNamesFailedValidation : hasValidationFailed}
         },
     },
 })
@@ -31,6 +31,6 @@ export const {setLoginError, setEditNamesError, reset} = formsSlice.actions
 export default formsSlice.reducer
 
 interface formsState{
-    loginError : boolean
-    editNamesError : boolean
+    loginFailedValidation : boolean
+    editNamesFailedValidation : boolean
 }

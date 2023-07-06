@@ -26,7 +26,7 @@ function EditName(){
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const token : string | null = useTypedSelector((state) => state.auth.token)
-    const editNamesValidationError : boolean = useTypedSelector((state) => state.forms.editNamesError)
+    const editNamesFailedValidation : boolean = useTypedSelector((state) => state.forms.editNamesFailedValidation)
 
     useEffect(() => {
         if (logged === false) navigate("/login")
@@ -37,7 +37,7 @@ function EditName(){
         e.stopPropagation()
 
         if(firstnameRef.current?.value == null || lastnameRef.current?.value == null) {
-            dispatch(setEditNamesError({errorBoolean : true}))
+            dispatch(setEditNamesError({hasValidationFailed : true}))
             return false
         }
 
@@ -45,11 +45,11 @@ function EditName(){
         const inputLastname = (lastnameRef.current.value).trim()
 
         if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname) || token == null) {
-            dispatch(setEditNamesError({errorBoolean : true}))
+            dispatch(setEditNamesError({hasValidationFailed : true}))
             return false
         }
 
-        dispatch(setEditNamesError({errorBoolean : false}))
+        dispatch(setEditNamesError({hasValidationFailed : false}))
         await dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
         navigate("/user")
     }
@@ -68,7 +68,7 @@ function EditName(){
                     <input ref={firstnameRef} type="text" defaultValue={firstname != null ? firstname : undefined}/>
                     <input ref={lastnameRef} type="text" defaultValue={lastname != null ? lastname : undefined}/>
                 </div>
-                {editNamesValidationError && <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid or empty field.</div>}
+                {editNamesFailedValidation && <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid or empty field.</div>}
                 <div className="button-grp">
                     <button type="submit" id="save-button" className="edit-button">Save</button>
                     <button onClick={cancel} id="cancel-button" className="edit-button">Cancel</button>
