@@ -8,7 +8,7 @@ const initialState : formsState = {
 }
 
 export const formsSlice = createSlice({
-    name : 'forms', // this slice sub state will be reached through store.auth
+    name : 'forms', // this slice sub state will be reached through store.forms
     initialState,
     reducers : {
         // action : reducer fn
