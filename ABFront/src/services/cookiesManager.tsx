@@ -12,12 +12,12 @@ const cookiesManager = {
 
     getToken : () => {   
         const token = document.cookie.split('; ').find((cookie) => cookie.startsWith('token='))?.split('=')[1]
-        return token !== undefined ? token : false
+        return token !== undefined ? token : null
     },
 
     getEmail : () => {   
         const email = document.cookie.split('; ').find((cookie) => cookie.startsWith('email='))?.split('=')[1]
-        return email !== undefined ? email : false
+        return email !== undefined ? email : null
     }
 }
 

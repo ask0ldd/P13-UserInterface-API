@@ -16,12 +16,12 @@ export const formsSlice = createSlice({
             return initialState
         },
         setLoginError : (state, action) => {
-            const { hasValidationFailed } = action.payload
-            return {...state, loginFailedValidation : hasValidationFailed}
+            if(action.payload.hasValidationFailed == null) return {...state}
+            return {...state, loginFailedValidation : action.payload.hasValidationFailed}
         },
         setEditNamesError : (state, action) => {
-            const { hasValidationFailed } = action.payload
-            return {...state, editNamesFailedValidation : hasValidationFailed}
+            if(action.payload.hasValidationFailed == null) return {...state}
+            return {...state, editNamesFailedValidation : action.payload.hasValidationFailed}
         },
     },
 })

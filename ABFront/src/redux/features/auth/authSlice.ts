@@ -81,6 +81,7 @@ export const authSlice = createSlice({
                 return {...state, loading : 'pending'}
             })
             .addCase(updateNames.fulfilled, (state, action) => {
+                // add error tracing
                 const {id, email, firstname, lastname} = action.payload
                 return {...state, loading : 'idle', id, email, firstname, lastname}
             })
