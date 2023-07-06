@@ -66,18 +66,18 @@ export class API{
                 const email = userDatas.body.email
                 const firstname = userDatas.body.firstName
                 const lastname = userDatas.body.lastName
-                return {id, email, firstname, lastname, failed : false}
+                return {datas : {id, email, firstname, lastname}, failed : false}
             }
             else
             {
                 console.log(response.statusText)
-                return {...blankGetProfileResponse, failed : true}
+                return {datas : {...blankGetProfileResponse}, failed : true}
             }
         }
         catch
         {
             console.error("Service Unavailable. Retry Later.")
-            return {...blankGetProfileResponse, failed : true}
+            return {datas : {...blankGetProfileResponse}, failed : true}
         }
     }
 

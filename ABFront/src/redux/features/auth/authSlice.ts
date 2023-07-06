@@ -19,7 +19,7 @@ export const getProfile = createAsyncThunk('auth/getProfile', async (_, thunkAPI
     const { auth } = thunkAPI.getState() as { auth: authState }
     // get user's profile datas only if connected
     return auth.token != null ? await API.getProfile(auth.token) 
-        : {id : null, email : null, firstname : null, lastname : null, failed : true}
+        : {datas : {id : null, email : null, firstname : null, lastname : null}, failed : true}
 })
     
 // Thunk executing a log attempt & setting up some cookies if successful
@@ -75,7 +75,7 @@ export const authSlice = createSlice({
             })
             .addCase(getProfile.fulfilled, (state, action) => {
                 if(action.payload?.failed === true) return {...state, loading : 'idle'}
-                const {id, email, firstname, lastname,} = action.payload
+                const {id, email, firstname, lastname} = action.payload.datas
                 return {...state, loading : 'idle', id, email, firstname, lastname}
             })
             .addCase(getProfile.rejected, (state) => {
