@@ -35,7 +35,7 @@ export const updateNames = createAsyncThunk('auth/updateNames', async (arg : IPa
     const { auth } = thunkAPI.getState() as { auth: authState }
     // update user's names only if connected
     return auth.token != null ? await API.updateNames({firstName : arg.firstName, lastName : arg.lastName}, auth.token) 
-        : {id : null, email : null, firstname : null, lastname : null, failed : true}
+        : {datas : {id : null, email : null, firstname : null, lastname : null}, failed : true}
 })
 
 export const authSlice = createSlice({
@@ -87,7 +87,7 @@ export const authSlice = createSlice({
             })
             .addCase(updateNames.fulfilled, (state, action) => {
                 if(action.payload?.failed === true) return {...state, loading : 'idle'}
-                const {id, email, firstname, lastname} = action.payload
+                const {id, email, firstname, lastname} = action.payload.datas
                 return {...state, loading : 'idle', id, email, firstname, lastname}
             })
             .addCase(updateNames.rejected, (state) => {
