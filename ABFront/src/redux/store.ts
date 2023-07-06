@@ -1,14 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
-//import { PayloadAction } from "@reduxjs/toolkit"
 import authReducer from './features/auth/authSlice'
 import accountsReducer from './features/accounts/accountsSlice'
-// import mockAccountsAPIReducer from './features/api/mockAccountsAPISlice'
 
 export const store = configureStore({
     reducer: {
       auth : authReducer,
       accounts : accountsReducer,
-      /*api : mockAccountsAPIReducer,*/
     },
     devTools : true,
   })

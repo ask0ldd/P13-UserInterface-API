@@ -11,7 +11,7 @@ export default class Validator{
     }
 
     static testPassword(value: string) : boolean {
-        const passwordRegex = /^[a-zA-Z0-9*.!@#$%^&(){}:;,._]{2,}$/
+        const passwordRegex = /^[a-zA-Z0-9*.!@#$%^&(){}:;,._]{6,}$/
         return passwordRegex.test(value.trim())
     }
 }

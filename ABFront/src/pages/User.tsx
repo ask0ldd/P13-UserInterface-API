@@ -23,16 +23,14 @@ function User(){
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
 
-    // get the user's profile datas out of the USERS API
+    // get the user's profile datas out of the provided API
     useEffect(() => {
         if (logged === false) return navigate("/login")
-        async function getUserProfile() {
-            await dispatch(getProfile())
-        }
+        async function getUserProfile() { await dispatch(getProfile()) }
         getUserProfile()
     }, [logged]) // triggered after the first render and when the log value changes
 
-    // get the accounts datas from the mock ACCOUNTS API and set them to the accounts state
+    // get the accounts datas from the mockAPI
     useEffect(() => {
         async function getAccountsDatas() {
             // unwrap extract the payload out of the action

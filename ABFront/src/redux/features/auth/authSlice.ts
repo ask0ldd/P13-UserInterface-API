@@ -14,28 +14,31 @@ const initialState : authState = {
     loading: 'idle'
 }
 
+// Thunk retrieving the active user's profile
 export const getProfile = createAsyncThunk('auth/getProfile', async (_, thunkAPI) => {
     const { auth } = thunkAPI.getState() as { auth: authState }
     return auth.token != null ? await API.getProfile(auth.token) : {id : null, email : null, firstname : null, lastname : null}
 })
     
+// Thunk executing a log attempt & setting up some cookies if successful
 export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : ICredentials) => {
     const response = await API.login(logCredentials)
-    // set cookies so user connection isn't lost when the page is refreshed
+    // set cookies so user connection isn't lost when the page is refreshed / the state is emptied
     if(response.token != null && logCredentials.persistent) cookiesManager.setAuthCookies(logCredentials.email, response.token)
     return response
 })
 
+// Thunk updating the user's names in DB (through the existing API)
 export const updateNames = createAsyncThunk('auth/updateNames', async (arg : IParamUpdateNames, thunkAPI) => {
     const { auth } = thunkAPI.getState() as { auth: authState }
     return auth.token != null ? await API.updateNames({firstName : arg.firstName, lastName : arg.lastName}, auth.token) : {id : null, email : null, firstname : null, lastname : null}
 })
 
 export const authSlice = createSlice({
-    name : 'auth', // => slice state will be reached through store.auth
+    name : 'auth', // this slice sub state will be reached through store.auth
     initialState,
     reducers : {
-        // action : reducer
+        // action : reducer fn
         reset : () => {
             return initialState
         },
@@ -49,7 +52,7 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // log
+            // log life cycle
             .addCase(logAttempt.pending, (state) => {
                 return {...state, loading : 'pending'}
             })
@@ -60,7 +63,7 @@ export const authSlice = createSlice({
             .addCase(logAttempt.rejected, (state) => {
                 return {...state, loading : 'idle'}
             })
-            // get profile
+            // get profile life cycle
             .addCase(getProfile.pending, (state) => {
                 return {...state, loading : 'pending'}
             })
@@ -71,7 +74,7 @@ export const authSlice = createSlice({
             .addCase(getProfile.rejected, (state) => {
                 return {...state, loading : 'idle'}
             })
-            // update names
+            // update names life cycle
             .addCase(updateNames.pending, (state) => {
                 return {...state, loading : 'pending'}
             })

@@ -7,7 +7,7 @@ import '../style/EditName.css'
 import AccountStatement from "../components/AccountStatement"
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { useNavigate } from "react-router-dom"
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { updateNames } from "../redux/features/auth/authSlice"
 import Validator from "../services/validators"
 
@@ -29,18 +29,27 @@ function EditName(){
         if (logged === false) navigate("/login")
     }, [logged])
 
+    const [validationError, setValidationError] = useState<boolean>(false)
+
     async function submit(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         e.stopPropagation()
 
-        if(firstnameRef.current?.value == null || lastnameRef.current?.value == null) return false
+        if(firstnameRef.current?.value == null || lastnameRef.current?.value == null) {
+            setValidationError(true)
+            return false
+        }
 
         const inputFirstname = (firstnameRef.current.value).trim()
         const inputLastname = (lastnameRef.current.value).trim()
 
         // !!! needs to display an error
-        if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname) || token == null) return false
+        if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname) || token == null) {
+            setValidationError(true)
+            return false
+        }
 
+        setValidationError(false)
         await dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
         // deal with errors
         navigate("/user")
@@ -60,6 +69,7 @@ function EditName(){
                     <input ref={firstnameRef} type="text" defaultValue={firstname != null ? firstname : undefined}/>
                     <input ref={lastnameRef} type="text" defaultValue={lastname != null ? lastname : undefined}/>
                 </div>
+                {validationError && <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid or empty field.</div>}
                 <div className="button-grp">
                     <button type="submit" id="save-button" className="edit-button">Save</button>
                     <button onClick={cancel} id="cancel-button" className="edit-button">Cancel</button>

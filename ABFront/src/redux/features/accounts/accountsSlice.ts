@@ -8,13 +8,14 @@ const initialState : IAccountsState = {
     loading: 'idle'
 }
 
+// Thunk retrieving the active user's accounts statements through the mockAPI
 export const getAccountsStatements = createAsyncThunk('api/getAccountsStatements', async () => {
     // Mocking the endpoints that don't need to be implemented yet
     return await MockAPIAccounts.getAccounts()
 })
 
 export const accountsSlice = createSlice({
-    name : 'accounts', // so slice state will be reached through store.accounts
+    name : 'accounts', // this slice sub state will be reached through store.accounts
     initialState,
     reducers : {
     },

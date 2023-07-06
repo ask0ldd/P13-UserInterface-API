@@ -30,7 +30,7 @@ function Login() {
 
     e.preventDefault()
     e.stopPropagation()
-    // if invalid email / password : abort
+    // if invalid email / password : abort submit process
     if(emailRef?.current?.value == null || passwordRef?.current?.value == null) return false
     if(!Validator.testEmail(emailRef.current.value) || !Validator.testPassword(passwordRef.current.value)) {
       if(errorIdentifiantsRef.current != null) errorIdentifiantsRef.current.style.display = 'block'
@@ -42,8 +42,7 @@ function Login() {
 
   // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile
   useEffect(()=> {
-    const email = cookiesManager.getEmail()
-    const token = cookiesManager.getToken()
+    const {email, token} = {email : cookiesManager.getEmail(), token : cookiesManager.getToken()}
     // sets logged back to true if the cookies are populated & the state has been lost due to some page refresh
     if (email!==false && token!==false) dispatch(setCredentials({email, token}))
     if (logged === true) navigate("/user")
