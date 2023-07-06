@@ -17,7 +17,9 @@ const initialState : authState = {
 // Thunk retrieving the active user's profile
 export const getProfile = createAsyncThunk('auth/getProfile', async (_, thunkAPI) => {
     const { auth } = thunkAPI.getState() as { auth: authState }
-    return auth.token != null ? await API.getProfile(auth.token) : {id : null, email : null, firstname : null, lastname : null}
+    // get user's profile datas only if connected
+    return auth.token != null ? await API.getProfile(auth.token) 
+        : {id : null, email : null, firstname : null, lastname : null, failed : true}
 })
     
 // Thunk executing a log attempt & setting up some cookies if successful
@@ -31,7 +33,9 @@ export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredenti
 // Thunk updating the user's names in DB (through the existing API)
 export const updateNames = createAsyncThunk('auth/updateNames', async (arg : IParamUpdateNames, thunkAPI) => {
     const { auth } = thunkAPI.getState() as { auth: authState }
-    return auth.token != null ? await API.updateNames({firstName : arg.firstName, lastName : arg.lastName}, auth.token) : {id : null, email : null, firstname : null, lastname : null}
+    // update user's names only if connected
+    return auth.token != null ? await API.updateNames({firstName : arg.firstName, lastName : arg.lastName}, auth.token) 
+        : {id : null, email : null, firstname : null, lastname : null, failed : true}
 })
 
 export const authSlice = createSlice({
@@ -58,7 +62,7 @@ export const authSlice = createSlice({
             })
             .addCase(logAttempt.fulfilled, (state, action) => {
                 // fullfiled doesn't mean the login attempt succeeded
-                if(action.payload.failed === true) return {...state, loading : 'idle', email : null, token : null}
+                if(action.payload?.failed === true) return {...state, loading : 'idle'}
                 const { email, token } = action.payload
                 return {...state, loading : 'idle', logged : true, email, token}
             })
@@ -70,7 +74,8 @@ export const authSlice = createSlice({
                 return {...state, loading : 'pending'}
             })
             .addCase(getProfile.fulfilled, (state, action) => {
-                const {id, email, firstname, lastname} = action.payload
+                // if(action.payload?.failed === true) return {...state, loading : 'idle'}
+                const {id, email, firstname, lastname,} = action.payload
                 return {...state, loading : 'idle', id, email, firstname, lastname}
             })
             .addCase(getProfile.rejected, (state) => {
@@ -81,7 +86,7 @@ export const authSlice = createSlice({
                 return {...state, loading : 'pending'}
             })
             .addCase(updateNames.fulfilled, (state, action) => {
-                // add error tracing
+                if(action.payload?.failed === true) return {...state, loading : 'idle'}
                 const {id, email, firstname, lastname} = action.payload
                 return {...state, loading : 'idle', id, email, firstname, lastname}
             })

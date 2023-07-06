@@ -102,18 +102,18 @@ export class API{
             if(response.ok && response.status === 200)
             {
                 const userDatas = await response.json()
-                return {id : userDatas.body.id, email : userDatas.body.email, firstname : firstName, lastname : lastName}
+                return {id : userDatas.body.id, email : userDatas.body.email, firstname : firstName, lastname : lastName, failed : false}
             }
             else
             {
                 console.log(response.statusText)
-                return blankUpdatesNamesReponse
+                return {...blankUpdatesNamesReponse, failed : true}
             }
         }
         catch
         {
             console.error("Service Unavailable. Retry Later.")
-            return blankUpdatesNamesReponse
+            return {...blankUpdatesNamesReponse, failed : true}
         }
     }
 
