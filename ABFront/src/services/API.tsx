@@ -33,18 +33,18 @@ export class API{
             {
                 const userDatas = await response.json()
                 const token = userDatas.body.token
-                return {email: email, token: token}
+                return {email: email, token: token, failed : false}
             }
             else
             {
                 console.log(response.statusText)
-                return blankLoginResponse
+                return {...blankLoginResponse, failed : true}
             }
         }
         catch(error)
         {
             console.error("Service Unavailable. Retry Later.")
-            return blankLoginResponse
+            return {...blankLoginResponse, failed : true}
         }
     }
 
