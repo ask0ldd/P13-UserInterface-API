@@ -26,7 +26,7 @@ export const getProfile = createAsyncThunk('auth/getProfile', async (_, thunkAPI
 export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : ICredentials) => {
     const response = await API.login(logCredentials)
     // set cookies so user connection isn't lost when the page is refreshed / the state is emptied
-    if(response.token != null && response.failed === false && logCredentials.persistent) cookiesManager.setAuthCookies(logCredentials.email, response.token)
+    if(response.datas.token != null && response.failed === false && logCredentials.persistent) cookiesManager.setAuthCookies(logCredentials.email, response.datas.token)
     return response
 })
 
@@ -63,7 +63,7 @@ export const authSlice = createSlice({
             .addCase(logAttempt.fulfilled, (state, action) => {
                 // fullfiled doesn't mean the login attempt succeeded
                 if(action.payload?.failed === true) return {...state, loading : 'idle'}
-                const { email, token } = action.payload
+                const { email, token } = action.payload.datas
                 return {...state, loading : 'idle', logged : true, email, token}
             })
             .addCase(logAttempt.rejected, (state) => {

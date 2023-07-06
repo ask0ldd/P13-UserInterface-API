@@ -1,6 +1,3 @@
-// import store from "../redux/store" 
-// base of the cycling dependencies
-
 export interface ICredentials {
     email : string
     password : string
@@ -33,18 +30,19 @@ export class API{
             {
                 const userDatas = await response.json()
                 const token = userDatas.body.token
-                return {email: email, token: token, failed : false}
+                // should be : {datas : {email: email, token: token}, failed : false} ? in case of the api returning a failed prop
+                return {datas : {email: email, token: token}, failed : false} 
             }
             else
             {
                 console.log(response.statusText)
-                return {...blankLoginResponse, failed : true}
+                return {datas : {...blankLoginResponse}, failed : true}
             }
         }
         catch(error)
         {
             console.error("Service Unavailable. Retry Later.")
-            return {...blankLoginResponse, failed : true}
+            return {datas : {...blankLoginResponse}, failed : true}
         }
     }
 
