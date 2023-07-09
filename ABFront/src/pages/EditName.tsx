@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars*/
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -36,7 +34,9 @@ function EditName(){
         e.preventDefault()
         e.stopPropagation()
 
+        // firstname / lastname fields : empty ?
         if(firstnameRef.current?.value == null || lastnameRef.current?.value == null) {
+            // display error message on page
             dispatch(setEditNamesError({hasValidationFailed : true}))
             return false
         }
@@ -44,11 +44,14 @@ function EditName(){
         const inputFirstname = (firstnameRef.current.value).trim()
         const inputLastname = (lastnameRef.current.value).trim()
 
+        // firstname / lastname values : incorrect format ?
         if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname) || token == null) {
+            // display error message on page
             dispatch(setEditNamesError({hasValidationFailed : true}))
             return false
         }
 
+        // no error message displayed
         dispatch(setEditNamesError({hasValidationFailed : false}))
         await dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
         navigate("/user")

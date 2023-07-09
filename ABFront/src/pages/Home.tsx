@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import '../style/App.css'
 import Footer from '../components/Footer'
 import Header from '../components/Header'

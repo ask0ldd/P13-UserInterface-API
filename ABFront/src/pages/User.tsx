@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars*/
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import '../style/User.css'
@@ -23,9 +21,10 @@ function User(){
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
 
-    // get the user's profile datas out of the provided API
     useEffect(() => {
+        // if not logged
         if (logged === false) return navigate("/login")
+        // else : get the user's profile datas out of the provided API
         async function getUserProfile() { await dispatch(getProfile()) }
         getUserProfile()
     }, [logged]) // triggered after the first render and when the log value changes

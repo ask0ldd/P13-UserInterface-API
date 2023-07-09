@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars*/
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API, ICredentials } from "../../../services/API";
 import cookiesManager from "../../../services/cookiesManager";
@@ -39,7 +37,7 @@ export const updateNames = createAsyncThunk('auth/updateNames', async (arg : IPa
 })
 
 export const authSlice = createSlice({
-    name : 'auth', // this slice sub state will be reached through store.auth
+    name : 'auth',
     initialState,
     reducers : {
         // action : reducer fn
@@ -56,7 +54,7 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // log life cycle
+            // log request life cycle
             .addCase(logAttempt.pending, (state) => {
                 return {...state, loading : 'pending'}
             })
@@ -69,7 +67,7 @@ export const authSlice = createSlice({
             .addCase(logAttempt.rejected, (state) => {
                 return {...state, loading : 'idle'}
             })
-            // get profile life cycle
+            // get profile request life cycle
             .addCase(getProfile.pending, (state) => {
                 return {...state, loading : 'pending'}
             })
@@ -81,7 +79,7 @@ export const authSlice = createSlice({
             .addCase(getProfile.rejected, (state) => {
                 return {...state, loading : 'idle'}
             })
-            // update names life cycle
+            // update names request life cycle
             .addCase(updateNames.pending, (state) => {
                 return {...state, loading : 'pending'}
             })

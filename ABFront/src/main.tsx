@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-// import App from './App.tsx'
 import './index.css'
 import CustomRouter from './components/CustomRouter.tsx'
 import { store } from './redux/store.ts'

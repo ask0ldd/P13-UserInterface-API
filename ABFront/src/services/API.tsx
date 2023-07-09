@@ -1,14 +1,3 @@
-export interface ICredentials {
-    email : string
-    password : string
-    persistent : boolean
-}
-
-export interface INames {
-    firstName : string
-    lastName : string
-}
-
 const api = "http://127.0.0.1:3001/api/v1/"
 
 export class API{
@@ -30,7 +19,6 @@ export class API{
             {
                 const userDatas = await response.json()
                 const token = userDatas.body.token
-                // should be : {datas : {email: email, token: token}, failed : false} ? in case of the api returning a failed prop
                 return {datas : {email: email, token: token}, failed : false} 
             }
             else
@@ -126,10 +114,24 @@ export class MockAPIAccounts{
                 const accountDatas = await response.json()
                 return accountDatas
             }
+            else{
+                return []
+            }
         }
         catch(error){
             console.log(error)
             return []
         }
     }
+}
+
+export interface ICredentials {
+    email : string
+    password : string
+    persistent : boolean
+}
+
+export interface INames {
+    firstName : string
+    lastName : string
 }

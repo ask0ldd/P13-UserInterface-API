@@ -5,7 +5,7 @@ import formsReducer from './features/forms/formsSlice'
 
 export const store = configureStore({
     reducer: {
-      auth : authReducer,
+      auth : authReducer, // access this subState through store.auth
       accounts : accountsReducer,
       forms : formsReducer
     },
