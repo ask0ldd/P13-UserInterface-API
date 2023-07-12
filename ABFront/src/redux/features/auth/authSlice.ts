@@ -9,7 +9,8 @@ const initialState : authState = {
     firstname : null,
     lastname : null,
     token : null,
-    loading: 'idle'
+    loading : 'idle',
+    persistentConnection : false,
 }
 
 // Thunk retrieving the active user's profile
@@ -25,7 +26,7 @@ export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredenti
     const response = await API.login(logCredentials)
     // !!! extract from thunk ? set cookies so user connection isn't lost when the page is refreshed / the state is emptied
     // if(response.datas.token != null && response.failed === false && logCredentials.persistent) cookiesManager.setAuthCookies(logCredentials.email, response.datas.token)
-    return response
+    return {...response, persistentConnection : logCredentials.persistent}
 })
 
 // Thunk updating the user's names in DB (through the existing API)
@@ -62,7 +63,8 @@ export const authSlice = createSlice({
                 // fullfiled doesn't mean the login attempt succeeded
                 if(action.payload?.failed === true) return {...state, loading : 'idle'}
                 const { email, token } = action.payload.datas
-                return {...state, loading : 'idle', logged : true, email, token}
+                const persistentConnection  = action.payload.persistentConnection
+                return {...state, loading : 'idle', logged : true, email, token, persistentConnection}
             })
             .addCase(logAttempt.rejected, (state) => {
                 return {...state, loading : 'idle'}
@@ -106,6 +108,7 @@ interface authState {
     lastname : string | null
     token : string | null
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+    persistentConnection : boolean
 }
 
 interface IParamUpdateNames{
