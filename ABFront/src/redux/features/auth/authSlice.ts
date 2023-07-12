@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API, ICredentials } from "../../../services/API";
-import cookiesManager from "../../../services/cookiesManager";
+// import cookiesManager from "../../../services/cookiesManager";
 
 const initialState : authState = {
     logged : false,
@@ -24,7 +24,7 @@ export const getProfile = createAsyncThunk('auth/getProfile', async (_, thunkAPI
 export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : ICredentials) => {
     const response = await API.login(logCredentials)
     // !!! extract from thunk ? set cookies so user connection isn't lost when the page is refreshed / the state is emptied
-    if(response.datas.token != null && response.failed === false && logCredentials.persistent) cookiesManager.setAuthCookies(logCredentials.email, response.datas.token)
+    // if(response.datas.token != null && response.failed === false && logCredentials.persistent) cookiesManager.setAuthCookies(logCredentials.email, response.datas.token)
     return response
 })
 

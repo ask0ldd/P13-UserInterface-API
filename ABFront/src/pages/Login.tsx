@@ -23,7 +23,6 @@ function Login() {
 
   const navigate = useNavigate()
 
-  // const logged : boolean = useSelector((state : RootState) => state.auth.user)
   // but can use useTypedSelector so the state doesn't have to be typed each time :
   const logged : boolean = useTypedSelector((state) => state.auth.logged)
   const LoginFailedValidation : boolean = useTypedSelector((state) => state.forms.loginFailedValidation)
@@ -45,12 +44,12 @@ function Login() {
     }
     // login attempt
     const response = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
-    // dealing with failed login attempt
+    // failure
     if (response?.failed === true) {
       dispatch(setLoginError({hasValidationFailed : true}))
       return false
     }
-    // login successful
+    // success
     return dispatch(setLoginError({hasValidationFailed : false}))
   }
 
