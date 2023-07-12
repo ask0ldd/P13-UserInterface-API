@@ -23,7 +23,7 @@ export const getProfile = createAsyncThunk('auth/getProfile', async (_, thunkAPI
 // Thunk executing a log attempt & setting up some cookies if successful
 export const logAttempt = createAsyncThunk('auth/logAttempt', async (logCredentials : ICredentials) => {
     const response = await API.login(logCredentials)
-    // set cookies so user connection isn't lost when the page is refreshed / the state is emptied
+    // !!! extract from thunk ? set cookies so user connection isn't lost when the page is refreshed / the state is emptied
     if(response.datas.token != null && response.failed === false && logCredentials.persistent) cookiesManager.setAuthCookies(logCredentials.email, response.datas.token)
     return response
 })
