@@ -42,7 +42,8 @@ function Login() {
       dispatch(setLoginError({hasValidationFailed : true}))
       return false
     }
-    // login attempt
+    // login attempt 
+    // asyncthunk => unwrap (rtk) : action.payload
     const response = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
     // failure
     if (response?.failed === true) {
