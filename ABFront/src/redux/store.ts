@@ -15,7 +15,9 @@ export const store = configureStore({
 
 store.subscribe(() => {
   const currentState = store.getState()
-  if(currentState.auth.token != null && currentState.auth.email != null && cookiesManager.getToken() == null && cookiesManager.getEmail() == null && currentState.auth.persistentConnection) 
+  if(currentState.auth.token != null && currentState.auth.email != null 
+  && cookiesManager.getToken() == null && cookiesManager.getEmail() == null 
+  && currentState.auth.persistentConnection) 
     cookiesManager.setAuthCookies(currentState.auth.email, currentState.auth.token)
 })
 
