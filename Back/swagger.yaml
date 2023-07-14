@@ -103,36 +103,6 @@ paths:
           description: Invalid Transaction ID
         "404":
           description: Transaction not found
-  /transaction:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: Post a new Transaction
-      description: Endpoint used to post a new Transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: body
-          name: body
-          description: Signup Payload
-          required: true
-          schema:
-            $ref: "#/definitions/Transaction"
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: Transaction created successully
-          schema:
-            $ref: "#/definitions/TransactionApiResponse"
-        "405":
-          description: Invalid Input / Transaction Datas
-        "500":
-          description: Internal Server Error
     put:
       security:
         - Bearer: []
@@ -145,9 +115,16 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+        - in: path
+          name: transactionId
+          schema:
+            type: number
+            minimum: 1
+          required: true
+          description: ID of the target transaction
         - in: body
           name: body
-          description: Signup Payload
+          description: Transaction Datas
           required: true
           schema:
             $ref: "#/definitions/Transaction"
@@ -164,6 +141,36 @@ paths:
           description: Transaction not found
         "405":
           description: Validation Exception
+        "500":
+          description: Internal Server Error
+  /transaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Post a new Transaction
+      description: Endpoint used to post a new Transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Transaction Datas
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction created successully
+          schema:
+            $ref: "#/definitions/TransactionApiResponse"
+        "405":
+          description: Invalid Input / Transaction Datas
         "500":
           description: Internal Server Error
   /user/login:
