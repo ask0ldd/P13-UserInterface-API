@@ -104,9 +104,9 @@ paths:
         "404":
           description: Transaction not found
   /transaction:
-    security:
-      - Bearer: []
     post:
+      security:
+        - Bearer: []
       tags:
         - Transaction Module
       summary: Post a new Transaction

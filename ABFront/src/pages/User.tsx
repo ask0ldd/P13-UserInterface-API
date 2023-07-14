@@ -23,7 +23,7 @@ function User(){
 
     useEffect(() => {
         // if not logged
-        if (logged === false) return navigate("/login")
+        if (logged === false) return navigate("/")
         // else : get the user's profile datas out of the provided API
         async function getUserProfile() { dispatch(getProfile()) }
         getUserProfile()

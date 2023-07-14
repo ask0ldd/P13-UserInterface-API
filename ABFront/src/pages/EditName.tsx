@@ -26,7 +26,7 @@ function EditName(){
 
 
     useEffect(() => {
-        if (logged === false) navigate("/login")
+        if (logged === false) navigate("/")
     }, [logged])
 
 
@@ -54,12 +54,12 @@ function EditName(){
         // no error message displayed + update names through the API
         dispatch(setEditNamesError({hasValidationFailed : false}))
         dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
-        navigate("/user")
+        navigate("/profile")
     }
 
 
     function cancelEditNames(){
-        navigate("/user")
+        navigate("/profile")
     }
 
     

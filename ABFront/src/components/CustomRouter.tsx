@@ -11,7 +11,7 @@ function CustomRouter() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/user" element={<User />} />
+                <Route path="/profile" element={<User />} />
                 <Route path="/editname" element={<EditName />} />
             </Routes>
         </Router>

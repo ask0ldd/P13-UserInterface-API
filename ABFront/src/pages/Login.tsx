@@ -54,7 +54,7 @@ function Login() {
     const {cookieEmailValue, cookieTokenValue} = {cookieEmailValue : cookiesManager.getEmail(), cookieTokenValue : cookiesManager.getToken()}
     // sets logged back to true if the cookies are populated & the state has been lost due to some page refresh
     if (cookieEmailValue!==null && cookieTokenValue!==null) dispatch(setCredentials({email : cookieEmailValue, token : cookieTokenValue}))
-    if (logged === true) navigate("/user")
+    if (logged === true) navigate("/profile")
   }, [logged])
 
 
