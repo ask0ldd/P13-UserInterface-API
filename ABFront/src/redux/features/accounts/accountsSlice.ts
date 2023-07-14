@@ -13,7 +13,7 @@ export const getAccountsStatements = createAsyncThunk('api/getAccountsStatements
 })
 
 export const accountsSlice = createSlice({
-    name : 'accounts', // this slice sub state will be reached through store.accounts
+    name : 'accounts',
     initialState,
     reducers : {
     },

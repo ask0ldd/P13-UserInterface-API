@@ -51,7 +51,7 @@ function EditName(){
             return false
         }
 
-        // no error message displayed
+        // no error message displayed + update names through the API
         dispatch(setEditNamesError({hasValidationFailed : false}))
         await dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
         navigate("/user")
@@ -74,12 +74,12 @@ function EditName(){
                 {editNamesFailedValidation && <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid or empty field.</div>}
                 <div className="button-grp">
                     <button type="submit" id="save-button" className="edit-button">Save</button>
-                    <button onClick={cancel} id="cancel-button" className="edit-button">Cancel</button>
+                    <button type="button" onClick={cancel} id="cancel-button" className="edit-button">Cancel</button>
                 </div>
             </form>
             <h2 className="sr-only">Accounts</h2>
-            <AccountStatement accountType="Checking" accountId="x8349" balance="2,082.79" balanceStatus="Available Balance" mode="edit"/>
-            <AccountStatement accountType="Savings" accountId="x6712" balance="10,928.42" balanceStatus="Available Balance" mode="edit"/>
+            <AccountStatement accountType="Checking" accountId="x8349" balance="2082.79" balanceStatus="Available Balance" mode="edit"/>
+            <AccountStatement accountType="Savings" accountId="x6712" balance="10928.42" balanceStatus="Available Balance" mode="edit"/>
             <AccountStatement accountType="Credit Card" accountId="x8349" balance="184.30" balanceStatus="Current Balance" mode="edit"/>
         </main>
         <Footer/>

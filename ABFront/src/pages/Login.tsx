@@ -47,7 +47,7 @@ function Login() {
     const response = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
     // failure
     if (response?.failed === true) {
-      dispatch(setLoginError({hasValidationFailed : true}))
+      dispatch(setLoginError({hasValidationFailed : true})) /* !!! should implement another error message when api is failing */
       return false
     }
     // success

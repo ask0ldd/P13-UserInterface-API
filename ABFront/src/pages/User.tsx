@@ -16,7 +16,7 @@ function User(){
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
 
-    const logged : boolean = useTypedSelector((state) => state.auth.logged) // logged or just checking token ?
+    const logged : boolean = useTypedSelector((state) => state.auth.logged) // !!! get rid of logged and check token ?
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
@@ -39,7 +39,7 @@ function User(){
     }, [])
 
     function editName(){
-        if (logged === true && lastname != null && firstname != null) navigate("/editname") // user a navlink?
+        if (logged === true && lastname != null && firstname != null) navigate("/editname")
     }
 
     return(
