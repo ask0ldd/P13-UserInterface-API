@@ -23,7 +23,6 @@ function Login() {
 
   const navigate = useNavigate()
 
-  // but can use useTypedSelector so the state doesn't have to be typed each time :
   const logged : boolean = useTypedSelector((state) => state.auth.logged)
   const LoginFailedValidation : boolean = useTypedSelector((state) => state.forms.loginFailedValidation)
 
@@ -78,7 +77,8 @@ function Login() {
                     <input type='checkbox' id="remember-me" ref={rememberMeRef}/><label htmlFor="remember-me">Remember me</label>
                 </div>
                 <button className="login-button" type="submit">Sign In</button>
-                {LoginFailedValidation === true && <div style={{color:'red', height:'40px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Identifiants Invalides.</div>}
+                {LoginFailedValidation === true && 
+                  <div style={{color:'red', height:'40px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Identifiants Invalides.</div>}
             </form>
         </section>
     </main>

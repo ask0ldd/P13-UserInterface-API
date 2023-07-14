@@ -20,7 +20,7 @@ function EditName(){
     const firstnameRef = useRef<HTMLInputElement>(null)
     const lastnameRef = useRef<HTMLInputElement>(null)
 
-    const logged : boolean = useTypedSelector((state) => state.auth.logged) // logged or just checking token ?
+    const logged : boolean = useTypedSelector((state) => state.auth.logged)
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const token : string | null = useTypedSelector((state) => state.auth.token)
@@ -30,7 +30,7 @@ function EditName(){
         if (logged === false) navigate("/login")
     }, [logged])
 
-    async function submit(e : React.FormEvent<HTMLFormElement>){
+    async function submitEditNames(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         e.stopPropagation()
 
@@ -53,11 +53,11 @@ function EditName(){
 
         // no error message displayed + update names through the API
         dispatch(setEditNamesError({hasValidationFailed : false}))
-        await dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
+        dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
         navigate("/user")
     }
 
-    function cancel(){
+    function cancelEditNames(){
         navigate("/user")
     }
 
@@ -66,15 +66,16 @@ function EditName(){
         <Header firstname={firstname}/>
         <main className='edit-main-user'>
             <h1 className="h1-user">Welcome back</h1>
-            <form id="editnames-form" onSubmit={e => submit(e)}>
+            <form id="editnames-form" onSubmit={e => submitEditNames(e)}>
                 <div className="input-grp">
                     <input ref={firstnameRef} type="text" defaultValue={firstname != null ? firstname : undefined}/>
                     <input ref={lastnameRef} type="text" defaultValue={lastname != null ? lastname : undefined}/>
                 </div>
-                {editNamesFailedValidation && <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid or empty field.</div>}
+                {editNamesFailedValidation && 
+                    <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid or empty field.</div>}
                 <div className="button-grp">
                     <button type="submit" id="save-button" className="edit-button">Save</button>
-                    <button type="button" onClick={cancel} id="cancel-button" className="edit-button">Cancel</button>
+                    <button type="button" onClick={cancelEditNames} id="cancel-button" className="edit-button">Cancel</button>
                 </div>
             </form>
             <h2 className="sr-only">Accounts</h2>

@@ -105,7 +105,7 @@ export class API{
 
 }
 
-// Mock API serving the accounts datas used on the user's page
+// Mock Endpoint serving the accounts datas
 export class MockAPIAccounts{
     static async getAccounts(){
         try{

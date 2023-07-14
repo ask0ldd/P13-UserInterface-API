@@ -16,7 +16,7 @@ function User(){
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
 
-    const logged : boolean = useTypedSelector((state) => state.auth.logged) // !!! get rid of logged and check token ?
+    const logged : boolean = useTypedSelector((state) => state.auth.logged)
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
@@ -25,15 +25,14 @@ function User(){
         // if not logged
         if (logged === false) return navigate("/login")
         // else : get the user's profile datas out of the provided API
-        async function getUserProfile() { await dispatch(getProfile()) }
+        async function getUserProfile() { dispatch(getProfile()) }
         getUserProfile()
     }, [logged]) // triggered after the first render and when the log value changes
 
     // get the accounts datas from the mockAPI
     useEffect(() => {
         async function getAccountsDatas() {
-            // unwrap extract the payload out of the action
-            await dispatch(getAccountsStatements()).unwrap()
+            dispatch(getAccountsStatements())
         }
         getAccountsDatas()
     }, [])
@@ -49,7 +48,7 @@ function User(){
             <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{Formatter.firstCharMaj(firstname)} {Formatter.firstCharMaj(lastname)}</span>}!</h1>
             <button className="edit-button" onClick={editName}>Edit Name</button>
             <h2 className="sr-only">Accounts</h2>
-            {accountsState.length > 0 && accountsState.map((account, index) => (<AccountStatement key={index} accountType={account.title} accountId={account.lastDigits} balance={account.amount} balanceStatus={account.amountDescription} mode="default"/>))}
+            {accountsState?.length > 0 && accountsState?.map((account, index) => (<AccountStatement key={index} accountType={account.title} accountId={account.lastDigits} balance={account.amount} balanceStatus={account.amountDescription} mode="default"/>))}
         </main>
         <Footer/>
       </div>        

@@ -1,7 +1,6 @@
 class Formatter{
-    static amount(amount : string) : string {
+    static amountWithColons(amount : string) : string {
         const splitAmount = `${amount}`.split('.')
-        // splitAmount[0].replace(/(.{4})/g,",")
         const reversedIntPartWithColons = reverseString(splitAmount[0]).replace(new RegExp(`.{3}`, 'g'), '$&' + ',')
         const IntPartWithColons = reverseString(reversedIntPartWithColons)
         splitAmount[0] = IntPartWithColons.replace(/^,+|,+$/g, '')
@@ -13,8 +12,8 @@ class Formatter{
     }
 }
 
-export default Formatter
-
 function reverseString(str : string){
     return str.split('').reverse().join('')
 }
+
+export default Formatter
