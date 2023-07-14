@@ -10,7 +10,6 @@ import { getProfile } from "../redux/features/auth/authSlice"
 import { IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
 import Formatter from "../services/formaters"
 
-
 function User(){
 
     const dispatch = useTypedDispatch()
@@ -21,6 +20,7 @@ function User(){
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
 
+
     useEffect(() => {
         // if not logged
         if (logged === false) return navigate("/login")
@@ -28,6 +28,7 @@ function User(){
         async function getUserProfile() { dispatch(getProfile()) }
         getUserProfile()
     }, [logged]) // triggered after the first render and when the log value changes
+
 
     // get the accounts datas from the mockAPI
     useEffect(() => {
@@ -41,6 +42,7 @@ function User(){
         if (logged === true && lastname != null && firstname != null) navigate("/editname")
     }
 
+    
     return(
         <div className='App'>
         <Header firstname={firstname}/>

@@ -16,21 +16,16 @@ function Login() {
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const rememberMeRef = useRef<HTMLInputElement>(null)
-  // const errorIdentifiantsRef = useRef<HTMLInputElement>(null)
 
-  // assign to dispatch the dispatch method (typed version) from the store
   const dispatch = useTypedDispatch()
-
   const navigate = useNavigate()
 
   const logged : boolean = useTypedSelector((state) => state.auth.logged)
   const LoginFailedValidation : boolean = useTypedSelector((state) => state.forms.loginFailedValidation)
 
   async function submit(e : React.FormEvent<HTMLFormElement>){
-
     e.preventDefault()
     e.stopPropagation()
-
     // if blank email || blank password
     if(emailRef?.current?.value == null || passwordRef?.current?.value == null) {
       dispatch(setLoginError({hasValidationFailed : true}))
@@ -53,6 +48,7 @@ function Login() {
     return dispatch(setLoginError({hasValidationFailed : false}))
   }
 
+
   // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile
   useEffect(()=> {
     const {cookieEmailValue, cookieTokenValue} = {cookieEmailValue : cookiesManager.getEmail(), cookieTokenValue : cookiesManager.getToken()}
@@ -60,6 +56,7 @@ function Login() {
     if (cookieEmailValue!==null && cookieTokenValue!==null) dispatch(setCredentials({email : cookieEmailValue, token : cookieTokenValue}))
     if (logged === true) navigate("/user")
   }, [logged])
+
 
   return (
   <div className='App'>
@@ -78,7 +75,7 @@ function Login() {
                 </div>
                 <button className="login-button" type="submit">Sign In</button>
                 {LoginFailedValidation === true && 
-                  <div style={{color:'red', height:'40px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Identifiants Invalides.</div>}
+                  <div style={{color:'red', height:'40px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid credentials or API failing.</div>}
             </form>
         </section>
     </main>

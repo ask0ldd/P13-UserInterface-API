@@ -10,8 +10,6 @@ import { updateNames } from "../redux/features/auth/authSlice"
 import { setEditNamesError } from "../redux/features/forms/formsSlice"
 import Validator from "../services/validators"
 
-
-
 function EditName(){
 
     const dispatch = useTypedDispatch()
@@ -26,9 +24,11 @@ function EditName(){
     const token : string | null = useTypedSelector((state) => state.auth.token)
     const editNamesFailedValidation : boolean = useTypedSelector((state) => state.forms.editNamesFailedValidation)
 
+
     useEffect(() => {
         if (logged === false) navigate("/login")
     }, [logged])
+
 
     async function submitEditNames(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
@@ -57,10 +57,12 @@ function EditName(){
         navigate("/user")
     }
 
+
     function cancelEditNames(){
         navigate("/user")
     }
 
+    
     return(
         <div className='App'>
         <Header firstname={firstname}/>
@@ -72,7 +74,7 @@ function EditName(){
                     <input ref={lastnameRef} type="text" defaultValue={lastname != null ? lastname : undefined}/>
                 </div>
                 {editNamesFailedValidation && 
-                    <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid or empty field.</div>}
+                    <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid / empty field or API failing.</div>}
                 <div className="button-grp">
                     <button type="submit" id="save-button" className="edit-button">Save</button>
                     <button type="button" onClick={cancelEditNames} id="cancel-button" className="edit-button">Cancel</button>
