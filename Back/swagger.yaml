@@ -16,7 +16,7 @@ paths:
       tags:
         - Account Module
       summary: Current Month Transactions
-      description: Endpoint delivering all current month Transactions for a specified User
+      description: Get this month Transactions for a specified Account
       parameters:
         - in: header
           name: Authorization
@@ -49,7 +49,7 @@ paths:
       tags:
         - Transaction Module
       summary: Retrieve Target Transaction
-      description: Endpoint fetching a specific transaction
+      description: Get a target transaction by ID
       parameters:
         - in: header
           name: Authorization
@@ -80,8 +80,8 @@ paths:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Delete Target Transaction
-      description: Endpoint used to delete a target Transaction
+      summary: Delete a target Transaction by ID
+      description: Used to delete a target Transaction
       parameters:
         - in: header
           name: Authorization
@@ -103,25 +103,19 @@ paths:
           description: Invalid Transaction ID
         "404":
           description: Transaction not found
+  /transaction:
     put:
       security:
         - Bearer: []
       tags:
         - Transaction Module
       summary: Update a Transaction
-      description: Endpoint used to update an existing Transaction
+      description: Used to update an existing Transaction
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        - in: path
-          name: transactionId
-          schema:
-            type: number
-            minimum: 1
-          required: true
-          description: ID of the target transaction
         - in: body
           name: body
           description: Transaction Datas
@@ -143,14 +137,13 @@ paths:
           description: Validation Exception
         "500":
           description: Internal Server Error
-  /transaction:
     post:
       security:
         - Bearer: []
       tags:
         - Transaction Module
       summary: Post a new Transaction
-      description: Endpoint used to post a new Transaction
+      description: Used create a new Transaction
       parameters:
         - in: header
           name: Authorization
