@@ -41,6 +41,38 @@ paths:
           description: Transaction not found
         "500":
           description: Internal Server Error
+  /accounts/{userId}:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: Retrieve all the accounts for a target User
+      description: Get all the accounts linked to a User ID
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: userId
+          type: string
+          required: true
+          description: ID of the target user
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User's Accounts retrieved successully
+          schema:
+            $ref: "#/definitions/AccountsApiResponse"
+        "400":
+          description: Invalid User ID
+        "404":
+          description: Accounts not found
+        "500":
+          description: Internal Server Error
   /account/{accountId}:
     post:
       security:
@@ -582,6 +614,17 @@ definitions:
         type: string
       body:
         $ref: "#/definitions/Account"
+  AccountsApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: array
+        items:
+          $ref: "#/definitions/Account"
   AccountApiWithCreatorResponse:
     type: object
     properties:
