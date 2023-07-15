@@ -9,7 +9,6 @@ import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { updateNames } from "../redux/features/auth/authSlice"
 import { setEditNamesError } from "../redux/features/forms/formsSlice"
 import Validator from "../services/validators"
-// import RouteProtector from "../components/RouteProtector"
 import useAuthRefresher from "../hooks/useAuthRefresher"
 import useRouteProtector from "../hooks/useRouteProtector"
 

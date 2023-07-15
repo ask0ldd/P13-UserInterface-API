@@ -28,26 +28,22 @@ function User(){
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
     const cookiesToken = cookiesManager.getToken()
 
-    // get the user datas out of the API
+
+    async function getUserProfile() { dispatch(getProfile()) }
+    async function getAccountsDatas() { dispatch(getAccountsStatements()) }
+
+    // get the user datas out of the API & the accounts datas from the mockAPI
     useEffect(() => {
         if(logged === false && token == null && cookiesToken == null) return
-        async function getUserProfile() { dispatch(getProfile()) }
         getUserProfile()
-    }, []) // triggered after the first render and when the logged value changes
-
-
-    // get the accounts datas from the mockAPI
-    useEffect(() => {
-        if(logged === false && token == null && cookiesToken == null) return
-        async function getAccountsDatas() {
-            dispatch(getAccountsStatements())
-        }
         getAccountsDatas()
     }, [])
+
 
     function editName(){
         if (logged === true && lastname != null && firstname != null) navigate("/editname")
     }
+
 
     if(token == null) return(<></>)
     
@@ -61,7 +57,7 @@ function User(){
             {accountsState?.length > 0 && accountsState?.map((account, index) => (<AccountStatement key={index} accountType={account.title} accountId={account.lastDigits} balance={account.amount} balanceStatus={account.amountDescription} mode="default"/>))}
         </main>
         <Footer/>
-    </div>        
+    </div>
     )
 }
 
