@@ -4,29 +4,32 @@ import Footer from "../components/Footer"
 import '../style/EditName.css'
 import AccountStatement from "../components/AccountStatement"
 import { useNavigate } from "react-router-dom"
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { updateNames } from "../redux/features/auth/authSlice"
 import { setEditNamesError } from "../redux/features/forms/formsSlice"
 import Validator from "../services/validators"
-import RouteProtector from "../components/RouteProtector"
+// import RouteProtector from "../components/RouteProtector"
 import useAuthRefresher from "../hooks/useAuthRefresher"
+import useRouteProtector from "../hooks/useRouteProtector"
 
 function EditName(){
 
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
 
+    useAuthRefresher()
+    useRouteProtector()
+
     const firstnameRef = useRef<HTMLInputElement>(null)
     const lastnameRef = useRef<HTMLInputElement>(null)
 
-    // const logged : boolean = useTypedSelector((state) => state.auth.logged)
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const token : string | null = useTypedSelector((state) => state.auth.token)
     const editNamesFailedValidation : boolean = useTypedSelector((state) => state.forms.editNamesFailedValidation)
 
-    useAuthRefresher()
+    useEffect(() => {if(firstname==null || lastname==null) navigate('/profile')})
 
     async function submitEditNames(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
@@ -62,8 +65,6 @@ function EditName(){
     
     return(
         <div className='App'>
-        {/*<AuthRefresher/>*/}
-        <RouteProtector/>
         <Header firstname={firstname}/>
         <main className='edit-main-user'>
             <h1 className="h1-user">Welcome back</h1>

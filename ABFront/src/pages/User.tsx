@@ -9,14 +9,17 @@ import { useEffect } from 'react'
 import { getProfile } from "../redux/features/auth/authSlice"
 import { IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
 import Formatter from "../services/formaters"
-import RouteProtector from "../components/RouteProtector"
 import cookiesManager from "../services/cookiesManager"
 import useAuthRefresher from "../hooks/useAuthRefresher"
+import useRouteProtector from "../hooks/useRouteProtector"
 
 function User(){
 
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
+
+    useAuthRefresher()
+    useRouteProtector()
 
     const logged : boolean = useTypedSelector((state) => state.auth.logged)
     const token : string | null = useTypedSelector((state) => state.auth.token)
@@ -24,8 +27,6 @@ function User(){
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
     const cookiesToken = cookiesManager.getToken()
-
-    useAuthRefresher()
 
     useEffect(() => {
         if(logged === false && token == null && cookiesToken == null) return
@@ -49,8 +50,6 @@ function User(){
     
     return(
     <div className='App'>
-        {/*<AuthRefresher/>*/}
-        <RouteProtector/>
         <Header firstname={firstname}/>
         <main className='main-user'>
             <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{Formatter.firstCharMaj(firstname)} {Formatter.firstCharMaj(lastname)}</span>}!</h1>

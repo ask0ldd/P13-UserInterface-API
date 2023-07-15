@@ -13,15 +13,16 @@ function useAuthRefresher(){
     const token : string | null = useTypedSelector((state) => state.auth.token)
 
     useEffect(()=> {
-        if (token!=null) return
+        if (token!=null && logged!==false) return
         const {cookieEmailValue, cookieTokenValue} = {cookieEmailValue : cookiesManager.getEmail(), cookieTokenValue : cookiesManager.getToken()}
         // sets logged back to true + state token if the cookies are populated & the state has been lost due to some page refresh
         if (cookieEmailValue!==null && cookieTokenValue!==null) 
         {
             dispatch(setCredentials({email : cookieEmailValue, token : cookieTokenValue}))
-            if (logged === true) navigate("/profile")
         }
-    }, [logged])
+        if (logged === true) navigate("/profile")
+    }, [logged, token])
+    
 }
 
 export default useAuthRefresher
