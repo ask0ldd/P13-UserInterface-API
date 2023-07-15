@@ -25,9 +25,8 @@ paths:
           type: string
         - in: path
           name: accountId
-          schema:
-            type: string
-            example: "X8349"
+          type: string
+          example: "X8349"
           required: true
           description: ID of the target account
       produces:
@@ -59,9 +58,8 @@ paths:
           type: string
         - in: path
           name: transactionId
-          schema:
-            type: number
-            minimum: 1
+          type: number
+          minimum: 1
           required: true
           description: ID of the target transaction
       produces:
@@ -92,9 +90,8 @@ paths:
           type: string
         - in: path
           name: transactionId
-          schema:
-            type: number
-            minimum: 1
+          type: number
+          minimum: 1
           required: true
           description: ID of the target transaction
       produces:
