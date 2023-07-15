@@ -10,12 +10,12 @@ schemes:
   - http
 paths:
   /account/{accountId}/lastTransactions:
-    get:
+    post:
       security:
         - Bearer: []
       tags:
         - Account Module
-      summary: Current Month Transactions
+      summary: Retrieve current Month Transactions
       description: Get the current month Transactions linked to the specified Account
       parameters:
         - in: header
@@ -34,15 +34,83 @@ paths:
         "200":
           description: Account's last transactions retrieved successully
           schema:
-            $ref: "#/definitions/TransactionsApiResponse"
+            $ref: "#/definitions/AccountApiResponse"
         "400":
           description: Invalid Account ID
         "404":
           description: Transaction not found
         "500":
           description: Internal Server Error
+  /account/{accountId}:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: Retrieve a target Account
+      description: Find an Account by ID
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: accountId
+          type: number
+          minimum: 1
+          required: true
+          description: ID of the target Account
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Target Account retrieved successully
+          schema:
+            $ref: "#/definitions/AccountApiResponse"
+        "400":
+          description: Invalid Account ID
+        "404":
+          description: Account not found
+        "500":
+          description: Internal Server Error
+  /account:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: Update a target Account
+      description: The ID of the account needs to be part of the body datas
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Account Datas
+          required: true
+          schema:
+            $ref: "#/definitions/Account"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Account updated successfully
+          schema:
+            $ref: "#/definitions/AccountApiResponse"
+        "400":
+          description: Invalid ID Format
+        "404":
+          description: Account not found
+        "405":
+          description: Validation Exception
+        "500":
+          description: Internal Server Error
   /transaction/{transactionId}:
-    get:
+    post:
       security:
         - Bearer: []
       tags:
@@ -168,7 +236,7 @@ paths:
         "500":
           description: Internal Server Error
   /transaction/categories:
-    get:
+    post:
       security:
         - Bearer: []
       tags:
@@ -441,3 +509,34 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Category"
+  Account:
+    type: object
+    required:
+      - id
+      - name
+      - balance
+      - created
+    properties:
+      "id":
+        type: integer
+        format: int64
+        minimum: 1
+      "name":
+        type: string
+        example: "x8349"
+        x-nullable: true
+      "created":
+        type: string
+        format: date
+      "balance":
+        type: number
+        format: float
+  AccountApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        $ref: "#/definitions/Account"

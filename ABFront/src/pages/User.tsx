@@ -29,10 +29,9 @@ function User(){
     const cookiesToken = cookiesManager.getToken()
 
 
+    // get the user datas out of the API & the accounts datas out of the mockAPI
     async function getUserProfile() { dispatch(getProfile()) }
     async function getAccountsDatas() { dispatch(getAccountsStatements()) }
-
-    // get the user datas out of the API & the accounts datas from the mockAPI
     useEffect(() => {
         if(logged === false && token == null && cookiesToken == null) return
         getUserProfile()
