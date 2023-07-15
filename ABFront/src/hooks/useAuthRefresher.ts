@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { setCredentials } from "../redux/features/auth/authSlice"
 import cookiesManager from "../services/cookiesManager"
 
+// if the state has been lost due to some page refresh && cookies still populated => sets credentials & logged back into the state
 function useAuthRefresher(){
 
     const dispatch = useTypedDispatch()
@@ -14,15 +15,15 @@ function useAuthRefresher(){
 
     useEffect(()=> {
         if (token!=null && logged!==false) return
+
         const {cookieEmailValue, cookieTokenValue} = {cookieEmailValue : cookiesManager.getEmail(), cookieTokenValue : cookiesManager.getToken()}
-        // sets logged back to true + state token if the cookies are populated & the state has been lost due to some page refresh
         if (cookieEmailValue!==null && cookieTokenValue!==null) 
         {
             dispatch(setCredentials({email : cookieEmailValue, token : cookieTokenValue}))
         }
         if (logged === true) navigate("/profile")
     }, [logged, token])
-    
+
 }
 
 export default useAuthRefresher

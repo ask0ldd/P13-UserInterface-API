@@ -28,11 +28,12 @@ function User(){
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
     const cookiesToken = cookiesManager.getToken()
 
+    // get the user datas out of the API
     useEffect(() => {
         if(logged === false && token == null && cookiesToken == null) return
         async function getUserProfile() { dispatch(getProfile()) }
         getUserProfile()
-    }, [logged]) // triggered after the first render and when the logged value changes
+    }, []) // triggered after the first render and when the logged value changes
 
 
     // get the accounts datas from the mockAPI
@@ -50,7 +51,7 @@ function User(){
     
     return(
     <div className='App'>
-        <Header firstname={firstname}/>
+        <Header firstname={firstname ? firstname : null}/>
         <main className='main-user'>
             <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{Formatter.firstCharMaj(firstname)} {Formatter.firstCharMaj(lastname)}</span>}!</h1>
             <button className="edit-button" onClick={editName}>Edit Name</button>

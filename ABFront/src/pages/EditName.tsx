@@ -29,13 +29,15 @@ function EditName(){
     const token : string | null = useTypedSelector((state) => state.auth.token)
     const editNamesFailedValidation : boolean = useTypedSelector((state) => state.forms.editNamesFailedValidation)
 
+    // if the state is missing key datas => back to profile
     useEffect(() => {if(firstname==null || lastname==null) navigate('/profile')})
 
+    // editNames Form submission
     async function submitEditNames(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         e.stopPropagation()
 
-        // firstname / lastname fields : empty ?
+        // firstname / lastname fields => empty ?
         if(firstnameRef.current?.value == null || lastnameRef.current?.value == null) {
             // display error message on page
             dispatch(setEditNamesError({hasValidationFailed : true}))
@@ -45,14 +47,14 @@ function EditName(){
         const inputFirstname = (firstnameRef.current.value).trim()
         const inputLastname = (lastnameRef.current.value).trim()
 
-        // firstname / lastname values : incorrect format ?
+        // firstname / lastname values => incorrect format ?
         if(!Validator.testName(inputFirstname) || !Validator.testName(inputLastname) || token == null) {
             // display error message on page
             dispatch(setEditNamesError({hasValidationFailed : true}))
             return false
         }
 
-        // no error message displayed + update names through the API
+        // no error message displayed + names updated through the API
         dispatch(setEditNamesError({hasValidationFailed : false}))
         dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
         navigate("/profile")

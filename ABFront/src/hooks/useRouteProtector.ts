@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { useTypedSelector } from "../hooks/redux"
 import cookiesManager from "../services/cookiesManager"
 
-
+// if no credentials (cookies && state) => can't get access to the protected pages
 function useRouteProtector(){
 
     const navigate = useNavigate()
@@ -13,11 +13,11 @@ function useRouteProtector(){
     const cookiesToken = cookiesManager.getToken()
     
     useEffect(() => {
-        if (logged === false && token == null && cookiesToken == null) navigate("/")
+        if (logged === false || (token == null && cookiesToken == null)) navigate("/")
     }, [logged, token])
 
-    if (logged === false && token == null && cookiesToken == null) navigate("/")
-    
+    if (logged === false || (token == null && cookiesToken == null)) navigate("/")
+
 }
 
 export default useRouteProtector
