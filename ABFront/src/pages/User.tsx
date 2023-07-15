@@ -10,6 +10,7 @@ import { getProfile } from "../redux/features/auth/authSlice"
 import { IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
 import Formatter from "../services/formaters"
 import RouteProtector from "../components/RouteProtector"
+import cookiesManager from "../services/cookiesManager"
 
 function User(){
 
@@ -21,18 +22,19 @@ function User(){
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
+    const cookiesToken = cookiesManager.getToken()
 
 
     useEffect(() => {
-        if(logged === false && token == null) return
+        if(logged === false && token == null && cookiesToken == null) return
         async function getUserProfile() { dispatch(getProfile()) }
         getUserProfile()
-    }, [logged]) // triggered after the first render and when the log value changes
+    }, [logged]) // triggered after the first render and when the logged value changes
 
 
     // get the accounts datas from the mockAPI
     useEffect(() => {
-        if(logged === false && token == null) return
+        if(logged === false && token == null && cookiesToken == null) return
         async function getAccountsDatas() {
             dispatch(getAccountsStatements())
         }

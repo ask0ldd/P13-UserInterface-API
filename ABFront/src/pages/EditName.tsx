@@ -4,7 +4,7 @@ import Footer from "../components/Footer"
 import '../style/EditName.css'
 import AccountStatement from "../components/AccountStatement"
 import { useNavigate } from "react-router-dom"
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { updateNames } from "../redux/features/auth/authSlice"
 import { setEditNamesError } from "../redux/features/forms/formsSlice"
