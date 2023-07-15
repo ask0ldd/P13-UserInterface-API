@@ -67,7 +67,7 @@ paths:
         "200":
           description: Target Account retrieved successully
           schema:
-            $ref: "#/definitions/AccountApiResponse"
+            $ref: "#/definitions/AccountApiWithCreatorResponse"
         "400":
           description: Invalid Account ID
         "404":
@@ -563,6 +563,16 @@ definitions:
         format: float
       "active":
         type: boolean
+  AccountWithCreator:
+    type: object
+    required:
+      - createdBy
+    allOf:
+      - $ref: "#/definitions/Account"
+    properties:
+      "createdBy":
+        type: string
+        example: "John Doe"
   AccountApiResponse:
     type: object
     properties:
@@ -572,3 +582,12 @@ definitions:
         type: string
       body:
         $ref: "#/definitions/Account"
+  AccountApiWithCreatorResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        $ref: "#/definitions/AccountWithCreator"
