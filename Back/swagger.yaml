@@ -349,7 +349,6 @@ definitions:
         type: string
   Category:
     type: object
-    x-nullable: true
     properties:
       id:
         type: integer
@@ -358,6 +357,7 @@ definitions:
       name:
         type: string
         example: Food
+        x-nullable: true
   TransactionType:
     type: object
     properties:
@@ -368,15 +368,16 @@ definitions:
       name:
         type: string
         example: Electronic
+        x-nullable: true
   Transaction:
     type: object
     required:
+      - accountId
       - date
       - description
       - amount
       - balance
       - transactionType
-      - category
     properties:
       "id":
         type: integer
@@ -389,6 +390,7 @@ definitions:
       "accountName":
         type: string
         example: "x8349"
+        x-nullable: true
       "date":
         type: string
         format: date

@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { getProfile } from "../redux/features/auth/authSlice"
 import { IAccount, getAccountsStatements } from "../redux/features/accounts/accountsSlice"
 import Formatter from "../services/formaters"
+import RouteProtector from "../components/RouteProtector"
 
 function User(){
 
@@ -16,15 +17,14 @@ function User(){
     const navigate = useNavigate()
 
     const logged : boolean = useTypedSelector((state) => state.auth.logged)
+    const token : string | null = useTypedSelector((state) => state.auth.token)
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
 
 
     useEffect(() => {
-        // if not logged
-        if (logged === false) return navigate("/")
-        // else : get the user's profile datas out of the provided API
+        if(logged === false && token == null) return
         async function getUserProfile() { dispatch(getProfile()) }
         getUserProfile()
     }, [logged]) // triggered after the first render and when the log value changes
@@ -32,6 +32,7 @@ function User(){
 
     // get the accounts datas from the mockAPI
     useEffect(() => {
+        if(logged === false && token == null) return
         async function getAccountsDatas() {
             dispatch(getAccountsStatements())
         }
@@ -41,10 +42,10 @@ function User(){
     function editName(){
         if (logged === true && lastname != null && firstname != null) navigate("/editname")
     }
-
     
     return(
-        <div className='App'>
+    <div className='App'>
+        <RouteProtector/>
         <Header firstname={firstname}/>
         <main className='main-user'>
             <h1 className="h1-user">Welcome back<br/>{(firstname!=null && lastname!=null) && <span>{Formatter.firstCharMaj(firstname)} {Formatter.firstCharMaj(lastname)}</span>}!</h1>
@@ -53,7 +54,7 @@ function User(){
             {accountsState?.length > 0 && accountsState?.map((account, index) => (<AccountStatement key={index} accountType={account.title} accountId={account.lastDigits} balance={account.amount} balanceStatus={account.amountDescription} mode="default"/>))}
         </main>
         <Footer/>
-      </div>        
+    </div>        
     )
 }
 

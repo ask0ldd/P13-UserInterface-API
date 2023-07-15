@@ -9,6 +9,7 @@ import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
 import { updateNames } from "../redux/features/auth/authSlice"
 import { setEditNamesError } from "../redux/features/forms/formsSlice"
 import Validator from "../services/validators"
+import RouteProtector from "../components/RouteProtector"
 
 function EditName(){
 
@@ -18,16 +19,11 @@ function EditName(){
     const firstnameRef = useRef<HTMLInputElement>(null)
     const lastnameRef = useRef<HTMLInputElement>(null)
 
-    const logged : boolean = useTypedSelector((state) => state.auth.logged)
+    // const logged : boolean = useTypedSelector((state) => state.auth.logged)
     const firstname : string | null = useTypedSelector((state) => state.auth.firstname)
     const lastname : string | null = useTypedSelector((state) => state.auth.lastname)
     const token : string | null = useTypedSelector((state) => state.auth.token)
     const editNamesFailedValidation : boolean = useTypedSelector((state) => state.forms.editNamesFailedValidation)
-
-
-    useEffect(() => {
-        if (logged === false) navigate("/")
-    }, [logged])
 
 
     async function submitEditNames(e : React.FormEvent<HTMLFormElement>){
@@ -61,10 +57,10 @@ function EditName(){
     function cancelEditNames(){
         navigate("/profile")
     }
-
     
     return(
         <div className='App'>
+        <RouteProtector/>
         <Header firstname={firstname}/>
         <main className='edit-main-user'>
             <h1 className="h1-user">Welcome back</h1>
