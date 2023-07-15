@@ -382,6 +382,13 @@ definitions:
         type: integer
         format: int64
         minimum: 1
+      "accountId":
+        type: integer
+        format: int64
+        minimum: 1
+      "accountName":
+        type: string
+        example: "x8349"
       "date":
         type: string
         format: date
