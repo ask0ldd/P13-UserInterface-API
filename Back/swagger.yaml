@@ -173,8 +173,8 @@ paths:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Retrieve an Array with all the Transactions Categories
-      description: Get Transaction Categories Array
+      summary: Retrieve all the Transactions Categories
+      description: Get the Transaction Categories as an Array
       parameters:
         - in: header
           name: Authorization
