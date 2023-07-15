@@ -174,7 +174,7 @@ paths:
       tags:
         - Transaction Module
       summary: Retrieve all the Transactions Categories
-      description: Get the Transaction Categories as an Array
+      description: Get those Categories as an Array
       parameters:
         - in: header
           name: Authorization
