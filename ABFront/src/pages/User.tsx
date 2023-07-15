@@ -11,6 +11,7 @@ import { IAccount, getAccountsStatements } from "../redux/features/accounts/acco
 import Formatter from "../services/formaters"
 import RouteProtector from "../components/RouteProtector"
 import cookiesManager from "../services/cookiesManager"
+import useAuthRefresher from "../hooks/useAuthRefresher"
 
 function User(){
 
@@ -24,6 +25,7 @@ function User(){
     const accountsState : Array<IAccount> = useTypedSelector((state) => state.accounts.accounts)
     const cookiesToken = cookiesManager.getToken()
 
+    useAuthRefresher()
 
     useEffect(() => {
         if(logged === false && token == null && cookiesToken == null) return
@@ -47,6 +49,7 @@ function User(){
     
     return(
     <div className='App'>
+        {/*<AuthRefresher/>*/}
         <RouteProtector/>
         <Header firstname={firstname}/>
         <main className='main-user'>

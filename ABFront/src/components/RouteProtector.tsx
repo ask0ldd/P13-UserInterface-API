@@ -14,10 +14,10 @@ function RouteProtector(){
     
 
     useEffect(() => {
-        if (logged === false || (token == null && cookiesToken == null)) navigate("/")
+        if (logged === false && token == null && cookiesToken == null) navigate("/")
     }, [logged])
 
-    if (logged === false || (token == null && cookiesToken == null)) return(<Navigate to="/" replace={true}/>)
+    if (logged === false && token == null && cookiesToken == null) return(<Navigate to="/" replace={true}/>)
 
     return(<></>)
 }

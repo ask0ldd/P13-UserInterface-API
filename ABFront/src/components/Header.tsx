@@ -19,17 +19,15 @@ function Header(props : IHeaderProps) {
         dispatch(logout())
     }
 
-    const logged : boolean = useTypedSelector((state) => state.auth.logged)    
+    const logged : boolean = useTypedSelector((state) => state.auth.logged)
 
     return (
         <header>
             <figure><img src={logo} alt="argent bank logo"/><h1 className="sr-only">Argent Bank</h1></figure>
             <nav>    
-                {!logged && 
-                    <NavLink className="signIn" to="/Login"><i className="fa fa-user-circle"/>Sign In</NavLink>
-                }
-                {logged && 
-                    <><i className="fa fa-user-circle"/>&nbsp;{props.firstname!=null && Formatter.firstCharMaj(props.firstname)}&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out"/><span style={{cursor: "pointer", fontWeight: "600"}} onClick={logoutFn}>&nbsp;Sign Out</span></>
+                {logged 
+                    ? <><NavLink to="/profile"><i className="fa fa-user-circle"/>&nbsp;{props.firstname!=null && Formatter.firstCharMaj(props.firstname)}&nbsp;&nbsp;&nbsp;&nbsp;<i className="fa fa-sign-out"/></NavLink><span style={{cursor: "pointer", fontWeight: "600"}} onClick={logoutFn}>&nbsp;Sign Out</span></>
+                    : <NavLink className="signIn" to="/login"><i className="fa fa-user-circle"/>Sign In</NavLink>
                 }
             </nav>
         </header>

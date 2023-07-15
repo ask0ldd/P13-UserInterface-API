@@ -10,6 +10,7 @@ import { updateNames } from "../redux/features/auth/authSlice"
 import { setEditNamesError } from "../redux/features/forms/formsSlice"
 import Validator from "../services/validators"
 import RouteProtector from "../components/RouteProtector"
+import useAuthRefresher from "../hooks/useAuthRefresher"
 
 function EditName(){
 
@@ -25,6 +26,7 @@ function EditName(){
     const token : string | null = useTypedSelector((state) => state.auth.token)
     const editNamesFailedValidation : boolean = useTypedSelector((state) => state.forms.editNamesFailedValidation)
 
+    useAuthRefresher()
 
     async function submitEditNames(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
@@ -60,6 +62,7 @@ function EditName(){
     
     return(
         <div className='App'>
+        {/*<AuthRefresher/>*/}
         <RouteProtector/>
         <Header firstname={firstname}/>
         <main className='edit-main-user'>
