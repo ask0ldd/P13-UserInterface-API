@@ -5,11 +5,11 @@ import '../style/Login.css'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { useTypedDispatch, useTypedSelector } from "../hooks/redux"
-import { setCredentials, logAttempt } from "../redux/features/auth/authSlice"
+import { logAttempt } from "../redux/features/auth/authSlice"
 import { useNavigate } from 'react-router-dom'
 import Validator from '../services/validators'
-import cookiesManager from '../services/cookiesManager'
 import { setLoginError } from '../redux/features/forms/formsSlice'
+import useAuthRefresher from '../hooks/useAuthRefresher'
 
 function Login() {
 
@@ -20,8 +20,10 @@ function Login() {
   const dispatch = useTypedDispatch()
   const navigate = useNavigate()
 
-  const logged : boolean = useTypedSelector((state) => state.auth.logged)
+  const token : string | null = useTypedSelector((state) => state.auth.token)
   const LoginFailedValidation : boolean = useTypedSelector((state) => state.forms.loginFailedValidation)
+  
+  useAuthRefresher()
 
   async function submit(e : React.FormEvent<HTMLFormElement>){
     e.preventDefault()
@@ -41,22 +43,19 @@ function Login() {
     const response = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
     // failure
     if (response?.failed === true) {
-      dispatch(setLoginError({hasValidationFailed : true})) /* !!! should implement another error message when api is failing */
+      dispatch(setLoginError({hasValidationFailed : true}))
       return false
     }
     // success
     return dispatch(setLoginError({hasValidationFailed : false}))
   }
 
-
-  // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile
+  // if user already connected => redirect to profile
   useEffect(()=> {
-    const {cookieEmailValue, cookieTokenValue} = {cookieEmailValue : cookiesManager.getEmail(), cookieTokenValue : cookiesManager.getToken()}
-    // sets logged back to true if the cookies are populated & the state has been lost due to some page refresh
-    if (cookieEmailValue!==null && cookieTokenValue!==null) dispatch(setCredentials({email : cookieEmailValue, token : cookieTokenValue}))
-    if (logged === true) navigate("/profile")
-  }, [logged])
+    if(token!=null) navigate("/profile")
+  }, [token])
 
+  if(token!=null) return(<></>)
 
   return (
   <div className='App'>
@@ -75,7 +74,7 @@ function Login() {
                 </div>
                 <button className="login-button" type="submit">Sign In</button>
                 {LoginFailedValidation === true && 
-                  <div style={{color:'red', height:'40px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid credentials or API failing.</div>}
+                  <div className='loginFormErrorMessage'>Invalid credentials or API failing.</div>}
             </form>
         </section>
     </main>

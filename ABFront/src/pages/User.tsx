@@ -48,6 +48,8 @@ function User(){
     function editName(){
         if (logged === true && lastname != null && firstname != null) navigate("/editname")
     }
+
+    if(token == null) return(<></>)
     
     return(
     <div className='App'>

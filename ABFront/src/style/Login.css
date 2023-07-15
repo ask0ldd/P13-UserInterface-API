@@ -68,3 +68,12 @@ form .check-container {
   background-color: var(--button-green-active);
   border: 1px solid var(--button-green-active);
 }
+
+.loginFormErrorMessage {
+  color: red;
+  height: 40px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

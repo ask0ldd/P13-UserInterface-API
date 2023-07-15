@@ -6,23 +6,22 @@ import Hero from '../components/Hero'
 import Features from '../components/Features/Features'
 import { useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
-import { useTypedSelector, useTypedDispatch } from "../hooks/redux"
-import cookiesManager from '../services/cookiesManager'
-import { setCredentials } from "../redux/features/auth/authSlice"
+import { useTypedSelector } from "../hooks/redux"
+import useAuthRefresher from '../hooks/useAuthRefresher'
 
 function Home() {
 
-  const dispatch = useTypedDispatch()
-  const navigate = useNavigate()
-  const logged : boolean = useTypedSelector((state) => state.auth.logged)
+  useAuthRefresher()
 
-  // if state.auth.logged === true || email & token are into the cookies > redirect to the user profile
+  const navigate = useNavigate()
+  const token : string | null = useTypedSelector((state) => state.auth.token)
+
+  // if user connected => redirect to profile
   useEffect(()=> {
-    const {cookieEmailValue, cookieTokenValue} = {cookieEmailValue : cookiesManager.getEmail(), cookieTokenValue : cookiesManager.getToken()}
-    // sets logged back to true if the cookies are populated & the state has been lost due to some page refresh
-    if (cookieEmailValue!==null && cookieTokenValue!==null) dispatch(setCredentials({email : cookieEmailValue, token : cookieTokenValue}))
-    if (logged === true) navigate("/profile")
-  }, [logged])  
+    if(token!=null) navigate("/profile")
+  }, [token])
+
+  if(token!=null) return(<></>)
 
   return (
   <div className='App'>

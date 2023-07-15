@@ -64,6 +64,8 @@ function EditName(){
     function cancelEditNames(){
         navigate("/profile")
     }
+
+    if(token == null) return(<></>)
     
     return(
         <div className='App'>
@@ -76,7 +78,7 @@ function EditName(){
                     <input ref={lastnameRef} type="text" defaultValue={lastname != null ? lastname : undefined}/>
                 </div>
                 {editNamesFailedValidation && 
-                    <div style={{color:'red', height:'20px', fontSize:'14px', display:"flex", justifyContent:"center", alignItems:"center"}}>Invalid / empty field or API failing.</div>}
+                    <div className="editNamesErrorMessage">Invalid / empty field or API failing.</div>}
                 <div className="button-grp">
                     <button type="submit" id="save-button" className="edit-button">Save</button>
                     <button type="button" onClick={cancelEditNames} id="cancel-button" className="edit-button">Cancel</button>

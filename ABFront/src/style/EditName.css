@@ -50,3 +50,12 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.editNamesErrorMessage {
+  color: red;
+  height: 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
