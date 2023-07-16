@@ -106,6 +106,34 @@ paths:
           description: Account not found
         "500":
           description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: Delete a target Account
+      description: Delete an Account by ID
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: accountId
+          type: number
+          minimum: 1
+          required: true
+          description: ID of the target Account
+      produces:
+        - application/json
+      responses:
+        "204":
+          description: Target Account delete successully
+        "400":
+          description: Invalid Account ID
+        "404":
+          description: Account not found
   /account:
     put:
       security:
@@ -146,7 +174,7 @@ paths:
         - Bearer: []
       tags:
         - Account Module
-      summary: Post a new Account
+      summary: Create a new Account
       description: Used to create a new Account
       parameters:
         - in: header
