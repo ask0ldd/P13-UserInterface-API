@@ -25,6 +25,7 @@ function Login() {
   
   useAuthRefresher()
 
+  // Login Form submission
   async function submit(e : React.FormEvent<HTMLFormElement>){
     e.preventDefault()
     e.stopPropagation()
@@ -39,14 +40,14 @@ function Login() {
       return false
     }
     // login attempt 
-    // asyncthunk => unwrap (rtk) : action.payload
+    // asyncthunk => unwrap (rtk) : extract action.payload
     const response = await dispatch(logAttempt({email : emailRef.current.value, password : passwordRef.current.value, persistent : rememberMeRef.current?.checked || false})).unwrap()
-    // failure
+    
     if (response?.failed === true) {
       dispatch(setLoginError({hasValidationFailed : true}))
       return false
     }
-    // success
+    
     return dispatch(setLoginError({hasValidationFailed : false}))
   }
 

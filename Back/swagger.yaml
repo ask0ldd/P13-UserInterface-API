@@ -16,7 +16,7 @@ paths:
       tags:
         - Account Module
       summary: Retrieve current Month Transactions
-      description: Get the current month Transactions linked to the specified Account
+      description: Get the current month Transactions linked to a specified Account
       parameters:
         - in: header
           name: Authorization
@@ -47,7 +47,7 @@ paths:
         - Bearer: []
       tags:
         - Account Module
-      summary: Retrieve all the accounts for a target User
+      summary: Retrieve all the accounts of a target User
       description: Get all the accounts linked to a User ID
       parameters:
         - in: header
@@ -547,7 +547,7 @@ definitions:
         minimum: 1
       "accountName":
         type: string
-        example: "x8349"
+        example: "Argent Bank Checking x8349"
         x-nullable: true
       "date":
         type: string

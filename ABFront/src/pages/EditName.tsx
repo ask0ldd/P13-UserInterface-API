@@ -31,7 +31,7 @@ function EditName(){
     // if the state is missing key datas => back to profile
     useEffect(() => {if(firstname==null || lastname==null) navigate('/profile')})
 
-    // editNames Form submission
+    // EditNames Form submission
     async function submitEditNames(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         e.stopPropagation()
@@ -53,7 +53,7 @@ function EditName(){
             return false
         }
 
-        // no error message displayed + names updated through the API
+        // if no error => names updated through the API
         dispatch(setEditNamesError({hasValidationFailed : false}))
         dispatch(updateNames({firstName : inputFirstname, lastName : inputLastname}))
         navigate("/profile")

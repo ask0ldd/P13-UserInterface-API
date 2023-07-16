@@ -16,7 +16,7 @@ function Home() {
   const navigate = useNavigate()
   const token : string | null = useTypedSelector((state) => state.auth.token)
 
-  // if user connected => redirect to profile
+  // if user already connected => redirect to profile
   useEffect(()=> {
     if(token!=null) navigate("/profile")
   }, [token])
