@@ -25,7 +25,8 @@ paths:
           type: string
         - in: path
           name: accountId
-          type: string
+          type: integer
+          minimum: 1
           required: true
           description: ID of the target account
       produces:
@@ -57,7 +58,8 @@ paths:
           type: string
         - in: path
           name: userId
-          type: string
+          type: integer
+          minimum: 1
           required: true
           description: ID of the target user
       produces:
@@ -89,7 +91,7 @@ paths:
           type: string
         - in: path
           name: accountId
-          type: number
+          type: integer
           minimum: 1
           required: true
           description: ID of the target Account
@@ -121,7 +123,7 @@ paths:
           type: string
         - in: path
           name: accountId
-          type: number
+          type: integer
           minimum: 1
           required: true
           description: ID of the target Account
@@ -215,7 +217,7 @@ paths:
           type: string
         - in: path
           name: transactionId
-          type: number
+          type: integer
           minimum: 1
           required: true
           description: ID of the target transaction
@@ -247,7 +249,7 @@ paths:
           type: string
         - in: path
           name: transactionId
-          type: number
+          type: integer
           minimum: 1
           required: true
           description: ID of the target transaction
